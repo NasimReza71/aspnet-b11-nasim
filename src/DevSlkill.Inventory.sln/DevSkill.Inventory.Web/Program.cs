@@ -20,8 +20,8 @@ Log.Logger = new LoggerConfiguration()
             .CreateBootstrapLogger();
 try
 {
-    Log.Information("Application Starting...");
-    Log.Information("This is Nasim Reza");
+    Log.Information("Application Starting...DEVSKILL");
+    Log.Information("This is Nasim Reza Reyad");
     Log.Debug("Debug level log for testing");
     Log.Error("An error occurred while starting the application.");
 
@@ -43,16 +43,7 @@ try
         .ReadFrom.Configuration(builder.Configuration)
         .WriteTo.Console()
         .WriteTo.File("logs\\myapp.txt", rollingInterval: RollingInterval.Day)
-        .WriteTo
-        .MSSqlServer(
-            connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
-            sinkOptions: new MSSqlServerSinkOptions
-            {
-                TableName = "Logs",
-                AutoCreateSqlTable = false
-            }
-
-        )
+       
 
     );
 
