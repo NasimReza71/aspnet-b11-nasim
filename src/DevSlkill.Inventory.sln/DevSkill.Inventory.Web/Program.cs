@@ -20,11 +20,10 @@ Log.Logger = new LoggerConfiguration()
             .CreateBootstrapLogger();
 try
 {
-    Log.Information("Application Starting...DEVSKILL");
+    Log.Information("Application Starting...17-jan");
     Log.Information("This is Nasim Reza Reyad");
     Log.Debug("Debug level log for testing");
     Log.Error("An error occurred while starting the application.");
-
 
     var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +41,7 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(builder.Configuration)
         .WriteTo.Console()
-        .WriteTo.File("logs\\myapp.txt", rollingInterval: RollingInterval.Day)
+        //.WriteTo.File("logs\\myapp.txt", rollingInterval: RollingInterval.Day)
        
 
     );
@@ -83,6 +82,14 @@ try
 
     app.MapStaticAssets();
 
+
+
+    app.MapControllerRoute(
+       name: "areas",
+       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}")
+       .WithStaticAssets();
+
+
     app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}")
@@ -90,7 +97,7 @@ try
 
     app.MapRazorPages()
        .WithStaticAssets();
-    app.UseSerilogRequestLogging();
+   // app.UseSerilogRequestLogging();
 
     app.Run();
 }
