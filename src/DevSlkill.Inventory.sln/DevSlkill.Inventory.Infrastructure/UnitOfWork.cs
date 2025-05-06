@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace DevSlkill.Inventory.Infrastructure
 {
-    public class UnitOfWork : IUnitOfWork
+    public abstract class UnitOfWork : IUnitOfWork
     {
 
         private readonly DbContext _dbcontext;
 
-        public IProductRepository ProductRepository { get; private set; }
+        
 
         public UnitOfWork(DbContext context) 
         {
             _dbcontext = context;
-            ProductRepository = new ProductRepository((ApplicationDbContext)context);
+            
         
         }
         public void Save()

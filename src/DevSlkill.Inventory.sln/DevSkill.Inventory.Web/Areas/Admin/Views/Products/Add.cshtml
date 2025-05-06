@@ -49,36 +49,29 @@
                 <!--begin::Quick Example-->
                 <div class="card card-primary card-outline mb-4 ">
                   <!--begin::Header-->
-                  <div class="card-header"><div class="card-title">Quick Example</div></div>
+                  <div class="card-header"><div class="card-title">Add a new product</div></div>
                   <!--end::Header-->
                   <!--begin::Form-->
-                  <form asp-antiforgery ="true">
+                  <form asp-antiforgery ="true" asp-area="Admin" asp-controller="Products" asp-action="Add" method="post" >
                     <!--begin::Body-->
                     <div class="card-body">
                       <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <label asp-for="Name" class="form-label">Product Name</label>
                         <input
-                          type="email"
+                          type="text"
                           class="form-control"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
+                          asp-for="Name"
+                          aria-describedby="nameHelp"
                         />
-                        <div id="emailHelp" class="form-text">
-                          We'll never share your email with anyone else.
+                        <div id="nameHelp" class="form-text">
+                          Provide a friendly Name
                         </div>
                       </div>
                       <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" />
+                        <label asp-for="Price" class="form-label">Price</label>
+                        <input type="text" class="form-control" asp-for="Price" />
                       </div>
-                      <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="inputGroupFile02" />
-                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                      </div>
-                      <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                      </div>
+                      
                     </div>
                     <!--end::Body-->
                     <!--begin::Footer-->

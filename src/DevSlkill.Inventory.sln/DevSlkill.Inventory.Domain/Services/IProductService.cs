@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevSlkill.Inventory.Domain.Repositories
+namespace DevSlkill.Inventory.Domain.Services
 {
-    public interface IProductRepository : IRepository<Product, Guid>
+    public interface IProductService
     {
-      
-        List<Product> GetLatestProduct();
+        public void AddProduct(Product product);
     }
 }

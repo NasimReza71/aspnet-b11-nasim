@@ -18,7 +18,7 @@ namespace DevSlkill.Inventory.Infrastructure.Repositories
             _dbContext = context;   
         }
 
- 
+  
         public List<Product> GetLatestProduct()
         { 
             DateTime date = DateTime.Now.AddDays(-30);

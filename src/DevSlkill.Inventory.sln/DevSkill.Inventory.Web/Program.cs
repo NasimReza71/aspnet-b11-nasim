@@ -2,12 +2,14 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DevSkill.Inventory.Web;
 using DevSkill.Inventory.Web.Data;
+using DevSlkill.Inventory.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using System.Configuration;
+using System.Reflection;
 
 var configuration = new ConfigurationBuilder()
      .SetBasePath(Directory.GetCurrentDirectory())
@@ -28,12 +30,38 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     // Add services to the container.
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection"); 
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+    var migrationAssembly = Assembly.GetExecutingAssembly();
+
+    #region Serilog Configuration
+    builder.Services.AddLogging(loggingBuilder =>
+    loggingBuilder.AddSerilog(dispose: true));
+    #endregion
+
+    #region Autofac Configuration
     builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
     builder.Host.ConfigureContainer<ContainerBuilder>(ContainerBuilder =>
     {
-        ContainerBuilder.RegisterModule(new WebModule());
+        ContainerBuilder.RegisterModule(new WebModule(connectionString, migrationAssembly?.FullName));
     });
+    #endregion
+
+
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        .AddEntityFrameworkStores<ApplicationDbContext>();
+    builder.Services.AddControllersWithViews();
+
+
+
+
+
+
+
+
 
     builder.Host.UseSerilog((context, lc) => lc
         .MinimumLevel.Debug()
@@ -46,17 +74,7 @@ try
 
     );
 
-    builder.Services.AddLogging(loggingBuilder =>
-    loggingBuilder.AddSerilog(dispose: true));
 
-
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
-    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<ApplicationDbContext>();
-    builder.Services.AddControllersWithViews();
 
 
 
