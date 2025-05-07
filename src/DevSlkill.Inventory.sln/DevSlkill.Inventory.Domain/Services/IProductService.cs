@@ -10,5 +10,7 @@ namespace DevSlkill.Inventory.Domain.Services
     public interface IProductService
     {
         public void AddProduct(Product product);
+
+        //public List<Product> GetLatestProduct();
     }
 }

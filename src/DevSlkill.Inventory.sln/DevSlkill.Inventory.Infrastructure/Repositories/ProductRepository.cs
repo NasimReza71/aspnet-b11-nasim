@@ -20,9 +20,11 @@ namespace DevSlkill.Inventory.Infrastructure.Repositories
 
   
         public List<Product> GetLatestProduct()
-        { 
+        {
             DateTime date = DateTime.Now.AddDays(-30);
             return _dbContext.Products.Where(x => x.ManufactureDate < date).ToList();
+
+
         }
     }
 }

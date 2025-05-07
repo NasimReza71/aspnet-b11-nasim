@@ -20,6 +20,13 @@ namespace DevSlkill.Inventory.Application.Services
         public void AddProduct(Product product)
         {
             _applicationUnitOfWork1.ProductRepository.Add(product);
+            _applicationUnitOfWork1.Save();
         }
+
+        //public List<Product> GetLatestProduct()
+        //{
+        //    var latestProduct = _applicationUnitOfWork1.ProductRepository.GetLatestProduct();
+        //    return latestProduct;
+        //}
     }
 }

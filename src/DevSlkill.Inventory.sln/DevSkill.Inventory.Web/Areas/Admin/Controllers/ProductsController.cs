@@ -32,6 +32,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 _productService.AddProduct(new Product { Name = model.Name });
+                //_productService.GetLatestProduct();
             }
 
            
