@@ -23,6 +23,8 @@ namespace DevSlkill.Inventory.Application.Services
             _applicationUnitOfWork1.Save();
         }
 
+
+
         //public List<Product> GetLatestProduct()
         //{
         //    var latestProduct = _applicationUnitOfWork1.ProductRepository.GetLatestProduct();
