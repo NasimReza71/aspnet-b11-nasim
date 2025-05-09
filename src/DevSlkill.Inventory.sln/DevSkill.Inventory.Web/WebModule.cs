@@ -8,6 +8,7 @@ using DevSlkill.Inventory.Infrastructure.Repositories;
 using DevSlkill.Inventory.Domain.Repositories;
 using DevSlkill.Inventory.Domain.Services;
 using DevSlkill.Inventory.Application.Services;
+using DevSlkill.Inventory.Application.Features.Products.Commands;
 
 namespace DevSkill.Inventory.Web
 {
@@ -41,6 +42,9 @@ namespace DevSkill.Inventory.Web
 
             builder.RegisterType<ProductService>().As<IProductService>()
                 .InstancePerLifetimeScope();
+
+            
+            builder.RegisterType<ProductAddCommand>().AsSelf();
 
 
 

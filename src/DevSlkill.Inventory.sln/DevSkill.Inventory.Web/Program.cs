@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DevSkill.Inventory.Web;
 using DevSkill.Inventory.Web.Data;
+using DevSlkill.Inventory.Application.Features.Products.Commands;
 using DevSlkill.Inventory.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,13 @@ try
     });
     #endregion
 
+    #region MediatR Configuration
+    builder.Services.AddMediatR(cfg => { 
+        cfg.RegisterServicesFromAssembly(migrationAssembly);
+        cfg.RegisterServicesFromAssembly(typeof(ProductAddCommand).Assembly);
+    });
+    #endregion
+
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
@@ -54,6 +62,7 @@ try
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
         .AddEntityFrameworkStores<ApplicationDbContext>();
     builder.Services.AddControllersWithViews();
+   
 
 
 

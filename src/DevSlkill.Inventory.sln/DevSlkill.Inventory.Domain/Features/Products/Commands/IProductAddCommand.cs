@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevSlkill.Inventory.Domain
+namespace DevSlkill.Inventory.Domain.Features.Products.Commands
 {
-    public interface IUnitOfWork
+    public interface IProductAddCommand
     {
-        void Save();
-        Task SaveAsync();
+        void Execute();
     }
 }

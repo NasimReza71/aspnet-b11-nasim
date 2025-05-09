@@ -28,7 +28,9 @@ namespace DevSlkill.Inventory.Infrastructure
             _dbcontext.SaveChanges();
         }
 
-
-
+        public async Task SaveAsync()
+        {
+            await _dbcontext.SaveChangesAsync();
+        }
     }
 }
