@@ -43,7 +43,7 @@ namespace DevSkill.Inventory.Web
             builder.RegisterType<ProductService>().As<IProductService>()
                 .InstancePerLifetimeScope();
 
-            
+               
             builder.RegisterType<ProductAddCommand>().AsSelf();
 
 

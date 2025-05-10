@@ -18,7 +18,11 @@ namespace DevSlkill.Inventory.Application.Features.Products.Commands
         }
         public async Task Handle(ProductAddCommand request, CancellationToken cancellationToken)
         {
-           await  _applicationUnitOfWork.ProductRepository.AddAsync(new Product { Name = request.Name });
+           await  _applicationUnitOfWork.ProductRepository.AddAsync(new Product 
+           { 
+               Name = request.Name,
+               Price = request.Price
+           });
             await _applicationUnitOfWork.SaveAsync();
         }
 
