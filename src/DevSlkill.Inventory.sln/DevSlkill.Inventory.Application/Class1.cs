@@ -1,4 +1,4 @@
-﻿namespace DevSlkill.Inventory.Application
+﻿namespace DevSkill.Inventory.Application
 {
     public class Class1
     {

@@ -1,5 +1,6 @@
-﻿using DevSlkill.Inventory.Domain;
-using DevSlkill.Inventory.Domain.Repositories;
+﻿using DevSkill.Inventory.Domain;
+using DevSkill.Inventory.Domain.Repositories;
+using DevSkill.Inventory.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevSlkill.Inventory.Infrastructure
+namespace DevSkill.Inventory.Infrastructure
 {
     public class ApplicationUnitOfWork : UnitOfWork, IApplicationUnitOfWork
     {

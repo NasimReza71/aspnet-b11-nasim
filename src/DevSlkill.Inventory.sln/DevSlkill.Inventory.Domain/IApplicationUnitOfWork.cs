@@ -1,12 +1,12 @@
-﻿using DevSlkill.Inventory.Domain;
-using DevSlkill.Inventory.Domain.Repositories;
+﻿using DevSkill.Inventory.Domain;
+using DevSkill.Inventory.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevSlkill.Inventory.Domain
+namespace DevSkill.Inventory.Domain
 {
     public interface IApplicationUnitOfWork : IUnitOfWork
     {

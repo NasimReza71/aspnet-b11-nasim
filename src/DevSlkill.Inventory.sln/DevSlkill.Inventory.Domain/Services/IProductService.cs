@@ -1,15 +1,18 @@
-﻿using DevSlkill.Inventory.Domain.Entities;
+﻿using DevSkill.Inventory.Domain.Entities;
+using DevSkill.Inventory.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevSlkill.Inventory.Domain.Services
+namespace DevSkill.Inventory.Domain.Services
 {
-    public interface IProductService
+    public interface IProductService 
     {
         public void AddProduct(Product product);
+        (IList<Product> data, int total, int totalDisplay) GetProducts(int pageIndex, int pageSize, 
+            string? order, DataTablesSearch search);
 
         //public List<Product> GetLatestProduct();
     }

@@ -1,26 +1,36 @@
 ﻿using DevSkill.Inventory.Web.Areas.Admin.Models;
-using DevSlkill.Inventory.Application.Features.Products.Commands;
-using DevSlkill.Inventory.Domain.Entities;
-using DevSlkill.Inventory.Domain.Services;
+using DevSkill.Inventory.Application.Features.Products.Commands;
+using DevSkill.Inventory.Application.Services;
+using DevSkill.Inventory.Domain;
+using DevSkill.Inventory.Domain.Entities;
+using DevSkill.Inventory.Domain.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ProductsController : Controller
     {
-        //private readonly IProductService _productService;
+        private readonly ILogger<ProductsController> _logger;
+        private readonly IProductService _productService;
         private readonly IMediator _mediator;
-        public ProductsController(IProductService productService, IMediator mediator) 
+        public ProductsController(ILogger<ProductsController> logger, IProductService productService, IMediator mediator) 
         {
+            _logger = logger;
             _mediator = mediator;
-           // _productService = productService;
+            _productService = productService;
 
-        } 
+        }
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult ProductList()
+        {
+            return View();  
         }
 
         public IActionResult Add()
@@ -48,9 +58,44 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
             }
 
-
-           
             return View(productAddCommand);
+        }
+
+        [HttpPost]
+        public JsonResult GetProductsJsonData([FromBody] ProductListModel model)
+        {
+            try
+            {
+                var result = _productService.GetProducts(model.PageIndex, model.PageSize,
+                    model.FormatSortExpression("Name","Price","Description", "Id"), model.Search);
+
+                var products = new
+                {
+                    recordsTotal = result.total,
+                    recordsFiltered = result.totalDisplay,
+                    data = (from record in result.data
+                            select new string[]
+                            {
+                            HttpUtility.HtmlEncode(record.Name),
+                            HttpUtility.HtmlEncode(record.Price),
+                            HttpUtility.HtmlEncode(record.Description),
+                           // record.Rating.ToString(),
+                            record.Id.ToString()
+                            }).ToArray()
+
+
+                };
+               return Json(products);
+            }
+
+            catch(Exception ex) 
+            {
+                _logger.LogError(ex, "There was a problem getting products");
+                return Json(DataTables.EmptyResult); 
+            }
+          
+            
+
         }
 
     }

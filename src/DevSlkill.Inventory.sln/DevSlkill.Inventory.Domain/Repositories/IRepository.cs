@@ -1,4 +1,4 @@
-﻿using DevSlkill.Inventory.Domain.Entities;
+﻿using DevSkill.Inventory.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevSlkill.Inventory.Domain.Repositories
+namespace DevSkill.Inventory.Domain.Repositories
 {
     public interface IRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>

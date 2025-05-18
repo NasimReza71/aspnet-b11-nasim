@@ -1,13 +1,16 @@
-﻿using DevSlkill.Inventory.Domain.Entities;
-using DevSlkill.Inventory.Domain.Repositories;
+﻿using DevSkill.Inventory.Domain.Entities;
+using DevSkill.Inventory.Domain;
+using DevSkill.Inventory.Domain.Entities;
+using DevSkill.Inventory.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevSkill.Inventory.Infrastructure;
 
-namespace DevSlkill.Inventory.Infrastructure.Repositories
+namespace DevSkill.Inventory.Infrastructure.Repositories
 {
     public class ProductRepository : Repository<Product, Guid>, IProductRepository
     {
@@ -25,6 +28,16 @@ namespace DevSlkill.Inventory.Infrastructure.Repositories
             return _dbContext.Products.Where(x => x.ManufactureDate < date).ToList();
 
 
+        }
+
+        public (IList<Product> data, int total, int totalDisplay) GetPagedProducts(int pageIndex, 
+            int pageSize, string? order, DataTablesSearch search)
+        {
+            if (string.IsNullOrWhiteSpace(search.Value))
+                return GetDynamic(null, order, null, pageIndex, pageSize, true);
+            else
+                return GetDynamic(x => x.Name.Contains(search.Value), order, 
+                    null, pageIndex, pageSize, true);
         }
     }
 }

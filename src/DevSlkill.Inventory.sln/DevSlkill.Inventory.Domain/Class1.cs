@@ -1,4 +1,4 @@
-﻿namespace DevSlkill.Inventory.Domain
+﻿namespace DevSkill.Inventory.Domain
 {
     public class Class1
     {

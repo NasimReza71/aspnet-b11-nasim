@@ -1,5 +1,5 @@
-﻿using DevSlkill.Inventory.Domain.Entities;
-using DevSlkill.Inventory.Domain.Repositories;
+﻿using DevSkill.Inventory.Domain.Entities;
+using DevSkill.Inventory.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 
-namespace DevSlkill.Inventory.Infrastructure.Repositories
+namespace DevSkill.Inventory.Infrastructure.Repositories
 {
     public abstract class Repository<TEntity, TKey>
           : IRepository<TEntity, TKey> where TKey : IComparable

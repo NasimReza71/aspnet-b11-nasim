@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevSlkill.Inventory.Domain.Features.Products.Commands
+namespace DevSkill.Inventory.Domain.Features.Products.Commands
 {
     public interface IProductAddCommand
     {

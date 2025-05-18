@@ -1,8 +1,8 @@
-﻿using DevSlkill.Inventory.Domain.Entities;
+﻿using DevSkill.Inventory.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevSlkill.Inventory.Infrastructure
+namespace DevSkill.Inventory.Infrastructure
 {
     public class ApplicationDbContext : IdentityDbContext
     {
