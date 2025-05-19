@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DevSlkill.Inventory.Application\DevSkill.Inventory.Application.csproj" />
     <ProjectReference Include="..\DevSlkill.Inventory.Application\DevSlkill.Inventory.Application.csproj" />
+    <ProjectReference Include="..\DevSlkill.Inventory.Domain\DevSkill.Inventory.Domain.csproj" />
     <ProjectReference Include="..\DevSlkill.Inventory.Domain\DevSlkill.Inventory.Domain.csproj" />
     <ProjectReference Include="..\DevSlkill.Inventory.Infrastructure\DevSkill.Inventory.Infrastructure.csproj" />
     <ProjectReference Include="..\DevSlkill.Inventory.Infrastructure\DevSlkill.Inventory.Infrastructure.csproj" />

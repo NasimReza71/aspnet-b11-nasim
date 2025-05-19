@@ -248,6 +248,7 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
             bool isTrackingOff = false)
         {
+
             IQueryable<TEntity> query = _dbSet;
 
             if (filter != null)
@@ -402,7 +403,10 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
             {
                 var result = query.OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize);
                 if (isTrackingOff)
-                    return (result.AsNoTracking().ToList(), total, totalDisplay);
+                {
+                    var resultList = result.AsNoTracking().ToList();
+                    return (resultList, total, totalDisplay);
+                }
                 else
                     return (result.ToList(), total, totalDisplay);
             }

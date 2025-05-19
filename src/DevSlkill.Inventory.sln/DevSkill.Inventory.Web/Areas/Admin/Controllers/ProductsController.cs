@@ -66,14 +66,15 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
-                var result = _productService.GetProducts(model.PageIndex, model.PageSize,
+                var (data, total, totalDisplay) = _productService.GetProducts(model.PageIndex, model.PageSize,
                     model.FormatSortExpression("Name","Price","Description", "Id"), model.Search);
 
+                var productList = data;
                 var products = new
                 {
-                    recordsTotal = result.total,
-                    recordsFiltered = result.totalDisplay,
-                    data = (from record in result.data
+                    recordsTotal = total,
+                    recordsFiltered = totalDisplay,
+                    data = (from record in data
                             select new string[]
                             {
                             HttpUtility.HtmlEncode(record.Name),
