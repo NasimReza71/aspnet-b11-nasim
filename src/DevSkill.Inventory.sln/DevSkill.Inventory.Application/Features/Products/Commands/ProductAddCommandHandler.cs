@@ -21,7 +21,10 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
            await  _applicationUnitOfWork.ProductRepository.AddAsync(new Product 
            { 
                Name = request.Name,
-               Price = request.Price
+               Price = request.Price,
+               Description = request.Description,
+               ManufactureDate = request.ManufactureDate
+
            });
             await _applicationUnitOfWork.SaveAsync();
         }

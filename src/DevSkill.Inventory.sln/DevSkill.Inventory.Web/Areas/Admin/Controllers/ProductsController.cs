@@ -69,7 +69,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 var (data, total, totalDisplay) = _productService.GetProducts(model.PageIndex, model.PageSize,
                     model.FormatSortExpression("Name","Price","Description", "Id"), model.Search);
 
-                var productList = data;
+                
                 var products = new
                 {
                     recordsTotal = total,
