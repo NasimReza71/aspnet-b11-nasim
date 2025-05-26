@@ -7,6 +7,8 @@ using DevSkill.Inventory.Domain.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
+using AutoMapper;
+using DevSkill.Inventory.Infrastructure;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
@@ -16,11 +18,14 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         private readonly ILogger<ProductsController> _logger;
         private readonly IProductService _productService;
         private readonly IMediator _mediator;
-        public ProductsController(ILogger<ProductsController> logger, IProductService productService, IMediator mediator) 
+        private readonly IMapper _mapper;
+        public ProductsController(ILogger<ProductsController> logger, 
+            IProductService productService, IMediator mediator, IMapper mapper) 
         {
             _logger = logger;
             _mediator = mediator;
             _productService = productService;
+            _mapper = mapper;
 
         }
         public IActionResult Index()
@@ -45,16 +50,34 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    //var product = _mapper.Map<Product>(productAddCommand);
+                    await _mediator.Send(productAddCommand);
 
-                await _mediator.Send(productAddCommand);
+                    TempData.Put("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Product Added",
+                        Type = ResponseTypes.Success
+                    });
 
-                 
+                    //_productService.AddProduct(new Product {
 
-                //_productService.AddProduct(new Product {
+                    //    Name = model.Name,
+                    //    Price = model.Price,    
+                    //});
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to add product");
 
-                //    Name = model.Name,
-                //    Price = model.Price,    
-                //});
+                    TempData.Put("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Failed to add Product",
+                        Type = ResponseTypes.Danger
+                    });
+                }
 
             }
 
