@@ -67,7 +67,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     //    Name = model.Name,
                     //    Price = model.Price,    
                     //});
-                    return RedirectToAction("Add");
+                    return RedirectToAction("ProductList");
                 }
                 catch (Exception ex)
                 {
