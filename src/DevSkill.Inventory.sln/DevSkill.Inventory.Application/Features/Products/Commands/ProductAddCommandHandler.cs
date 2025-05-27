@@ -1,4 +1,5 @@
-﻿using DevSkill.Inventory.Domain;
+﻿using DevSkill.Inventory.Application.Exceptions;
+using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Entities;
 using MediatR;
 using System;
@@ -18,16 +19,18 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
         }
         public async Task Handle(ProductAddCommand request, CancellationToken cancellationToken)
         {
-           await  _applicationUnitOfWork.ProductRepository.AddAsync(new Product 
+
+            if (_applicationUnitOfWork.ProductRepository.IsNameDuplicate(request.Name))
+            {
+                throw new DuplicateProductNameException(); 
+            }
+
+            await  _applicationUnitOfWork.ProductRepository.AddAsync(new Product 
            { 
                Name = request.Name,
                Price = request.Price,
                Description = request.Description,
                ManufactureDate = request.ManufactureDate
-
-
-
-                  
 
            });
           
