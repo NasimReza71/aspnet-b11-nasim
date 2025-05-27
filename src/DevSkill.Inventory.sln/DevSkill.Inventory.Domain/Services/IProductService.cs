@@ -10,6 +10,8 @@ namespace DevSkill.Inventory.Domain.Services
 {
     public interface IProductService 
     {
+
+       
         public void AddProduct(Product product);
         (IList<Product> data, int total, int totalDisplay) GetProducts(int pageIndex, int pageSize, 
             string? order, DataTablesSearch search);

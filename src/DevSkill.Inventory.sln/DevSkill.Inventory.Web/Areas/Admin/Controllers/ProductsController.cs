@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Web;
 using AutoMapper;
 using DevSkill.Inventory.Infrastructure;
+using DevSkill.Inventory.Application.Exceptions;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
@@ -69,6 +70,15 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     //});
                     return RedirectToAction("ProductList");
                 }
+                catch(DuplicateProductNameException de)
+                {
+                    TempData.Put("ResponseMessage", new ResponseModel
+                    {
+                        Message = de.Message,
+                        Type = ResponseTypes.Danger
+                    });
+                }
+
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Failed to add product");
@@ -118,8 +128,6 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 _logger.LogError(ex, "There was a problem getting products");
                 return Json(DataTables.EmptyResult); 
             }
-          
-            
 
         }
 

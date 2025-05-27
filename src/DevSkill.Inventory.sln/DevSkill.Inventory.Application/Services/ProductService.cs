@@ -1,4 +1,5 @@
-﻿using DevSkill.Inventory.Domain;
+﻿using DevSkill.Inventory.Application.Exceptions;
+using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Domain.Services;
 using DevSkill.Inventory.Domain.Services;
@@ -20,8 +21,12 @@ namespace DevSkill.Inventory.Application.Services
         }
         public void AddProduct(Product product)
         {
-            _applicationUnitOfWork.ProductRepository.Add(product);
-            _applicationUnitOfWork.Save();
+            if (!_applicationUnitOfWork.ProductRepository.IsNameDuplicate(product.Name))
+            {
+                _applicationUnitOfWork.ProductRepository.Add(product);
+                _applicationUnitOfWork.Save();
+            }
+            else throw new DuplicateProductNameException();
         }
 
         public (IList<Product> data, int total, int totalDisplay) GetProducts(int pageIndex, int pageSize, string? order, DataTablesSearch search)
