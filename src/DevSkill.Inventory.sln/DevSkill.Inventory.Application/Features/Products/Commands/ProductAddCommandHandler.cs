@@ -25,7 +25,12 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
                Description = request.Description,
                ManufactureDate = request.ManufactureDate
 
+
+
+                  
+
            });
+          
             await _applicationUnitOfWork.SaveAsync();
         }
               

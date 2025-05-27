@@ -47,6 +47,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(ProductAddCommand productAddCommand)
+        
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +67,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     //    Name = model.Name,
                     //    Price = model.Price,    
                     //});
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Add");
                 }
                 catch (Exception ex)
                 {
