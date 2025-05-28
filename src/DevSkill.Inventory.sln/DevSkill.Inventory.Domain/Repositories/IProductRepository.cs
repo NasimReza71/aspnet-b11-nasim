@@ -13,5 +13,6 @@ namespace DevSkill.Inventory.Domain.Repositories
         List<Product> GetLatestProduct();
         (IList<Product> data, int total, int totalDisplay) GetPagedProducts(int pageIndex,
             int pageSize, string? order, DataTablesSearch search);
+        void Update(Product product);
     }
 }

@@ -95,11 +95,61 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return View(productAddCommand);
         }
 
-        public IActionResult Update()
+        public IActionResult Update(Guid id)
         {
             var model = new UpdateProductModel();
+            var product = _productService.GetProduct(id);
+
+            _mapper.Map(product, model);
             return View(model);
         }
+
+
+
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Update(UpdateProductModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var product = _mapper.Map<Product>(model);
+
+                    _productService.Update(product);
+
+                    TempData.Put("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Product updated",
+                        Type = ResponseTypes.Success
+                    });
+
+                    return RedirectToAction("ProductList");
+                }
+                catch (DuplicateProductNameException dpe)
+                {
+                    ModelState.AddModelError("DuplicateProduct", dpe.Message);
+                    TempData.Put("ResponseMessage", new ResponseModel
+                    {
+                        Message = dpe.Message,
+                        Type = ResponseTypes.Danger
+                    });
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Failed to update product");
+
+                    TempData.Put("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Failed to update product",
+                        Type = ResponseTypes.Danger
+                    });
+                }
+            }
+
+            return View(model);
+        }
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Delete(Guid id)

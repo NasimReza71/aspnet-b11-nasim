@@ -35,9 +35,20 @@ namespace DevSkill.Inventory.Application.Services
             _applicationUnitOfWork.Save();
         }
 
+        public Product GetProduct(Guid id)
+        {
+           return _applicationUnitOfWork.ProductRepository.GetById(id);
+        }
+
         public (IList<Product> data, int total, int totalDisplay) GetProducts(int pageIndex, int pageSize, string? order, DataTablesSearch search)
         {
             return _applicationUnitOfWork.ProductRepository.GetPagedProducts(pageIndex, pageSize, order, search);
+        }
+
+        public void Update(Product product)
+        {
+            _applicationUnitOfWork.ProductRepository.Update(product);
+            _applicationUnitOfWork.Save();
         }
 
 
