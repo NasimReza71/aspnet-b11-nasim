@@ -47,8 +47,13 @@ namespace DevSkill.Inventory.Application.Services
 
         public void Update(Product product)
         {
-            _applicationUnitOfWork.ProductRepository.Update(product);
-            _applicationUnitOfWork.Save();
+            if (!_applicationUnitOfWork.ProductRepository.IsNameDuplicate(product.Name, product.Id))
+            {
+                _applicationUnitOfWork.ProductRepository.Update(product);
+                _applicationUnitOfWork.Save();
+            }
+            else
+                throw new DuplicateProductNameException();
         }
 
 
