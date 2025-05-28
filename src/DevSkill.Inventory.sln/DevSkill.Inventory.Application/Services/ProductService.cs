@@ -29,6 +29,12 @@ namespace DevSkill.Inventory.Application.Services
             else throw new DuplicateProductNameException();
         }
 
+        public void DeleteProduct(Guid id)
+        {
+            _applicationUnitOfWork.ProductRepository.Remove(id);
+            _applicationUnitOfWork.Save();
+        }
+
         public (IList<Product> data, int total, int totalDisplay) GetProducts(int pageIndex, int pageSize, string? order, DataTablesSearch search)
         {
             return _applicationUnitOfWork.ProductRepository.GetPagedProducts(pageIndex, pageSize, order, search);

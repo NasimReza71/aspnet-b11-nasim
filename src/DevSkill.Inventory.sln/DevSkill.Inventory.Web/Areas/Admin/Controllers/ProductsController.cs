@@ -101,8 +101,30 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                _productService.DeleteProduct(id);
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Product deleted",
+                    Type = ResponseTypes.Success
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to delete product");
 
-
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Failed to delete product",
+                    Type = ResponseTypes.Danger
+                });
+            }
+            return RedirectToAction("ProductList");
+        }
 
 
         [HttpPost]

@@ -12,6 +12,7 @@ namespace DevSkill.Inventory.Domain.Services
     {
 
         public void AddProduct(Product product);
+        void DeleteProduct(Guid id);
         (IList<Product> data, int total, int totalDisplay) GetProducts(int pageIndex, int pageSize, 
             string? order, DataTablesSearch search);
 
