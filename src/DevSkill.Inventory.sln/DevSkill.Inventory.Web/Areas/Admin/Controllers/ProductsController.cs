@@ -95,6 +95,16 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return View(productAddCommand);
         }
 
+        public IActionResult Update()
+        {
+            var model = new UpdateProductModel();
+            return View(model);
+        }
+
+
+
+
+
         [HttpPost]
         public JsonResult GetProductsJsonData([FromBody] ProductListModel model)
         {
