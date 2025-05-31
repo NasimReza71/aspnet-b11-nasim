@@ -1,4 +1,5 @@
-﻿using DevSkill.Inventory.Domain.Entities;
+﻿using DevSkill.Inventory.Domain.Dtos;
+using DevSkill.Inventory.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace DevSkill.Inventory.Domain.Repositories
         (IList<Product> data, int total, int totalDisplay) GetPagedProducts(int pageIndex,
             int pageSize, string? order, DataTablesSearch search);
         void Update(Product product);
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DevSkill.Inventory.Application.Exceptions;
 using DevSkill.Inventory.Domain;
+using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Domain.Services;
 using DevSkill.Inventory.Domain.Services;
@@ -43,6 +44,12 @@ namespace DevSkill.Inventory.Application.Services
         public (IList<Product> data, int total, int totalDisplay) GetProducts(int pageIndex, int pageSize, string? order, DataTablesSearch search)
         {
             return _applicationUnitOfWork.ProductRepository.GetPagedProducts(pageIndex, pageSize, order, search);
+        }
+
+        public async Task<(IList<Product> data, int total, int totalDisplay)> GetProductsSP(int pageIndex, int pageSize,
+            string? order, ProductSearchDto search)
+        {
+            return await _applicationUnitOfWork.GetProductsSP(pageIndex, pageSize, order, search);
         }
 
         public void Update(Product product)

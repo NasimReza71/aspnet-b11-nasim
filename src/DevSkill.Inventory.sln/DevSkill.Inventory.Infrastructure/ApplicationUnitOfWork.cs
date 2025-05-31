@@ -1,6 +1,9 @@
 ﻿using DevSkill.Inventory.Domain;
+using DevSkill.Inventory.Domain.Dtos;
+using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Domain.Repositories;
 using DevSkill.Inventory.Infrastructure;
+using DevSkill.Inventory.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,5 +21,30 @@ namespace DevSkill.Inventory.Infrastructure
         }
 
         public IProductRepository ProductRepository { get; private set; }
+
+        public async Task<(IList<Product> data, int total, int totalDisplay)> GetProductsSP(int pageIndex,
+            int pageSize, string? order, ProductSearchDto search)
+        {
+            var procedureName = "GetProducts";
+
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<Product>(procedureName,
+                new Dictionary<string, object>
+                {
+                    { "PageIndex", pageIndex },
+                    { "PageSize", pageSize },
+                    { "OrderBy", order },
+                    { "Price", search.Price },
+                    { "Name", string.IsNullOrEmpty(search.Name)  },
+                    { "Description", string.IsNullOrEmpty(search.Description) }
+                },
+                new Dictionary<string, Type>
+                {
+                    { "Total", typeof(int) },
+                    { "TotalDisplay", typeof(int) },
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+
+        }
     }
 }

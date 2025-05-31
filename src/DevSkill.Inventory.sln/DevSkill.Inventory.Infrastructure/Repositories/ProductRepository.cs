@@ -50,7 +50,7 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
                 return GetDynamic(null, order, null, pageIndex, pageSize, true);
             else
             {
-                string searchValue = search.Value.Trim().ToLower();
+                
                 return GetDynamic(x => x.Name.Contains(search.Value) ||
                 x.Description.Contains(search.Value),
                 order, null, pageIndex, pageSize, true);

@@ -10,6 +10,7 @@ using System.Web;
 using AutoMapper;
 using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Application.Exceptions;
+using DevSkill.Inventory.Domain.Dtos;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
@@ -221,5 +222,41 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<JsonResult> GetProductsJsonDataSP([FromBody] ProductListModel model)
+        {
+            try
+            {
+                var searchDto = _mapper.Map<ProductSearchDto>(model.SearchItem);
+                var (data, total, totalDisplay) = await _productService.GetProductsSP(model.PageIndex, model.PageSize,
+                    model.FormatSortExpression("Name", "Price", "Description", "Id"),searchDto);
+
+
+                var products = new
+                {
+                    recordsTotal = total,
+                    recordsFiltered = totalDisplay,
+                    data = (from record in data
+                            select new string[]
+                            {
+                            HttpUtility.HtmlEncode(record.Name),
+                            HttpUtility.HtmlEncode(record.Price),
+                            HttpUtility.HtmlEncode(record.Description),
+                           // record.Rating.ToString(),
+                            record.Id.ToString()
+                            }).ToArray()
+
+
+                };
+                return Json(products);
+            }
+
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "There was a problem getting products");
+                return Json(DataTables.EmptyResult);
+            }
+
+        }
     }
 }
