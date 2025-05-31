@@ -14,7 +14,6 @@ namespace DevSkill.Inventory.Web
             CreateMap<ProductAddCommand, Product>();
             CreateMap<Product, ProductAddCommand>();
 
-
         }
     }
 }

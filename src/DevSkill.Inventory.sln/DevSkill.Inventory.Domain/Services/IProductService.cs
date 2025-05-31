@@ -10,7 +10,6 @@ namespace DevSkill.Inventory.Domain.Services
 {
     public interface IProductService 
     {
-
         public void AddProduct(Product product);
         void DeleteProduct(Guid id);
         Product GetProduct(Guid id);

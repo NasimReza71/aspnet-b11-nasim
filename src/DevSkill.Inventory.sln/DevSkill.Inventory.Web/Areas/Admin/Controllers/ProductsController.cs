@@ -34,6 +34,12 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
+        public IActionResult IndexSP()
+        {
+            return View();
+        }
+
+
         public IActionResult ProductList()
         {
             return View();  

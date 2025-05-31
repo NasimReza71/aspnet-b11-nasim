@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DevSkill.Inventory.Infrastructure;
+using System.Buffers;
 
 namespace DevSkill.Inventory.Infrastructure.Repositories
 {
@@ -48,8 +49,13 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
             if (string.IsNullOrWhiteSpace(search.Value))
                 return GetDynamic(null, order, null, pageIndex, pageSize, true);
             else
-                return GetDynamic(x => x.Name.Contains(search.Value), order, 
-                    null, pageIndex, pageSize, true);
+            {
+                string searchValue = search.Value.Trim().ToLower();
+                return GetDynamic(x => x.Name.Contains(search.Value) ||
+                x.Description.Contains(search.Value),
+                order, null, pageIndex, pageSize, true);
+            }
         }
     }
 }
+   
