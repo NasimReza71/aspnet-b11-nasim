@@ -8,12 +8,14 @@ namespace DevSkill.Inventory.Web
     public class WebProfile : Profile
     {
         public WebProfile()
-        { 
-            CreateMap<AddProductModel, Product>().ReverseMap();
-            CreateMap<UpdateProductModel, Product>().ReverseMap();
+        {
+            CreateMap<UpdateProductModel, ProductUpdateCommand>();
+            CreateMap<Product, UpdateProductModel>();
+
             CreateMap<ProductAddCommand, Product>();
-            CreateMap<ProductUpdateCommand, Product>();
-            
+            CreateMap<Product, ProductAddCommand>();
+
+
         }
     }
 }

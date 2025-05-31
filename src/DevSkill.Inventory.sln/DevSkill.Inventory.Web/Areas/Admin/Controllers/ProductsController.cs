@@ -97,10 +97,10 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
         public IActionResult Update(Guid id)
         {
-            var model = new UpdateProductModel();
             var product = _productService.GetProduct(id);
+            var model = _mapper.Map<UpdateProductModel>(product);
 
-            _mapper.Map(product, model);
+            
             return View(model);
         }
 
