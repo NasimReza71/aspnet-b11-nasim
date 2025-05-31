@@ -108,15 +108,18 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Update(UpdateProductModel model)
+        public async Task<IActionResult> Update(UpdateProductModel model)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var product = _mapper.Map<Product>(model);
 
-                    _productService.Update(product);
+                    var command = _mapper.Map<ProductUpdateCommand>(model);
+                    await _mediator.Send(command);
+                    //var product = _mapper.Map<Product>(model);
+
+                    //_productService.Update(product);
 
                     TempData.Put("ResponseMessage", new ResponseModel
                     {
@@ -152,11 +155,12 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
-                _productService.DeleteProduct(id);
+                // _productService.DeleteProduct(id);
+                await _mediator.Send(new ProductDeleteCommand { Id = id });
                 TempData.Put("ResponseMessage", new ResponseModel
                 {
                     Message = "Product deleted",
