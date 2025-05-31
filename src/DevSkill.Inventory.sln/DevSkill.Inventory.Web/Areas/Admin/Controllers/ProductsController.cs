@@ -105,8 +105,6 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
 
-
-
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(UpdateProductModel model)
         {

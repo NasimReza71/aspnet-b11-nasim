@@ -11,7 +11,6 @@ namespace DevSkill.Inventory.Web
         {
             CreateMap<UpdateProductModel, ProductUpdateCommand>();
             CreateMap<Product, UpdateProductModel>();
-
             CreateMap<ProductAddCommand, Product>();
             CreateMap<Product, ProductAddCommand>();
 
