@@ -155,7 +155,7 @@
                     data: function (d) {
                         d.SearchItem = {
                             Name: $("#SearchItem_Name").val() ,
-                            Description: $("#SearchItem_Description").val(),
+                            Description: $("#SearchItem_Description").val() ,
                             Price: $("#SearchItem_Price").val() === "" ? null : $("#SearchItem_Price").val()
                         };
                         return JSON.stringify(d);

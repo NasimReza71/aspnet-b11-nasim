@@ -34,8 +34,8 @@ namespace DevSkill.Inventory.Infrastructure
                     { "PageSize", pageSize },
                     { "OrderBy", order },
                     { "Price", search.Price },
-                    { "Name", string.IsNullOrEmpty(search.Name)  },
-                    { "Description", string.IsNullOrEmpty(search.Description) }
+                    { "Name", string.IsNullOrEmpty(search.Name) ? null : search.Name },
+                    { "Description", string.IsNullOrEmpty(search.Description)? null : search.Description }
                 },
                 new Dictionary<string, Type>
                 {
