@@ -56,6 +56,8 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
                 order, null, pageIndex, pageSize, true);
             }
         }
+
+
     }
 }
    

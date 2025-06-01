@@ -11,6 +11,7 @@ using AutoMapper;
 using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Application.Exceptions;
 using DevSkill.Inventory.Domain.Dtos;
+using DevSkill.Inventory.Application.Features.Products.Queries;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
@@ -228,25 +229,28 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             try
             {
                 var searchDto = _mapper.Map<ProductSearchDto>(model.SearchItem);
-                var (data, total, totalDisplay) = await _productService.GetProductsSP(
-                    model.PageIndex,
-                    model.PageSize,
-                    model.FormatSortExpression("Name", "Price", "Description", "Id"),searchDto);
 
+                var query = new GetProductsSPQuery
+                {
+                    PageIndex = model.PageIndex,
+                    PageSize = model.PageSize,
+                    SortExpression = model.FormatSortExpression("Name", "Price", "Description", "Id"),
+                    SearchItem = searchDto
+                };
+
+                var (data, total, totalDisplay) = await _mediator.Send(query);
 
                 var products = new
                 {
                     recordsTotal = total,
                     recordsFiltered = totalDisplay,
-                    data = (from record in data
-                            select new string[]
-                            {
-                            HttpUtility.HtmlEncode(record.Name),
-                            HttpUtility.HtmlEncode(record.Price),
-                            HttpUtility.HtmlEncode(record.Description),
-                           // record.Rating.ToString(),
-                            record.Id.ToString()
-                            }).ToArray()
+                    data = data.Select(record => new string[]
+                    {
+                        HttpUtility.HtmlEncode(record.Name),
+                        HttpUtility.HtmlEncode(record.Price),
+                        HttpUtility.HtmlEncode(record.Description),
+                        record.Id.ToString()
+                    }).ToArray()
 
 
                 };
