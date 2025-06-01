@@ -1,6 +1,5 @@
 ﻿using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Services;
-using DevSkill.Inventory.Web.Areas.Admin.Views.Products;
 using System.Data;
 using System.Web;
 

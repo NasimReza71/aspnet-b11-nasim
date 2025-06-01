@@ -228,7 +228,9 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             try
             {
                 var searchDto = _mapper.Map<ProductSearchDto>(model.SearchItem);
-                var (data, total, totalDisplay) = await _productService.GetProductsSP(model.PageIndex, model.PageSize,
+                var (data, total, totalDisplay) = await _productService.GetProductsSP(
+                    model.PageIndex,
+                    model.PageSize,
                     model.FormatSortExpression("Name", "Price", "Description", "Id"),searchDto);
 
 
