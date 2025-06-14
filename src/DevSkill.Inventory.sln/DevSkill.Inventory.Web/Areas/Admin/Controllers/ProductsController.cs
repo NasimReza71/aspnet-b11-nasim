@@ -62,7 +62,6 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             {
                 try
                 {
-                    //var product = _mapper.Map<Product>(productAddCommand);
                     await _mediator.Send(productAddCommand);
 
                     TempData.Put("ResponseMessage", new ResponseModel
@@ -71,11 +70,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                         Type = ResponseTypes.Success
                     });
 
-                    //_productService.AddProduct(new Product {
-
-                    //    Name = model.Name,
-                    //    Price = model.Price,    
-                    //});
+           
                     return RedirectToAction("ProductList");
                 }
                 catch(DuplicateProductNameException de)
@@ -123,10 +118,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
                     var command = _mapper.Map<ProductUpdateCommand>(model);
                     await _mediator.Send(command);
-                    //var product = _mapper.Map<Product>(model);
-
-                    //_productService.Update(product);
-
+                    
                     TempData.Put("ResponseMessage", new ResponseModel
                     {
                         Message = "Product updated",
@@ -165,7 +157,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         {
             try
             {
-                // _productService.DeleteProduct(id);
+                
                 await _mediator.Send(new ProductDeleteCommand { Id = id });
                 TempData.Put("ResponseMessage", new ResponseModel
                 {
@@ -188,40 +180,44 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public JsonResult GetProductsJsonData([FromBody] ProductListModel model)
+        public async Task<JsonResult> GetProductsJsonData([FromBody] ProductListModel model)
         {
             try
             {
-                var (data, total, totalDisplay) = _productService.GetProducts(model.PageIndex, model.PageSize,
-                    model.FormatSortExpression("Name","Price","Description", "Id"), model.Search);
+                var searchDto = _mapper.Map<ProductSearchDto>(model.SearchItem);
 
-                
+                var query = new GetProductsSPQuery
+                {
+                    PageIndex = model.PageIndex,
+                    PageSize = model.PageSize,
+                    SortExpression = model.FormatSortExpression("Name", "Price", "Description", "Id"),
+                    SearchItem = searchDto
+                };
+
+                var (data, total, totalDisplay) = await _mediator.Send(query);
+
                 var products = new
                 {
                     recordsTotal = total,
                     recordsFiltered = totalDisplay,
-                    data = (from record in data
-                            select new string[]
-                            {
-                            HttpUtility.HtmlEncode(record.Name),
-                            HttpUtility.HtmlEncode(record.Price),
-                            HttpUtility.HtmlEncode(record.Description),
-                           // record.Rating.ToString(),
-                            record.Id.ToString()
-                            }).ToArray()
-
-
+                    data = data.Select(record => new string[]
+                    {
+                HttpUtility.HtmlEncode(record.Name),
+                HttpUtility.HtmlEncode(record.Price),
+                HttpUtility.HtmlEncode(record.Description),
+                record.Id.ToString()
+                    }).ToArray()
                 };
-               return Json(products);
-            }
 
-            catch(Exception ex) 
+                return Json(products);
+            }
+            catch (Exception ex)
             {
                 _logger.LogError(ex, "There was a problem getting products");
-                return Json(DataTables.EmptyResult); 
+                return Json(DataTables.EmptyResult);
             }
-
         }
+
 
         [HttpPost]
         public async Task<JsonResult> GetProductsJsonDataSP([FromBody] ProductListModel model)
