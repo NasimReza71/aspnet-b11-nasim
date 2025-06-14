@@ -16,29 +16,12 @@
           href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
           integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
           crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
 }
 
-@section Scripts
-{
-    <!-- sortablejs -->
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"
-            integrity="sha256-ipiJrswvAR4VAx/th+6zWsdeYmVae0iJuiR+6OqHJHQ="
-            crossorigin="anonymous"></script>
-    <!-- sortablejs -->
-    <script>
-        const connectedSortables = document.querySelectorAll('.connectedSortable');
-        connectedSortables.forEach((connectedSortable) => {
-          let sortable = new Sortable(connectedSortable, {
-            group: 'shared',
-            handle: '.card-header',
-          });
-        });
 
-        const cardHeaders = document.querySelectorAll('.connectedSortable .card-header');
-        cardHeaders.forEach((cardHeader) => {
-          cardHeader.style.cursor = 'move';
-        });
-    </script>
+
     <!-- apexcharts -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
             integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8="
@@ -223,386 +206,217 @@
 <div class="app-content-header">
     <!--begin::Container-->
     <div class="container-fluid">
-        <!--begin::Row-->
-        <div class="row">
-            <div class="col-sm-6"><h3 class="mb-0">Dashboard</h3></div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-end">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                </ol>
-            </div>
-        </div>
-        <!--end::Row-->
-    </div>
-    <!--end::Container-->
-</div>
-<!--end::App Content Header-->
-<!--begin::App Content-->
-<div class="app-content">
-    <!--begin::Container-->
-    <div class="container-fluid">
-        <!--begin::Row-->
-        <div class="row">
-            <!--begin::Col-->
-            <div class="col-lg-3 col-6">
-                <!--begin::Small Box Widget 1-->
-                <div class="small-box text-bg-primary">
-                    <div class="inner">
-                        <h3>150</h3>
-                        <p>New Orders</p>
-                    </div>
-                    <svg class="small-box-icon"
-                         fill="currentColor"
-                         viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg"
-                         aria-hidden="true">
-                        <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z"></path>
-                    </svg>
-                    <a href="#"
-                       class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                        More info <i class="bi bi-link-45deg"></i>
-                    </a>
-                </div>
-                <!--end::Small Box Widget 1-->
-            </div>
-            <!--end::Col-->
-            <div class="col-lg-3 col-6">
-                <!--begin::Small Box Widget 2-->
-                <div class="small-box text-bg-success">
-                    <div class="inner">
-                        <h3>53<sup class="fs-5">%</sup></h3>
-                        <p>Bounce Rate</p>
-                    </div>
-                    <svg class="small-box-icon"
-                         fill="currentColor"
-                         viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg"
-                         aria-hidden="true">
-                        <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"></path>
-                    </svg>
-                    <a href="#"
-                       class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                        More info <i class="bi bi-link-45deg"></i>
-                    </a>
-                </div>
-                <!--end::Small Box Widget 2-->
-            </div>
-            <!--end::Col-->
-            <div class="col-lg-3 col-6">
-                <!--begin::Small Box Widget 3-->
-                <div class="small-box text-bg-warning">
-                    <div class="inner">
-                        <h3>44</h3>
-                        <p>User Registrations</p>
-                    </div>
-                    <svg class="small-box-icon"
-                         fill="currentColor"
-                         viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg"
-                         aria-hidden="true">
-                        <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                    </svg>
-                    <a href="#"
-                       class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover">
-                        More info <i class="bi bi-link-45deg"></i>
-                    </a>
-                </div>
-                <!--end::Small Box Widget 3-->
-            </div>
-            <!--end::Col-->
-            <div class="col-lg-3 col-6">
-                <!--begin::Small Box Widget 4-->
-                <div class="small-box text-bg-danger">
-                    <div class="inner">
-                        <h3>65</h3>
-                        <p>Unique Visitors</p>
-                    </div>
-                    <svg class="small-box-icon"
-                         fill="currentColor"
-                         viewBox="0 0 24 24"
-                         xmlns="http://www.w3.org/2000/svg"
-                         aria-hidden="true">
-                        <path clip-rule="evenodd"
-                              fill-rule="evenodd"
-                              d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z"></path>
-                        <path clip-rule="evenodd"
-                              fill-rule="evenodd"
-                              d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z"></path>
-                    </svg>
-                    <a href="#"
-                       class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                        More info <i class="bi bi-link-45deg"></i>
-                    </a>
-                </div>
-                <!--end::Small Box Widget 4-->
-            </div>
-            <!--end::Col-->
-        </div>
-        <!--end::Row-->
-        <!--begin::Row-->
-        <div class="row">
-            <!-- Start col -->
-            <div class="col-lg-7 connectedSortable">
-                <div class="card mb-4">
-                    <div class="card-header"><h3 class="card-title">Sales Value</h3></div>
-                    <div class="card-body"><div id="revenue-chart"></div></div>
-                </div>
-                <!-- /.card -->
-                <!-- DIRECT CHAT -->
-                <div class="card direct-chat direct-chat-primary mb-4">
-                    <div class="card-header">
-                        <h3 class="card-title">Direct Chat</h3>
-                        <div class="card-tools">
-                            <span title="3 New Messages" class="badge text-bg-primary"> 3 </span>
-                            <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
-                                <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
-                                <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
-                            </button>
-                            <button type="button"
-                                    class="btn btn-tool"
-                                    title="Contacts"
-                                    data-lte-toggle="chat-pane">
-                                <i class="bi bi-chat-text-fill"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-lte-toggle="card-remove">
-                                <i class="bi bi-x-lg"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <!-- Conversations are loaded here -->
-                        <div class="direct-chat-messages">
-                            <!-- Message. Default to the start -->
-                            <div class="direct-chat-msg">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-start"> Alexander Pierce </span>
-                                    <span class="direct-chat-timestamp float-end"> 23 Jan 2:00 pm </span>
-                                </div>
-                                <!-- /.direct-chat-infos -->
-                                <img class="direct-chat-img"
-                                     src="~/admin-lte-4/assets/img/user1-128x128.jpg"
-                                     alt="message user image" />
-                                <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
-                                    Is this template really for free? That's unbelievable!
-                                </div>
-                                <!-- /.direct-chat-text -->
-                            </div>
-                            <!-- /.direct-chat-msg -->
-                            <!-- Message to the end -->
-                            <div class="direct-chat-msg end">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-end"> Sarah Bullock </span>
-                                    <span class="direct-chat-timestamp float-start"> 23 Jan 2:05 pm </span>
-                                </div>
-                                <!-- /.direct-chat-infos -->
-                                <img class="direct-chat-img"
-                                     src="~/admin-lte-4/assets/img/user3-128x128.jpg"
-                                     alt="message user image" />
-                                <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">You better believe it!</div>
-                                <!-- /.direct-chat-text -->
-                            </div>
-                            <!-- /.direct-chat-msg -->
-                            <!-- Message. Default to the start -->
-                            <div class="direct-chat-msg">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-start"> Alexander Pierce </span>
-                                    <span class="direct-chat-timestamp float-end"> 23 Jan 5:37 pm </span>
-                                </div>
-                                <!-- /.direct-chat-infos -->
-                                <img class="direct-chat-img"
-                                     src="~/admin-lte-4/assets/img/user1-128x128.jpg"
-                                     alt="message user image" />
-                                <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">
-                                    Working with AdminLTE on a great new app! Wanna join?
-                                </div>
-                                <!-- /.direct-chat-text -->
-                            </div>
-                            <!-- /.direct-chat-msg -->
-                            <!-- Message to the end -->
-                            <div class="direct-chat-msg end">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-end"> Sarah Bullock </span>
-                                    <span class="direct-chat-timestamp float-start"> 23 Jan 6:10 pm </span>
-                                </div>
-                                <!-- /.direct-chat-infos -->
-                                <img class="direct-chat-img"
-                                     src="~/admin-lte-4/assets/img/user3-128x128.jpg"
-                                     alt="message user image" />
-                                <!-- /.direct-chat-img -->
-                                <div class="direct-chat-text">I would love to.</div>
-                                <!-- /.direct-chat-text -->
-                            </div>
-                            <!-- /.direct-chat-msg -->
-                        </div>
-                        <!-- /.direct-chat-messages-->
-                        <!-- Contacts are loaded here -->
-                        <div class="direct-chat-contacts">
-                            <ul class="contacts-list">
-                                <li>
-                                    <a href="#">
-                                        <img class="contacts-list-img"
-                                             src="~/admin-lte-4/assets/img/user1-128x128.jpg"
-                                             alt="User Avatar" />
-                                        <div class="contacts-list-info">
-                                            <span class="contacts-list-name">
-                                                Count Dracula
-                                                <small class="contacts-list-date float-end"> 2/28/2023 </small>
-                                            </span>
-                                            <span class="contacts-list-msg"> How have you been? I was... </span>
-                                        </div>
-                                        <!-- /.contacts-list-info -->
-                                    </a>
-                                </li>
-                                <!-- End Contact Item -->
-                                <li>
-                                    <a href="#">
-                                        <img class="contacts-list-img"
-                                             src="~/admin-lte-4/assets/img/user7-128x128.jpg"
-                                             alt="User Avatar" />
-                                        <div class="contacts-list-info">
-                                            <span class="contacts-list-name">
-                                                Sarah Doe
-                                                <small class="contacts-list-date float-end"> 2/23/2023 </small>
-                                            </span>
-                                            <span class="contacts-list-msg"> I will be waiting for... </span>
-                                        </div>
-                                        <!-- /.contacts-list-info -->
-                                    </a>
-                                </li>
-                                <!-- End Contact Item -->
-                                <li>
-                                    <a href="#">
-                                        <img class="contacts-list-img"
-                                             src="~/admin-lte-4/assets/img/user3-128x128.jpg"
-                                             alt="User Avatar" />
-                                        <div class="contacts-list-info">
-                                            <span class="contacts-list-name">
-                                                Nadia Jolie
-                                                <small class="contacts-list-date float-end"> 2/20/2023 </small>
-                                            </span>
-                                            <span class="contacts-list-msg"> I'll call you back at... </span>
-                                        </div>
-                                        <!-- /.contacts-list-info -->
-                                    </a>
-                                </li>
-                                <!-- End Contact Item -->
-                                <li>
-                                    <a href="#">
-                                        <img class="contacts-list-img"
-                                             src="~/admin-lte-4/assets/img/user5-128x128.jpg"
-                                             alt="User Avatar" />
-                                        <div class="contacts-list-info">
-                                            <span class="contacts-list-name">
-                                                Nora S. Vans
-                                                <small class="contacts-list-date float-end"> 2/10/2023 </small>
-                                            </span>
-                                            <span class="contacts-list-msg"> Where is your new... </span>
-                                        </div>
-                                        <!-- /.contacts-list-info -->
-                                    </a>
-                                </li>
-                                <!-- End Contact Item -->
-                                <li>
-                                    <a href="#">
-                                        <img class="contacts-list-img"
-                                             src="~/admin-lte-4/assets/img/user6-128x128.jpg"
-                                             alt="User Avatar" />
-                                        <div class="contacts-list-info">
-                                            <span class="contacts-list-name">
-                                                John K.
-                                                <small class="contacts-list-date float-end"> 1/27/2023 </small>
-                                            </span>
-                                            <span class="contacts-list-msg"> Can I take a look at... </span>
-                                        </div>
-                                        <!-- /.contacts-list-info -->
-                                    </a>
-                                </li>
-                                <!-- End Contact Item -->
-                                <li>
-                                    <a href="#">
-                                        <img class="contacts-list-img"
-                                             src="~/admin-lte-4/assets/img/user8-128x128.jpg"
-                                             alt="User Avatar" />
-                                        <div class="contacts-list-info">
-                                            <span class="contacts-list-name">
-                                                Kenneth M.
-                                                <small class="contacts-list-date float-end"> 1/4/2023 </small>
-                                            </span>
-                                            <span class="contacts-list-msg"> Never mind I found... </span>
-                                        </div>
-                                        <!-- /.contacts-list-info -->
-                                    </a>
-                                </li>
-                                <!-- End Contact Item -->
-                            </ul>
-                            <!-- /.contacts-list -->
-                        </div>
-                        <!-- /.direct-chat-pane -->
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <form action="#" method="post">
-                            <div class="input-group">
-                                <input type="text"
-                                       name="message"
-                                       placeholder="Type Message ..."
-                                       class="form-control" />
-                                <span class="input-group-append">
-                                    <button type="button" class="btn btn-primary">Send</button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- /.card-footer-->
-                </div>
-                <!-- /.direct-chat -->
-            </div>
-            <!-- /.Start col -->
-            <!-- Start col -->
-            <div class="col-lg-5 connectedSortable">
-                <div class="card text-white bg-primary bg-gradient border-primary mb-4">
-                    <div class="card-header border-0">
-                        <h3 class="card-title">Sales Value</h3>
-                        <div class="card-tools">
-                            <button type="button"
-                                    class="btn btn-primary btn-sm"
-                                    data-lte-toggle="card-collapse">
-                                <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
-                                <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body"><div id="world-map" style="height: 220px"></div></div>
-                    <div class="card-footer border-0">
-                        <!--begin::Row-->
-                        <div class="row">
-                            <div class="col-4 text-center">
-                                <div id="sparkline-1" class="text-dark"></div>
-                                <div class="text-white">Visitors</div>
-                            </div>
-                            <div class="col-4 text-center">
-                                <div id="sparkline-2" class="text-dark"></div>
-                                <div class="text-white">Online</div>
-                            </div>
-                            <div class="col-4 text-center">
-                                <div id="sparkline-3" class="text-dark"></div>
-                                <div class="text-white">Sales</div>
-                            </div>
-                        </div>
-                        <!--end::Row-->
-                    </div>
-                </div>
-            </div>
-            <!-- /.Start col -->
-        </div>
-        <!-- /.row (main row) -->
-    </div>
-    <!--end::Container-->
-</div>
-<!--end::App Content-->
 
+
+        <div class="row">
+            <div class="col-md-2 mb-3">
+                <div class="card text-white position-relative" style="background-color: #ab47bc;">
+                    <div class="card-body">
+                        <h4 class="fw-bold">62</h4>
+                        <h6 class="text-white-50">Total Customer</h6>
+                        <i class="bi bi-people-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mb-3">
+                <div class="card text-white position-relative" style="background-color: #7b1fa2;">
+                    <div class="card-body">
+                        <h4 class="fw-bold">37</h4>
+                        <h6 class="text-white-50">Total Product</h6>
+                        <i class="bi bi-cart-plus fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mb-3">
+                <div class="card text-white position-relative" style="background-color: #0d47a1;">
+                    <div class="card-body">
+                        <h4 class="fw-bold">15</h4>
+                        <h6 class="text-white-50">Total Supplier</h6>
+                        <i class="bi bi-person-lines-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-white position-relative" style="background-color: #2196f3;">
+                    <div class="card-body">
+                        <h4 class="fw-bold">1,015,153.50</h4>
+                        <h6 class="text-white-50">Total Sales</h6>
+                        <i class="bi bi-bag-check-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-white position-relative" style="background-color: #7cb342;">
+                    <div class="card-body">
+                        <h4 class="fw-bold">3,244,518.00</h4>
+                        <h6 class="text-white-50">STOCK - Purchase Value</h6>
+                        <i class="bi bi-cash-coin fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 mb-3">
+                <div class="card text-white position-relative" style="background-color: #ec407a;">
+                    <div class="card-body">
+                        <h4 class="fw-bold">0.00</h4>
+                        <h6 class="text-white-50">Today Sales</h6>
+                        <i class="bi bi-briefcase-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mb-3">
+                <div class="card text-white position-relative" style="background-color: #8e24aa;">
+                    <div class="card-body">
+                        <h4 class="fw-bold">0.00</h4>
+                        <h6 class="text-white-50">Todays Purchase</h6>
+                        <i class="bi bi-cart-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mb-3">
+                <div class="card text-white position-relative" style="background-color: #1565c0;">
+                    <div class="card-body">
+                        <h4 class="fw-bold">0.00</h4>
+                        <h6 class="text-white-50">Today Expense</h6>
+                        <i class="bi bi-funnel-dollar fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-white position-relative" style="background-color: #29b6f6;">
+                    <div class="card-body">
+                        <h4 class="fw-bold">0.00</h4>
+                        <h6 class="text-white-50">Todays Income</h6>
+                        <i class="bi bi-currency-dollar fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-white position-relative" style="background-color: #558b2f;">
+                    <div class="card-body">
+                        <h4 class="fw-bold">4,443,646.00</h4>
+                        <h6 class="text-white-50">STOCK - Sell Value</h6>
+                        <i class="bi bi-coin fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row mt-4">
+            <!-- Top Sale Products -->
+            <div class="col-md-6">
+                <div class="card" style="background-color: #e3f2fd;">
+                    <div class="card-header bg-transparent text-center fw-bold fs-5">Top Sale Products</div>
+                    <div class="card-body d-flex justify-content-around align-items-start flex-wrap">
+                        <div class="card text-center p-3 m-2" style="width: 10rem;">
+                            <i class="bi bi-cart-fill text-success fs-1"></i>
+                            <strong class="mt-2">FEED 25/50</strong>
+                            <div>110 BOSTA</div>
+                        </div>
+                        <div class="card text-center p-3 m-2" style="width: 10rem;">
+                            <i class="bi bi-stars text-primary fs-1"></i>
+                            <strong class="mt-2">Skm 1-7</strong>
+                            <div>46 Box</div>
+                        </div>
+                        <div class="card text-center p-3 m-2" style="width: 10rem;">
+                            <i class="bi bi-cart-fill text-success fs-1"></i>
+                            <strong class="mt-2">MOTA VUSI</strong>
+                            <div>30 BOSTA</div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center bg-transparent">
+                        <a href="#" class="btn btn-primary btn-sm">View More</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="col-md-6">
+                <div class="card" style="background-color: #f3e5f5;">
+                    <div class="card-header bg-transparent text-center fw-bold fs-5">Low Stock Products</div>
+                    <div class="card-body p-0">
+                        <table class="table table-bordered text-center mb-0">
+                            <thead style="background-color: #e1bee7;">
+                                <tr>
+                                    <th>SN.</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #ede7f6;">
+                                    <td>1</td>
+                                    <td>T-Shart</td>
+                                    <td>-9</td>
+                                </tr>
+                                <tr style="background-color: #ede7f6;">
+                                    <td>2</td>
+                                    <td>MOTA VUSI</td>
+                                    <td>-10</td>
+                                </tr>
+                                <tr style="background-color: #ede7f6;">
+                                    <td>3</td>
+                                    <td>Aes</td>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-center bg-transparent">
+                        <a href="#" class="btn btn-purple text-white btn-sm" style="background-color: #6a1b9a;">View More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Last 7 Days' Sales (Products)</div>
+                    <div class="card-body">
+                        <div id="last7DaysSales" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Profit Loss Pie Chart</div>
+                    <div class="card-body">
+                        <div id="profitLossPieChart" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+@section Scripts {
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"></script>
+        <script>
+            var salesChart = new ApexCharts(document.querySelector("#last7DaysSales"), {
+                chart: { type: 'bar', height: 300 },
+                series: [{ name: 'Sales', data: [35, 40, 28, 52, 60, 48, 70] }],
+                xaxis: { categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] }
+            });
+            salesChart.render();
+
+            var pieChart = new ApexCharts(document.querySelector("#profitLossPieChart"), {
+                chart: { type: 'pie', height: 300 },
+                series: [45, 25, 30],
+                labels: ['Profit', 'Loss', 'Others']
+            });
+            pieChart.render();
+        </script>
+}
