@@ -46,5 +46,32 @@ namespace DevSkill.Inventory.Infrastructure
             return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
 
         }
+
+        public ICustomerRepository CustomerRepository { get; private set; }
+
+        public async Task<(IList<Customer>, int, int)> GetCustomersSP(int pageIndex, int pageSize, string orderBy, CustomerSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<Customer>("GetCustomers",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "Id", search.Id },
+            { "Name", search.Name },
+            { "Mobile", search.Mobile },
+            { "Address", search.Address },
+            { "CurrentBalance", search.CurrentBalance }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
     }
 }

@@ -16,5 +16,8 @@ namespace DevSkill.Inventory.Domain
 
         Task<(IList<Product> data, int total, int totalDisplay)> GetProductsSP(int pageIndex,
             int pageSize, string? order, ProductSearchDto search);
+        ICustomerRepository CustomerRepository { get; }
+        Task<(IList<Customer>, int, int)> GetCustomersSP(int pageIndex, int pageSize, string? order, CustomerSearchDto search);
+
     }
 }

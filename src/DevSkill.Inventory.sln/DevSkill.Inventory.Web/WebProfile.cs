@@ -3,6 +3,7 @@ using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
+using DevSkill.Inventory.Web.Areas.Admin.Models.Customers_Model;
 
 namespace DevSkill.Inventory.Web
 {
@@ -15,6 +16,8 @@ namespace DevSkill.Inventory.Web
             CreateMap<ProductAddCommand, Product>();
             CreateMap<Product, ProductAddCommand>();
             CreateMap<ProductSearchModel, ProductSearchDto>();
+            CreateMap<CustomerSearchModel, CustomerSearchDto>();
+
 
         }
     }
