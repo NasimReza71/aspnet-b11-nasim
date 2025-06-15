@@ -1,4 +1,4 @@
-﻿namespace DevSkill.Inventory.Web.Areas.Admin.Models.Customers_Model
+﻿namespace DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels
 {
     public class CustomerSearchModel
     {

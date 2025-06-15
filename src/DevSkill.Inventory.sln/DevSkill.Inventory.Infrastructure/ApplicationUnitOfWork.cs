@@ -72,6 +72,33 @@ namespace DevSkill.Inventory.Infrastructure
             return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
         }
 
+        public IPurchaseRepository PurchaseRepository { get; private set; }
+
+        public async Task<(IList<Purchase>, int, int)> GetPurchasesSP(int pageIndex, int pageSize, string orderBy, PurchaseSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<Purchase>("GetPurchases",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "PurchaseInvoice", search.PurchaseInvoice },
+            { "Name", search.Name },
+            { "Products", search.Products },
+            { "Total", search.Total },
+            { "Paid", search.Paid },
+            { "Due", search.Due }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
 
     }
 }

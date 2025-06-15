@@ -1,6 +1,6 @@
 ﻿using DevSkill.Inventory.Domain;
 
-namespace DevSkill.Inventory.Web.Areas.Admin.Models.Customers_Model
+namespace DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels
 {
     public class CustomerListModel : DataTables
     {

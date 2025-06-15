@@ -4,7 +4,7 @@ using DevSkill.Inventory.Application.Features.Products.Queries;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
-using DevSkill.Inventory.Web.Areas.Admin.Models.Customers_Model;
+using DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
