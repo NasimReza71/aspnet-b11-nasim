@@ -1,14 +1,25 @@
 ﻿using Autofac;
-using System.Reflection;
-using DevSkill.Inventory.Web.Models;
-using DevSkill.Inventory.Web.Data;
+using DevSkill.Inventory.Application.Features.Customers.Queries;
+using DevSkill.Inventory.Application.Features.Products.Commands;
+using DevSkill.Inventory.Application.Features.PurchaseReturns.Queries;
+using DevSkill.Inventory.Application.Features.Purchases.Queries;
+using DevSkill.Inventory.Application.Features.Sales.Queries;
+using DevSkill.Inventory.Application.Features.SalesReturns.Queries;
+using DevSkill.Inventory.Application.Features.ServiceFeatures.Queries;
+
+//using DevSkill.Inventory.Application.Features.Services.Queries;
+using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
-using DevSkill.Inventory.Infrastructure;
-using DevSkill.Inventory.Infrastructure.Repositories;
+using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Domain.Repositories;
 using DevSkill.Inventory.Domain.Services;
-using DevSkill.Inventory.Application.Services;
-using DevSkill.Inventory.Application.Features.Products.Commands;
+using DevSkill.Inventory.Domain.Utilities;
+using DevSkill.Inventory.Infrastructure;
+using DevSkill.Inventory.Infrastructure.Repositories;
+using DevSkill.Inventory.Web.Data;
+using DevSkill.Inventory.Web.Models;
+using MediatR;
+using System.Reflection;
 
 namespace DevSkill.Inventory.Web
 {
@@ -35,7 +46,7 @@ namespace DevSkill.Inventory.Web
 
 
             builder.RegisterType<ApplicationUnitOfWork>().As<IApplicationUnitOfWork>()
-                .InstancePerLifetimeScope();
+                 .InstancePerLifetimeScope();
 
             builder.RegisterType<ProductRepository>().As<IProductRepository>()
                 .InstancePerLifetimeScope();
@@ -45,6 +56,23 @@ namespace DevSkill.Inventory.Web
 
                
             builder.RegisterType<ProductAddCommand>().AsSelf();
+
+
+
+
+            builder.RegisterType<CustomerRepository>().As<ICustomerRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<PurchaseRepository>().As<IPurchaseRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<SaleRepository>().As<ISaleRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<SalesReturnRepository>().As<ISalesReturnRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<PurchaseReturnRepository>().As<IPurchaseReturnRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<ServiceRepository>().As<IServiceRepository>().InstancePerLifetimeScope();
+
+            builder.RegisterType<GetCustomersSPQueryHandler>().As<IRequestHandler<GetCustomersSPQuery, (IList<Customer>, int, int)>>().InstancePerLifetimeScope();
+            builder.RegisterType<GetPurchasesSPQueryHandler>().As<IRequestHandler<GetPurchasesSPQuery, (IList<Purchase>, int, int)>>().InstancePerLifetimeScope();
+            builder.RegisterType<GetSalesSPQueryHandler>().As<IRequestHandler<GetSalesSPQuery, (IList<Sale>, int, int)>>().InstancePerLifetimeScope();
+            builder.RegisterType<GetSalesReturnsSPQueryHandler>().As<IRequestHandler<GetSalesReturnsSPQuery, (IList<SalesReturn>, int, int)>>().InstancePerLifetimeScope();
+            builder.RegisterType<GetPurchaseReturnsSPQueryHandler>().As<IRequestHandler<GetPurchaseReturnsSPQuery, (IList<PurchaseReturn>, int, int)>>().InstancePerLifetimeScope();
+            builder.RegisterType<GetServicesSPQueryHandler>().As<IRequestHandler<GetServicesSPQuery, (IList<Service>, int, int)>>().InstancePerLifetimeScope();
 
 
 

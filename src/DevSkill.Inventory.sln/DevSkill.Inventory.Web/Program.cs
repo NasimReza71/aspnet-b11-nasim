@@ -24,7 +24,7 @@ Log.Logger = new LoggerConfiguration()
 try
 {
     Log.Information("Application Starting...17-jan");
-    Log.Information("This is Nasim Reza Reyad");
+    Log.Information("This is Nasim Reza Hridoy");
     Log.Debug("Debug level log for testing");
     Log.Error("An error occurred while starting the application.");
 

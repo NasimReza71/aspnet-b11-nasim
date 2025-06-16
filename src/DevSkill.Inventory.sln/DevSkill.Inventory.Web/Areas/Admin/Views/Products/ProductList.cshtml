@@ -7,6 +7,21 @@
 {
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        .dt-button {
+            background-color: #007bff !important;
+            color: white !important;
+            border: 1px solid #007bff !important;
+            transition: all 0.3s ease;
+        }
+
+            .dt-button:hover {
+                background-color: white !important;
+                color: #007bff !important;
+            }
+    </style>
    
 }
 
@@ -104,9 +119,28 @@
                     topStart: 'buttons', // Buttons on the Left
                     topEnd: 'search',    // Search Bar on the Right
                 },
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ],
+                   buttons: [
+            {
+                extend: 'copy',
+                text: '<i class="fas fa-copy"></i> Copy'
+            },
+            {
+                extend: 'excel',
+                text: '<i class="fas fa-file-excel"></i> Excel'
+            },
+            {
+                extend: 'csv',
+                text: '<i class="fas fa-file-csv"></i> CSV'
+            },
+            {
+                extend: 'pdf',
+                text: '<i class="fas fa-file-pdf"></i> PDF'
+            },
+            {
+                extend: 'print',
+                text: '<i class="fas fa-print"></i> Print'
+            }
+        ],
                 ajax: {
                     url: "/Admin/Products/GetProductsJsonData",
                     type: "POST",

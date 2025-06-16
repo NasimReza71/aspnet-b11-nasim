@@ -154,5 +154,55 @@ namespace DevSkill.Inventory.Infrastructure
         }
 
 
+        public IPurchaseReturnRepository PurchaseReturnRepository { get; private set; }
+
+       
+
+        public async Task<(IList<PurchaseReturn>, int, int)> GetPurchaseReturnsSP(int pageIndex, int pageSize, string? order, PurchaseReturnSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<PurchaseReturn>("GetPurchaseReturns",
+                new Dictionary<string, object>
+                {
+                    {"PageIndex", pageIndex},
+                    {"PageSize", pageSize},
+                    {"OrderBy", order},
+                    {"ReturnInvoice", search.ReturnInvoice},
+                    {"Supplier", search.Supplier},
+                    {"Quantity", search.Quantity},
+                    {"TotalPrice", search.TotalPrice}
+                },
+                new Dictionary<string, Type>
+                {
+                    {"Total", typeof(int)},
+                    {"TotalDisplay", typeof(int)}
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+        public IServiceRepository ServiceRepository { get; private set; }
+
+        public async Task<(IList<Service>, int, int)> GetServicesSP(int pageIndex, int pageSize, string? orderBy, ServiceSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<Service>("GetServices",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "Code", search.Code },
+            { "ServiceName", search.ServiceName },
+            { "Price", search.Price },
+            { "Details", search.Details }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
     }
 }
