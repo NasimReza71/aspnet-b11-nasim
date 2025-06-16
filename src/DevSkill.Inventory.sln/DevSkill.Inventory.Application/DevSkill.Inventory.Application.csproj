@@ -14,4 +14,9 @@
     <PackageReference Include="MediatR" Version="12.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\SalesReturns\Commands\" />
+    <Folder Include="Features\Sales\Commands\" />
+  </ItemGroup>
+
 </Project>

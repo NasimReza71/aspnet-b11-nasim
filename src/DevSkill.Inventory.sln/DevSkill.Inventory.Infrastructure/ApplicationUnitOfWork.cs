@@ -100,5 +100,59 @@ namespace DevSkill.Inventory.Infrastructure
 
 
 
+        public ISaleRepository SaleRepository { get; private set; }
+
+        public async Task<(IList<Sale>, int, int)> GetSalesSP(int pageIndex, int pageSize, string orderBy, SaleSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<Sale>("GetSales",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "InvoiceNumber", search.InvoiceNumber },
+            { "CustomerName", search.CustomerName },
+            { "CustomerMobile", search.CustomerMobile },
+            { "Total", search.Total },
+            { "Paid", search.Paid },
+            { "Due", search.Due }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
+        public ISalesReturnRepository SalesReturnRepository { get; }
+
+        public async Task<(IList<SalesReturn>, int, int)> GetSalesReturnsSP(int pageIndex, int pageSize, string? order, SalesReturnSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<SalesReturn>("GetSalesReturns",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", order },
+            { "ReturnInvoice", search.ReturnInvoice },
+            { "Customer", search.Customer },
+            { "Mobile", search.Mobile },
+            { "Total", search.Total },
+            { "Charge", search.Charge },
+            { "Paid", search.Paid },
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
     }
 }

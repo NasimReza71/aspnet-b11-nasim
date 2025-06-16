@@ -5,6 +5,7 @@ using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
 using DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.PurchaseModels;
+using DevSkill.Inventory.Web.Areas.Admin.Models.SalesModels;
 
 namespace DevSkill.Inventory.Web
 {
@@ -19,6 +20,8 @@ namespace DevSkill.Inventory.Web
             CreateMap<ProductSearchModel, ProductSearchDto>();
             CreateMap<CustomerSearchModel, CustomerSearchDto>();
             CreateMap<PurchaseSearchModel, PurchaseSearchDto>();
+            CreateMap<SalesReturnSearchModel, SalesReturnSearchDto>();
+
 
 
 

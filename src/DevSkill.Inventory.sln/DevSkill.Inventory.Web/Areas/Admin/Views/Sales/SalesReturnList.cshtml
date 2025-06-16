@@ -1,0 +1,140 @@
+﻿@using DevSkill.Inventory.Web.Areas.Admin.Models.SalesModels
+@model SalesReturnListModel
+
+@{
+    ViewData["Title"] = "SalesReturnList";
+}
+
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css">
+}
+
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Sales Return List</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Sales Returns</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="app-content">
+    <div class="container-fluid">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header"><h3 class="card-title"><i class="fas fa-search mr-1"></i>Search Sales Return</h3></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Return Invoice</label>
+                            <input type="text" asp-for="SearchItem.ReturnInvoice" class="form-control" />
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Customer</label>
+                            <input type="text" asp-for="SearchItem.Customer" class="form-control" />
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Mobile</label>
+                            <input type="text" asp-for="SearchItem.Mobile" class="form-control" />
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Total</label>
+                            <input type="number" asp-for="SearchItem.Total" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button id="searchButton" type="submit" class="btn btn-primary float-right">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"><h3 class="card-title">Returned Sales</h3></div>
+                    <div class="card-body">
+                        <table id="salesReturns" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#SN.</th>
+                                    <th>Date</th>
+                                    <th>R-Inv. No.</th>
+                                    <th>Customer</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Charge</th>
+                                    <th>Paid</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>#SN.</th>
+                                    <th>Date</th>
+                                    <th>R-Inv. No.</th>
+                                    <th>Customer</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th>Charge</th>
+                                    <th>Paid</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <script>
+        $(function () {
+            let table = $("#salesReturns").DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                ajax: {
+                    url: "/Admin/Sales/GetSalesReturnsJsonData",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: function (d) {
+                        d.SearchItem = {
+                            ReturnInvoice: $("#SearchItem_ReturnInvoice").val(),
+                            Customer: $("#SearchItem_Customer").val(),
+                            Mobile: $("#SearchItem_Mobile").val(),
+                            Total: $("#SearchItem_Total").val() === "" ? null : $("#SearchItem_Total").val()
+                        };
+                        return JSON.stringify(d);
+                    }
+                },
+                columnDefs: [
+                    {
+                        orderable: false,
+                        targets: 8,
+                        render: function (data) {
+                            return `<a class="btn btn-info btn-sm">View</a>
+                                    <a class="btn btn-danger btn-sm">Delete</a>`;
+                        }
+                    }
+                ]
+            });
+
+            $("#searchButton").click(function () {
+                table.ajax.reload(null, false);
+            });
+        });
+    </script>
+}
+

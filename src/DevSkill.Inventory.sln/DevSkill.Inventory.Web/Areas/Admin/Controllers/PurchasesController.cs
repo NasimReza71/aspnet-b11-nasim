@@ -34,6 +34,8 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
+
+
         [HttpPost]
         public async Task<JsonResult> GetPurchasesJsonData([FromBody] PurchaseListModel model)
         {
