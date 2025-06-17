@@ -57,31 +57,31 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" asp-for="SearchItem.Name" class="form-control" />
+                                <input type="text" asp-for="SearchItem.Name" class="form-control" id="SearchItem_Name" />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Mobile</label>
-                                <input type="text" asp-for="SearchItem.Mobile" class="form-control" />
+                                <input type="text" asp-for="SearchItem.Mobile" class="form-control" id="SearchItem_Mobile" />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Address</label>
-                                <input type="text" asp-for="SearchItem.Address" class="form-control" />
+                                <input type="text" asp-for="SearchItem.Address" class="form-control" id="SearchItem_Address" />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Current Balance</label>
-                                <input type="number" asp-for="SearchItem.CurrentBalance" class="form-control" />
+                                <input type="number" asp-for="SearchItem.CurrentBalance" class="form-control" id="SearchItem_CurrentBalance" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button id="searchButton" type="submit" class="btn btn-primary float-right">Search</button>
+                    <button id="searchButton" type="button" class="btn btn-primary float-right">Search</button>
                 </div>
             </div>
         </div>
@@ -152,28 +152,13 @@
                     topStart: 'buttons',
                     topEnd: 'search'
                 },
-                    buttons: [
-            {
-                extend: 'copy',
-                text: '<i class="fas fa-copy"></i> Copy'
-            },
-            {
-                extend: 'excel',
-                text: '<i class="fas fa-file-excel"></i> Excel'
-            },
-            {
-                extend: 'csv',
-                text: '<i class="fas fa-file-csv"></i> CSV'
-            },
-            {
-                extend: 'pdf',
-                text: '<i class="fas fa-file-pdf"></i> PDF'
-            },
-            {
-                extend: 'print',
-                text: '<i class="fas fa-print"></i> Print'
-            }
-        ],
+                buttons: [
+                    { extend: 'copy', text: '<i class="fas fa-copy"></i> Copy' },
+                    { extend: 'excel', text: '<i class="fas fa-file-excel"></i> Excel' },
+                    { extend: 'csv', text: '<i class="fas fa-file-csv"></i> CSV' },
+                    { extend: 'pdf', text: '<i class="fas fa-file-pdf"></i> PDF' },
+                    { extend: 'print', text: '<i class="fas fa-print"></i> Print' }
+                ],
                 ajax: {
                     url: "/Admin/Customers/GetCustomersJsonData",
                     type: "POST",
@@ -197,13 +182,22 @@
                         }
                     },
                     {
-                        targets: 8,
+                        targets: 8, // Actions column
                         orderable: false,
                         render: function (data, type, row) {
                             return `
-                                <button class='btn btn-success btn-sm'><i class='fas fa-eye'></i></button>
-                                <button class='btn btn-info btn-sm'><i class='fas fa-edit'></i></button>
-                                <button class='btn btn-danger btn-sm show-bs-modal' data-id='${data}'><i class='fas fa-trash'></i></button>`;
+                                <button class='btn btn-primary btn-sm' title='Customer View' onclick="window.location.href='/Admin/Customers/ViewCustomer/${data}'">
+                                    <i class='fas fa-user'></i>
+                                </button>
+                                <button class='btn btn-success btn-sm' title='Customer Ledger'>
+                                    <i class='fas fa-file-invoice'></i>
+                                </button>
+                                <button class='btn btn-info btn-sm' title='Customer Edit' onclick="window.location.href='/Admin/Customers/Update/${data}'">
+                                    <i class='fas fa-edit'></i>
+                                </button>
+                                <button class='btn btn-danger btn-sm show-bs-modal' title='Customer Delete' data-id='${data}'>
+                                    <i class='fas fa-trash'></i>
+                                </button>`;
                         }
                     }
                 ]

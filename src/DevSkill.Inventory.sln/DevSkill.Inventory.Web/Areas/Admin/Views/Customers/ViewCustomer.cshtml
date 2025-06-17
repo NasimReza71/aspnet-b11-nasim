@@ -1,0 +1,54 @@
+﻿@model DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels.CustomerDetailViewModel
+
+@{
+    ViewData["Title"] = "Customer View";
+}
+
+<div class="container-fluid">
+    <div class="card shadow p-4">
+        <h3 class="mb-4 text-primary">Customer Details</h3>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <img src="/images/avatar.png" class="img-fluid rounded-circle border border-secondary" style="max-width: 150px;" alt="Customer Avatar" />
+                <h5 class="mt-3 font-weight-bold">@Model.Name</h5>
+                <span class="badge badge-@((Model.Status == "Active") ? "success" : "secondary")">@Model.Status</span>
+            </div>
+            <div class="col-md-9">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <th style="width: 200px;">Customer Code</th>
+                            <td>@Model.CustomerCode</td>
+                        </tr>
+                        <tr>
+                            <th>Mobile</th>
+                            <td>@Model.Mobile</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>@Model.Email</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>@Model.Address</td>
+                        </tr>
+                        <tr>
+                            <th>Opening Balance</th>
+                            <td>@Model.CurrentBalance.ToString("N2")</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>@Model.Status</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a href="/Admin/Customers/CustomerList" class="btn btn-warning">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>

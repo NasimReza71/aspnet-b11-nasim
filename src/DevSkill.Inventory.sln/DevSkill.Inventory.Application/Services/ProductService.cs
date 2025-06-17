@@ -64,10 +64,6 @@ namespace DevSkill.Inventory.Application.Services
         }
 
 
-        //public List<Product> GetLatestProduct()
-        //{
-        //    var latestProduct = _applicationUnitOfWork1.ProductRepository.GetLatestProduct();
-        //    return latestProduct;
-        //}
+        
     }
 }

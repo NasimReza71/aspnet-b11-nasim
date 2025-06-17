@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Customers.Queries;
-using DevSkill.Inventory.Application.Features.Products.Queries;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
+using DevSkill.Inventory.Infrastructure;
+using DevSkill.Inventory.Web.Areas.Admin.Models;
 using DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -25,17 +27,19 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult CustomerList()
         {
             return View();
         }
 
+        public async Task<IActionResult> ViewCustomer(Guid id)
+        {
+            var customer = await _mediator.Send(new GetCustomerByIdQuery { Id = id });
+            if (customer == null) return NotFound();
 
+            var viewModel = _mapper.Map<CustomerDetailViewModel>(customer);
+            return View(viewModel);
+        }
 
         [HttpPost]
         public async Task<JsonResult> GetCustomersJsonData([FromBody] CustomerListModel model)
@@ -48,12 +52,11 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 {
                     PageIndex = model.PageIndex,
                     PageSize = model.PageSize,
-                    SortExpression = model.FormatSortExpression("Name", "Mobile", "Address", "Email", "CurrentBalance"),
+                    SortExpression = model.FormatSortExpression("CustomerCode", "Name", "Mobile", "Address", "Email", "CurrentBalance"),
                     SearchItem = searchDto
                 };
 
-                (IList<Customer> data, int total, int totalDisplay) = await _mediator.Send(query); 
-
+                var (data, total, totalDisplay) = await _mediator.Send(query);
 
                 var result = new
                 {
@@ -61,14 +64,14 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     recordsFiltered = totalDisplay,
                     data = data.Select(c => new string[]
                     {
-                    c.CustomerCode,
-                    HttpUtility.HtmlEncode(c.Name),
-                    HttpUtility.HtmlEncode(c.Mobile),
-                    HttpUtility.HtmlEncode(c.Address),
-                    HttpUtility.HtmlEncode(c.Email),
-                    c.CurrentBalance.ToString("N2"),
-                    c.IsActive ? "Active" : "Inactive",
-                    c.Id.ToString()
+                        HttpUtility.HtmlEncode(c.CustomerCode),
+                        HttpUtility.HtmlEncode(c.Name),
+                        HttpUtility.HtmlEncode(c.Mobile),
+                        HttpUtility.HtmlEncode(c.Address),
+                        HttpUtility.HtmlEncode(c.Email),
+                        c.CurrentBalance.ToString("N2"),
+                        c.IsActive ? "Active" : "Inactive",
+                        c.Id.ToString()
                     }).ToArray()
                 };
 
@@ -80,6 +83,29 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 return Json(DataTables.EmptyResult);
             }
         }
-    }
 
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+                await _mediator.Send(new CustomerDeleteCommand { Id = id });
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Customer deleted",
+                    Type = ResponseTypes.Success
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to delete customer");
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Failed to delete customer",
+                    Type = ResponseTypes.Danger
+                });
+            }
+            return RedirectToAction("CustomerList");
+        }
+    }
 }

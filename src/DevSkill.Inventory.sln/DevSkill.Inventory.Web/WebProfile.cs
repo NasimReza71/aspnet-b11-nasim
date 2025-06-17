@@ -27,6 +27,8 @@ namespace DevSkill.Inventory.Web
             CreateMap<PurchaseSearchModel, PurchaseSearchDto>();
             CreateMap<SalesReturnSearchModel, SalesReturnSearchDto>();
             CreateMap<CustomerSearchModel, CustomerSearchDto>();
+            CreateMap<Customer, CustomerDetailViewModel>();
+
 
 
 

@@ -15,9 +15,16 @@ namespace DevSkill.Inventory.Infrastructure
 {
     public class ApplicationUnitOfWork : UnitOfWork, IApplicationUnitOfWork
     {
-        public ApplicationUnitOfWork(ApplicationDbContext context, IProductRepository productRepository) : base(context)
+        public ApplicationUnitOfWork(ApplicationDbContext context, IProductRepository productRepository,
+             ICustomerRepository customerRepository
+
+
+
+
+            ) : base(context)
         {
             ProductRepository = productRepository;
+            CustomerRepository = customerRepository;
         }
 
         public IProductRepository ProductRepository { get; private set; }
