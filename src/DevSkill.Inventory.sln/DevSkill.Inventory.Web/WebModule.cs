@@ -58,8 +58,6 @@ namespace DevSkill.Inventory.Web
             builder.RegisterType<ProductAddCommand>().AsSelf();
 
 
-
-
             builder.RegisterType<CustomerRepository>().As<ICustomerRepository>().InstancePerLifetimeScope();
             builder.RegisterType<PurchaseRepository>().As<IPurchaseRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SaleRepository>().As<ISaleRepository>().InstancePerLifetimeScope();
