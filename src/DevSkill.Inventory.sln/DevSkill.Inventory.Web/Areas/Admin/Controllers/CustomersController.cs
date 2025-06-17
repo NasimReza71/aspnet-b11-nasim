@@ -52,7 +52,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 {
                     PageIndex = model.PageIndex,
                     PageSize = model.PageSize,
-                    SortExpression = model.FormatSortExpression("CustomerCode", "Name", "Mobile", "Address", "Email", "CurrentBalance"),
+                    SortExpression = model.FormatSortExpression("Name", "Mobile", "Address", "Email", "CurrentBalance"),
                     SearchItem = searchDto
                 };
 
@@ -64,15 +64,17 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     recordsFiltered = totalDisplay,
                     data = data.Select(c => new string[]
                     {
+
+                        HttpUtility.HtmlEncode(c.Id),
                         HttpUtility.HtmlEncode(c.CustomerCode),
                         HttpUtility.HtmlEncode(c.Name),
                         HttpUtility.HtmlEncode(c.Mobile),
                         HttpUtility.HtmlEncode(c.Address),
                         HttpUtility.HtmlEncode(c.Email),
                         c.CurrentBalance.ToString("N2"),
-                        c.IsActive ? "Active" : "Inactive",
+                        c.IsActive ? "Active" : "Inactive", // This is correct
                         c.Id.ToString()
-                    }).ToArray()
+                        }).ToArray()
                 };
 
                 return Json(result);

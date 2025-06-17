@@ -26,22 +26,45 @@
     </style>
 }
 
+<!-- Content Header -->
 <div class="app-content-header">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6"><h3 class="mb-0">Customer List</h3></div>
+            <!-- Title -->
             <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-end">
+                <h3 class="mb-0">Customer List</h3>
+            </div>
+            <!-- Breadcrumb -->
+            <div class="col-sm-6 text-end">
+                <ol class="breadcrumb float-sm-end mb-2">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Customers</li>
                 </ol>
             </div>
         </div>
+
+        <!-- Buttons BELOW the row -->
+        <div class="row">
+            <div class="col-sm-12 text-end mt-2">
+                <a href="/Admin/Customers/Import" class="btn btn-success btn-sm me-2">
+                    <i class="fas fa-file-import"></i> Import
+                </a>
+                <a href="/Admin/Customers/Add" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> New Customer
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
+
+
+
+
+<!-- Search & Data Table -->
 <div class="app-content">
     <div class="container-fluid">
+        <!-- Search Card -->
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -86,6 +109,8 @@
             </div>
         </div>
 
+      
+        <!-- Data Table -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -97,7 +122,7 @@
                             <thead>
                                 <tr>
                                     <th>#SL</th>
-                                    <th>ID</th>
+                                    <th>Customer Code</th>
                                     <th>Name</th>
                                     <th>Mobile</th>
                                     <th>Address</th>
@@ -111,7 +136,7 @@
                             <tfoot>
                                 <tr>
                                     <th>#SL</th>
-                                    <th>ID</th>
+                                    <th>Customer Code</th>
                                     <th>Name</th>
                                     <th>Mobile</th>
                                     <th>Address</th>
@@ -119,7 +144,7 @@
                                     <th>Current Balance</th>
                                     <th>Status</th>
                                     <th>Actions</th>
-                                </tr>
+                                 </tr>
                             </tfoot>
                         </table>
                     </div>
@@ -139,6 +164,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+
     <script>
         $(function () {
             var table = $("#customers").DataTable({
@@ -186,16 +212,16 @@
                         orderable: false,
                         render: function (data, type, row) {
                             return `
-                                <button class='btn btn-primary btn-sm' title='Customer View' onclick="window.location.href='/Admin/Customers/ViewCustomer/${data}'">
-                                    <i class='fas fa-user'></i>
+                                <button class='btn btn-success btn-sm' title='Ledger' onclick="window.location.href='/Admin/Customers/Ledger/${data}'">
+                                <i class='fas fa-file-invoice'></i>
                                 </button>
-                                <button class='btn btn-success btn-sm' title='Customer Ledger'>
-                                    <i class='fas fa-file-invoice'></i>
+                                <button class='btn btn-primary btn-sm' title='View' onclick="window.location.href='/Admin/Customers/ViewCustomer/${data}'">
+                                    <i class='fas fa-eye'></i>
                                 </button>
-                                <button class='btn btn-info btn-sm' title='Customer Edit' onclick="window.location.href='/Admin/Customers/Update/${data}'">
+                                <button class='btn btn-info btn-sm' title='Edit' onclick="window.location.href='/Admin/Customers/Update/${data}'">
                                     <i class='fas fa-edit'></i>
                                 </button>
-                                <button class='btn btn-danger btn-sm show-bs-modal' title='Customer Delete' data-id='${data}'>
+                                <button class='btn btn-danger btn-sm show-bs-modal' title='Delete' data-id='${data}'>
                                     <i class='fas fa-trash'></i>
                                 </button>`;
                         }

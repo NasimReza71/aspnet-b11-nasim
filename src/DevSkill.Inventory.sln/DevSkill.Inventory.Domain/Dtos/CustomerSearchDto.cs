@@ -15,6 +15,4 @@ namespace DevSkill.Inventory.Domain.Dtos
         public decimal? CurrentBalance { get; set; }
     }
 
-
-
 }
