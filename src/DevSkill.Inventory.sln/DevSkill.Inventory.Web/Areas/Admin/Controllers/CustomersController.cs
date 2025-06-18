@@ -62,6 +62,42 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var customer = await _mediator.Send(new GetCustomerByIdQuery { Id = id });
+            if (customer == null) return NotFound();
+
+            var model = _mapper.Map<CustomerUpdateViewModel>(customer);
+            return PartialView("_ModalEditCustomerPartial", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(CustomerUpdateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var command = _mapper.Map<CustomerUpdateCommand>(model);
+                await _mediator.Send(command);
+
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Customer updated successfully",
+                    Type = ResponseTypes.Success
+                });
+
+                return RedirectToAction("CustomerList");
+            }
+
+            TempData.Put("ResponseMessage", new ResponseModel
+            {
+                Message = "Failed to update customer",
+                Type = ResponseTypes.Danger
+            });
+
+            return PartialView("_ModalEditCustomerPartial", model);
+        }
 
 
         public IActionResult CustomerList()
@@ -109,7 +145,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                         HttpUtility.HtmlEncode(c.Address),
                         HttpUtility.HtmlEncode(c.Email),
                         c.CurrentBalance.ToString("N2"),
-                        c.IsActive ? "Active" : "Inactive", // This is correct
+                        c.IsActive ? "Active" : "Inactive", 
                         c.Id.ToString()
                         }).ToArray()
                 };

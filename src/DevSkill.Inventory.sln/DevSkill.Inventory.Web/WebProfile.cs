@@ -30,6 +30,8 @@ namespace DevSkill.Inventory.Web
             CreateMap<CustomerSearchModel, CustomerSearchDto>();
             CreateMap<Customer, CustomerDetailViewModel>();
             CreateMap<CustomerAddViewModel, CustomerAddCommand>();
+            CreateMap<CustomerUpdateViewModel, CustomerUpdateCommand>();
+            CreateMap<Customer, CustomerUpdateViewModel>();
 
 
 

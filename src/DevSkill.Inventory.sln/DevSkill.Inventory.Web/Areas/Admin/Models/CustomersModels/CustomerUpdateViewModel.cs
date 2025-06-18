@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DevSkill.Inventory.Domain.Entities
+﻿namespace DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels
 {
-    public class Customer : IEntity<Guid>
+    public class CustomerUpdateViewModel
     {
         public Guid Id { get; set; }
         public string CustomerCode { get; set; }
@@ -16,8 +10,6 @@ namespace DevSkill.Inventory.Domain.Entities
         public string Email { get; set; }
         public decimal CurrentBalance { get; set; }
         public string Status { get; set; }
-        public bool IsActive => Status == "Active";
-        
+        public IFormFile? CustomerImage { get; set; }
     }
-
 }

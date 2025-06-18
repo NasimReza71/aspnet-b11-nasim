@@ -18,20 +18,24 @@ namespace DevSkill.Inventory.Application.Features.Customers.Commands
 
         public async Task Handle(CustomerUpdateCommand request, CancellationToken cancellationToken)
         {
-            if (_unitOfWork.CustomerRepository.IsEmailDuplicate(request.Email, request.Id))
-                throw new DuplicateCustomerEmailException();
-
             var customer = await _unitOfWork.CustomerRepository.GetByIdAsync(request.Id);
 
             if (customer == null)
                 throw new Exception("Customer not found");
 
+            customer.CustomerCode = request.CustomerCode;
             customer.Name = request.Name;
             customer.Mobile = request.Mobile;
             customer.Address = request.Address;
             customer.Email = request.Email;
+            customer.CurrentBalance = request.CurrentBalance;
+            customer.Status = request.Status;
+            
 
+            _unitOfWork.CustomerRepository.Update(customer);
             await _unitOfWork.SaveAsync();
+
+            
         }
     }
 }

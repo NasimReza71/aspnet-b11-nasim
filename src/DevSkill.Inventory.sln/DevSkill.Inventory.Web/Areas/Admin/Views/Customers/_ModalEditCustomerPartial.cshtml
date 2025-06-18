@@ -1,0 +1,61 @@
+﻿@model DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels.CustomerUpdateViewModel
+
+<form asp-action="Edit" asp-controller="Customers" asp-area="Admin" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+
+    <div class="modal-header">
+        <h5 class="modal-title">Edit Customer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="CustomerCode" class="form-label">Customer Code</label>
+            <input asp-for="CustomerCode" class="form-control" placeholder="Enter customer code" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Name" class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" placeholder="Enter name" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Mobile" class="form-label">Mobile</label>
+            <input asp-for="Mobile" class="form-control" placeholder="Enter mobile number" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Address" class="form-label">Address</label>
+            <input asp-for="Address" class="form-control" placeholder="Enter address" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" placeholder="Enter email" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="CurrentBalance" class="form-label">Current Balance</label>
+            <input asp-for="CurrentBalance" class="form-control" placeholder="Enter balance" />
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="Status" class="form-label">Status</label>
+            <select asp-for="Status" class="form-select">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label asp-for="CustomerImage" class="form-label">Customer Image</label>
+            <input asp-for="CustomerImage" type="file" class="form-control" />
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Update</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+    </div>
+</form>
