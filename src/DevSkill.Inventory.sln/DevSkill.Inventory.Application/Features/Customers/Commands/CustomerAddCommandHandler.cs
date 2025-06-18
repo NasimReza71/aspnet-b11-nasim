@@ -18,18 +18,19 @@ namespace DevSkill.Inventory.Application.Features.Customers.Commands
 
         public async Task Handle(CustomerAddCommand request, CancellationToken cancellationToken)
         {
-            if (_unitOfWork.CustomerRepository.IsEmailDuplicate(request.Email))
-                throw new DuplicateCustomerEmailException();
-
-            await _unitOfWork.CustomerRepository.AddAsync(new Customer
+            var customer = new Customer
             {
+                Id = Guid.NewGuid(),
+                CustomerCode = request.CustomerCode,
                 Name = request.Name,
                 Mobile = request.Mobile,
                 Address = request.Address,
                 Email = request.Email,
-                Status = "Active"
-            });
+                CurrentBalance = request.CurrentBalance,
+                Status = request.Status
+            };
 
+            await _unitOfWork.CustomerRepository.AddAsync(customer);
             await _unitOfWork.SaveAsync();
         }
     }

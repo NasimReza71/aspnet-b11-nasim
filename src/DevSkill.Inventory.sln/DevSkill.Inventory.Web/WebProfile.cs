@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
@@ -28,6 +29,8 @@ namespace DevSkill.Inventory.Web
             CreateMap<SalesReturnSearchModel, SalesReturnSearchDto>();
             CreateMap<CustomerSearchModel, CustomerSearchDto>();
             CreateMap<Customer, CustomerDetailViewModel>();
+            CreateMap<CustomerAddViewModel, CustomerAddCommand>();
+
 
 
 

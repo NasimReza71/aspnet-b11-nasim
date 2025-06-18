@@ -27,6 +27,43 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             _logger = logger;
         }
 
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return PartialView("_ModalNewCustomerPartial", new CustomerAddViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(CustomerAddViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var command = _mapper.Map<CustomerAddCommand>(model);
+                await _mediator.Send(command);
+
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Customer added successfully",
+                    Type = ResponseTypes.Success
+                });
+
+                return RedirectToAction("CustomerList");
+            }
+
+            TempData.Put("ResponseMessage", new ResponseModel
+            {
+                Message = "Failed to add customer",
+                Type = ResponseTypes.Danger
+            });
+
+            return PartialView("_ModalNewCustomerPartial", model);
+        }
+
+
+
+
         public IActionResult CustomerList()
         {
             return View();

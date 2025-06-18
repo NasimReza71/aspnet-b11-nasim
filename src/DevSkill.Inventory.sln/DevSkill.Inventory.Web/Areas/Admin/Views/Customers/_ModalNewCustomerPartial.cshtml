@@ -1,0 +1,67 @@
+﻿@model DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels.CustomerAddViewModel
+
+<div class="modal fade" id="modal-new-customer" tabindex="-1" role="dialog" aria-labelledby="newCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form asp-action="Add" asp-controller="Customers" asp-area="Admin" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newCustomerModalLabel">New Customer Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body row">
+                    <!-- Feedback Message -->
+                    <div class="col-12 mb-2">
+                        <partial name="_ResponsePartial" />
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label>Customer Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="Customer Name" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Company Name</label>
+                        <input asp-for="CustomerCode" class="form-control" placeholder="Company Name" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Mobile Number *</label>
+                        <input asp-for="Mobile" class="form-control" placeholder="Mobile Number *" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address</label>
+                        <input asp-for="Address" class="form-control" placeholder="Address" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Email</label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="example@sunshine.com" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Opening Balance</label>
+                        <input asp-for="CurrentBalance" class="form-control" placeholder="Opening Balance" />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Status</label>
+                        <select asp-for="Status" class="form-control">
+                            <option value="">-- Select Status --</option>
+                            <option>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>Customer Image <small class="text-danger">( Maximum image size 500kb and png, jpg format )</small></label>
+                        <input asp-for="CustomerImage" type="file" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Submit
+                    </button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
