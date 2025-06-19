@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Application.Features.ServiceSales.Queries
 {
-    public class GetServiceSaleByIdQuery : IRequest<ServiceSale>
+    public class GetServiceSaleByIdQuery : IRequest<ServiceSaleDto>
     {
         public Guid Id { get; set; }
     }

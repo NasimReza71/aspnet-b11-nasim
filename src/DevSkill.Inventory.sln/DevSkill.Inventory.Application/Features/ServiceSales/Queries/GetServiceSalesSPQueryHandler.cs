@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Application.Features.ServiceSales.Queries
 {
-    public class GetServiceSalesSPQueryHandler : IRequestHandler<GetServiceSalesSPQuery, (IList<ServiceSale>, int, int)>
+    public class GetServiceSalesSPQueryHandler : IRequestHandler<GetServiceSalesSPQuery, (IList<ServiceSaleDto>, int, int)>
+
     {
         private readonly IApplicationUnitOfWork _unitOfWork;
 
@@ -19,7 +20,7 @@ namespace DevSkill.Inventory.Application.Features.ServiceSales.Queries
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<(IList<ServiceSale>, int, int)> Handle(GetServiceSalesSPQuery request, CancellationToken cancellationToken)
+        public async Task<(IList<ServiceSaleDto>, int, int)> Handle(GetServiceSalesSPQuery request, CancellationToken cancellationToken)
         {
             return await _unitOfWork.GetServiceSalesSP(
                 request.PageIndex,
@@ -28,5 +29,6 @@ namespace DevSkill.Inventory.Application.Features.ServiceSales.Queries
                 request.SearchItem
             );
         }
+
     }
 }

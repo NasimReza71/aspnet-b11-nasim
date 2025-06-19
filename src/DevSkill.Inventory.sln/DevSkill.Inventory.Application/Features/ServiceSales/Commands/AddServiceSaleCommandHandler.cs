@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Application.Features.ServiceSales.Commands
 {
-    public class AddServiceSaleCommandHandler : IRequestHandler<AddServiceSaleCommand>
+    public class AddServiceSaleCommandHandler : IRequestHandler<AddServiceSaleCommand, Guid>
+
     {
         private readonly IApplicationUnitOfWork _unitOfWork;
 
@@ -18,7 +19,7 @@ namespace DevSkill.Inventory.Application.Features.ServiceSales.Commands
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Handle(AddServiceSaleCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AddServiceSaleCommand request, CancellationToken cancellationToken)
         {
             var entity = new ServiceSale
             {
@@ -33,7 +34,10 @@ namespace DevSkill.Inventory.Application.Features.ServiceSales.Commands
 
             await _unitOfWork.ServiceSaleRepository.AddAsync(entity);
             await _unitOfWork.SaveAsync();
+
+            return entity.Id;
         }
+
     }
 
 }

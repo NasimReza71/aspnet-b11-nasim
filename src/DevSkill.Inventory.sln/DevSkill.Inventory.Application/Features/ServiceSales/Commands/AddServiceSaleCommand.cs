@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Application.Features.ServiceSales.Commands
 {
-    public class AddServiceSaleCommand : IRequest
+    public class AddServiceSaleCommand : IRequest<Guid>
     {
         public string InvoiceNo { get; set; }
         public DateTime Date { get; set; }

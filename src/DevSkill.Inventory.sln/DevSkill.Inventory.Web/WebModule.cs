@@ -4,6 +4,7 @@ using DevSkill.Inventory.Application.Features.Customers.Queries;
 using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Application.Features.PurchaseReturns.Queries;
 using DevSkill.Inventory.Application.Features.Purchases.Queries;
+using DevSkill.Inventory.Application.Features.Quotations.Queries;
 using DevSkill.Inventory.Application.Features.Sales.Queries;
 using DevSkill.Inventory.Application.Features.SalesReturns.Queries;
 using DevSkill.Inventory.Application.Features.ServiceFeatures.Queries;
@@ -85,9 +86,11 @@ namespace DevSkill.Inventory.Web
             builder.RegisterType<GetPurchaseReturnsSPQueryHandler>().As<IRequestHandler<GetPurchaseReturnsSPQuery, (IList<PurchaseReturn>, int, int)>>().InstancePerLifetimeScope();
             builder.RegisterType<GetServicesSPQueryHandler>().As<IRequestHandler<GetServicesSPQuery, (IList<Service>, int, int)>>().InstancePerLifetimeScope();
 
+
+
             builder.RegisterType<AddServiceSaleCommandHandler>()
-                .As<IRequestHandler<AddServiceSaleCommand>>()
-                .InstancePerLifetimeScope();
+     .As<IRequestHandler<AddServiceSaleCommand, Guid>>()
+     .InstancePerLifetimeScope();
 
             builder.RegisterType<UpdateServiceSaleCommandHandler>()
                 .As<IRequestHandler<UpdateServiceSaleCommand>>()
@@ -98,13 +101,44 @@ namespace DevSkill.Inventory.Web
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<GetServiceSaleByIdQueryHandler>()
-                .As<IRequestHandler<GetServiceSaleByIdQuery, ServiceSale>>()
+                .As<IRequestHandler<GetServiceSaleByIdQuery, ServiceSaleDto>>()
                 .InstancePerLifetimeScope();
 
-            //builder.RegisterType<GetServiceSalesSPQueryHandler>()
-            //    .As<IRequestHandler<GetServiceSalesSPQuery, (IList<ServiceSaleDto>, int, int)>>()
+            builder.RegisterType<GetServiceSalesSPQueryHandler>()
+                .As<IRequestHandler<GetServiceSalesSPQuery, (IList<ServiceSaleDto>, int, int)>>()
+                .InstancePerLifetimeScope();
+
+
+
+
+
+
+
+
+
+
+
+            builder.RegisterType<QuotationRepository>().As<IQuotationRepository>().InstancePerLifetimeScope();
+
+            builder.RegisterType<GetQuotationsSPQueryHandler>()
+                .As<IRequestHandler<GetQuotationsSPQuery, (IList<Quotation>, int, int)>>()
+                .InstancePerLifetimeScope();
+
+            //builder.RegisterType<AddQuotationCommandHandler>()
+            //    .As<IRequestHandler<AddQuotationCommand, Guid>>()
             //    .InstancePerLifetimeScope();
 
+            //builder.RegisterType<UpdateQuotationCommandHandler>()
+            //    .As<IRequestHandler<UpdateQuotationCommand>>()
+            //    .InstancePerLifetimeScope();
+
+            //builder.RegisterType<DeleteQuotationCommandHandler>()
+            //    .As<IRequestHandler<DeleteQuotationCommand>>()
+            //    .InstancePerLifetimeScope();
+
+            //builder.RegisterType<GetQuotationByIdQueryHandler>()
+            //    .As<IRequestHandler<GetQuotationByIdQuery, Quotation>>()
+            //    .InstancePerLifetimeScope();
 
             base.Load(builder); 
         }

@@ -13,8 +13,8 @@ namespace DevSkill.Inventory.Domain.Repositories
         (IList<ServiceSale> data, int total, int totalDisplay) GetPagedServiceSales(
            int pageIndex, int pageSize, string? order, DataTablesSearch search);
 
+        Task<ServiceSaleDto?> GetByIdAsDtoAsync(Guid id);
 
- 
     }
 
 }

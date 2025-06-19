@@ -16,12 +16,17 @@ namespace DevSkill.Inventory.Infrastructure
     public class ApplicationUnitOfWork : UnitOfWork, IApplicationUnitOfWork
     {
         public ApplicationUnitOfWork(ApplicationDbContext context, IProductRepository productRepository,
-             ICustomerRepository customerRepository
+             ICustomerRepository customerRepository,
+             ISaleRepository saleRepository,
+             IQuotationRepository quotationRepository
+
 
             ) : base(context)
         {
             ProductRepository = productRepository;
             CustomerRepository = customerRepository;
+            SaleRepository = saleRepository;
+            QuotationRepository = quotationRepository;
         }
 
         public IProductRepository ProductRepository { get; private set; }
@@ -210,20 +215,21 @@ namespace DevSkill.Inventory.Infrastructure
 
         public IServiceSaleRepository ServiceSaleRepository { get; private set; }
 
-        public async Task<(IList<ServiceSale> data, int total, int totalDisplay)> GetServiceSalesSP(int pageIndex, int pageSize, string? order, ServiceSaleSearchDto search)
+        public async Task<(IList<ServiceSaleDto>, int, int)> GetServiceSalesSP(int pageIndex, int pageSize, string? order, ServiceSaleSearchDto search)
         {
-            var result = await SqlUtility.QueryWithStoredProcedureAsync<ServiceSale>("GetServiceSales",
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<ServiceSaleDto>(
+                "GetServiceSales",
                 new Dictionary<string, object>
                 {
             { "PageIndex", pageIndex },
             { "PageSize", pageSize },
             { "OrderBy", order },
-            { "InvoiceNo", search.InvoiceNo },
-            { "ServiceName", search.ServiceName },
-            { "CustomerName", search.CustomerName },
-            { "Total", search.Total },
-            { "Paid", search.Paid },
-            { "Due", search.Due }
+            { "InvoiceNo", search.InvoiceNo ?? (object)DBNull.Value },
+            { "CustomerName", search.CustomerName ?? (object)DBNull.Value },
+            { "ServiceName", search.ServiceName ?? (object)DBNull.Value },
+            { "Total", search.Total ?? (object)DBNull.Value },
+            { "Paid", search.Paid ?? (object)DBNull.Value },
+            { "Due", search.Due ?? (object)DBNull.Value }
                 },
                 new Dictionary<string, Type>
                 {
@@ -233,6 +239,7 @@ namespace DevSkill.Inventory.Infrastructure
 
             return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
         }
+
 
         public async Task<ServiceSaleDto?> GetByIdAsDtoAsync(Guid id)
         {

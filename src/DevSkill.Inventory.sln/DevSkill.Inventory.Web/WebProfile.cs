@@ -7,6 +7,7 @@ using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
 using DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.PurchaseModels;
+using DevSkill.Inventory.Web.Areas.Admin.Models.QuotationsModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SalesModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ServiceSalesModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ServicesModels;
@@ -35,7 +36,6 @@ namespace DevSkill.Inventory.Web
             CreateMap<CustomerUpdateViewModel, CustomerUpdateCommand>();
             CreateMap<Customer, CustomerUpdateViewModel>();
 
-            // CreateMap<ServiceSale, >
             CreateMap<ServiceSaleSearchModel, ServiceSaleSearchDto>();
             CreateMap<ServiceSaleAddViewModel, AddServiceSaleCommand>();
             CreateMap<ServiceSaleUpdateViewModel, UpdateServiceSaleCommand>();
@@ -43,6 +43,12 @@ namespace DevSkill.Inventory.Web
             CreateMap<ServiceSaleDto, ServiceSaleDetailViewModel>();
 
 
+
+            CreateMap<QuotationSearchModel, QuotationSearchDto>();
+            //CreateMap<QuotationAddViewModel, QuotationAddCommand>();
+            //CreateMap<QuotationUpdateViewModel, QuotationUpdateCommand>();
+            //CreateMap<QuotationDto, QuotationUpdateViewModel>();
+            //CreateMap<QuotationDto, QuotationDetailViewModel>();
 
 
             //CreateMap<PurchaseReturnSearchModel, PurchaseReturnSearchDto>();

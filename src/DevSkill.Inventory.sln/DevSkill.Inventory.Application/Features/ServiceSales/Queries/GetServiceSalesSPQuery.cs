@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Application.Features.ServiceSales.Queries
 {
-    public class GetServiceSalesSPQuery : IRequest<(IList<ServiceSale>, int, int)>
+    public class GetServiceSalesSPQuery : IRequest<(IList<ServiceSaleDto>, int, int)>
     {
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
