@@ -7,10 +7,15 @@ using DevSkill.Inventory.Application.Features.Purchases.Queries;
 using DevSkill.Inventory.Application.Features.Sales.Queries;
 using DevSkill.Inventory.Application.Features.SalesReturns.Queries;
 using DevSkill.Inventory.Application.Features.ServiceFeatures.Queries;
+using DevSkill.Inventory.Application.Features.ServiceSales.Commands;
+
+using DevSkill.Inventory.Application.Features.ServiceSales.Queries;
+
 
 //using DevSkill.Inventory.Application.Features.Services.Queries;
 using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
+using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Domain.Repositories;
 using DevSkill.Inventory.Domain.Services;
@@ -80,7 +85,25 @@ namespace DevSkill.Inventory.Web
             builder.RegisterType<GetPurchaseReturnsSPQueryHandler>().As<IRequestHandler<GetPurchaseReturnsSPQuery, (IList<PurchaseReturn>, int, int)>>().InstancePerLifetimeScope();
             builder.RegisterType<GetServicesSPQueryHandler>().As<IRequestHandler<GetServicesSPQuery, (IList<Service>, int, int)>>().InstancePerLifetimeScope();
 
-           
+            builder.RegisterType<AddServiceSaleCommandHandler>()
+                .As<IRequestHandler<AddServiceSaleCommand>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<UpdateServiceSaleCommandHandler>()
+                .As<IRequestHandler<UpdateServiceSaleCommand>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<DeleteServiceSaleCommandHandler>()
+                .As<IRequestHandler<DeleteServiceSaleCommand>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<GetServiceSaleByIdQueryHandler>()
+                .As<IRequestHandler<GetServiceSaleByIdQuery, ServiceSale>>()
+                .InstancePerLifetimeScope();
+
+            //builder.RegisterType<GetServiceSalesSPQueryHandler>()
+            //    .As<IRequestHandler<GetServiceSalesSPQuery, (IList<ServiceSaleDto>, int, int)>>()
+            //    .InstancePerLifetimeScope();
 
 
             base.Load(builder); 

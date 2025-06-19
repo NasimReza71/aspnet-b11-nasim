@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Products.Commands;
+using DevSkill.Inventory.Application.Features.ServiceSales.Commands;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
 using DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.PurchaseModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SalesModels;
+using DevSkill.Inventory.Web.Areas.Admin.Models.ServiceSalesModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ServicesModels;
 
 namespace DevSkill.Inventory.Web
@@ -33,6 +35,12 @@ namespace DevSkill.Inventory.Web
             CreateMap<CustomerUpdateViewModel, CustomerUpdateCommand>();
             CreateMap<Customer, CustomerUpdateViewModel>();
 
+            // CreateMap<ServiceSale, >
+            CreateMap<ServiceSaleSearchModel, ServiceSaleSearchDto>();
+            CreateMap<ServiceSaleAddViewModel, AddServiceSaleCommand>();
+            CreateMap<ServiceSaleUpdateViewModel, UpdateServiceSaleCommand>();
+            CreateMap<ServiceSaleDto, ServiceSaleUpdateViewModel>();
+            CreateMap<ServiceSaleDto, ServiceSaleDetailViewModel>();
 
 
 

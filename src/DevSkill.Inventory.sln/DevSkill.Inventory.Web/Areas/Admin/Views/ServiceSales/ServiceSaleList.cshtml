@@ -1,0 +1,251 @@
+﻿@using DevSkill.Inventory.Web.Areas.Admin.Models.ServiceSalesModels
+@model ServiceSaleListModel
+
+@{
+    ViewData["Title"] = "Service Sale List";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+
+    <style>
+        .dt-button {
+            background-color: #007bff !important;
+            color: white !important;
+            border: 1px solid #007bff !important;
+            transition: all 0.3s ease;
+        }
+
+            .dt-button:hover {
+                background-color: white !important;
+                color: #007bff !important;
+            }
+
+        div.dataTables_wrapper div.dataTables_filter {
+            float: right;
+            text-align: right;
+        }
+    </style>
+}
+
+<!-- Content Header -->
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="mb-0">Service Sale List</h3>
+            </div>
+            <div class="col-sm-6 text-end">
+                <ol class="breadcrumb float-sm-end mb-2">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Service Sales</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 text-end mt-2">
+                <a href="/Admin/ServiceSales/Add" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> New Service Sale
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<partial name="_ResponsePartial" />
+<partial name="_ModalPartial" />
+<div id="modal-edit-service-sale" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalEditServiceSale" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="editServiceSaleModalBody">
+        </div>
+    </div>
+</div>
+
+<!-- Search & Data Table -->
+<div class="app-content">
+    <div class="container-fluid">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-search mr-1"></i>Search Service Sales</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Invoice No</label>
+                                <input type="text" asp-for="SearchItem.InvoiceNo" class="form-control" id="SearchItem_InvoiceNo" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Customer Name</label>
+                                <input type="text" asp-for="SearchItem.CustomerName" class="form-control" id="SearchItem_CustomerName" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Service Name</label>
+                                <input type="text" asp-for="SearchItem.ServiceName" class="form-control" id="SearchItem_ServiceName" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button id="searchButton" type="button" class="btn btn-primary float-end">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"><h3 class="card-title">Available Service Sales</h3></div>
+                    <div class="card-body">
+                        <table id="serviceSales" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#SL</th>
+                                    <th>Invoice No</th>
+                                    <th>Customer Name</th>
+                                    <th>Service Name</th>
+                                    <th>Total</th>
+                                    <th>Paid</th>
+                                    <th>Due</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>#SL</th>
+                                    <th>Invoice No</th>
+                                    <th>Customer Name</th>
+                                    <th>Service Name</th>
+                                    <th>Total</th>
+                                    <th>Paid</th>
+                                    <th>Due</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(function () {
+            var table = $("#serviceSales").DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                lengthChange: true,
+                autoWidth: false,
+                dom: '<"row mb-3"<"col-sm-6"B><"col-sm-6"f>>rtip',
+                buttons: [
+                    { extend: 'copy', text: '<i class="fas fa-copy"></i> Copy' },
+                    { extend: 'excel', text: '<i class="fas fa-file-excel"></i> Excel' },
+                    { extend: 'csv', text: '<i class="fas fa-file-csv"></i> CSV' },
+                    { extend: 'pdf', text: '<i class="fas fa-file-pdf"></i> PDF' },
+                    { extend: 'print', text: '<i class="fas fa-print"></i> Print' }
+                ],
+                ajax: {
+                    url: "/Admin/ServiceSales/GetServiceSalesJsonData",
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: function (d) {
+                        d.SearchItem = {
+                            InvoiceNo: $("#SearchItem_InvoiceNo").val(),
+                            CustomerName: $("#SearchItem_CustomerName").val(),
+                            ServiceName: $("#SearchItem_ServiceName").val()
+                        };
+                        return JSON.stringify(d);
+                    }
+                },
+                columnDefs: [
+                    {
+                        targets: 0,
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        targets: 7,
+                        orderable: false,
+                        render: function (data, type, row) {
+                            return `
+                                <button class='btn btn-primary btn-sm' title='View' onclick="window.location.href='/Admin/ServiceSales/ViewServiceSale/${data}'">
+                                    <i class='fas fa-eye'></i>
+                                </button>
+                                <button class='btn btn-info btn-sm show-edit-modal' data-id='${data}' title='Edit'>
+                                    <i class='fas fa-edit'></i>
+                                </button>
+                                <button class='btn btn-danger btn-sm show-bs-modal' title='Delete' data-id='${data}'>
+                                    <i class='fas fa-trash'></i>
+                                </button>`;
+                        }
+                    }
+                ]
+            });
+
+            $('#serviceSales').on('click', '.show-bs-modal', function () {
+                let id = $(this).data("id");
+                let deleteModal = $("#modal-delete");
+                deleteModal.find('.modal-body p').text('Are you sure you want to delete this service sale?');
+                $('#delete-id').val(id);
+                $('#delete-form').attr('action', '/admin/servicesales/delete');
+                deleteModal.modal('show');
+            });
+
+            $('#serviceSales').on('click', '.show-edit-modal', function () {
+                let id = $(this).data("id");
+                $.ajax({
+                    url: `/Admin/ServiceSales/Edit/${id}`,
+                    type: 'GET',
+                    success: function (response) {
+                        $('#editServiceSaleModalBody').html(response);
+                        $('#modal-edit-service-sale').modal('show');
+                    },
+                    error: function () {
+                        alert('Failed to load edit form.');
+                    }
+                });
+            });
+
+            $('#delete-button').click(function () {
+                $('#delete-form').submit();
+            });
+
+            $("#searchButton").click(function () {
+                $('#serviceSales').DataTable().ajax.reload(null, false);
+            });
+        });
+    </script>
+}

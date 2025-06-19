@@ -211,5 +211,51 @@ namespace DevSkill.Inventory.Infrastructure
             return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
         }
 
+        public IServiceSaleRepository ServiceSaleRepository { get; private set; }
+
+        public async Task<(IList<ServiceSale> data, int total, int totalDisplay)> GetServiceSalesSP(int pageIndex, int pageSize, string? order, ServiceSaleSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<ServiceSale>("GetServiceSales",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", order },
+            { "InvoiceNo", search.InvoiceNo },
+            { "ServiceName", search.ServiceName },
+            { "CustomerName", search.CustomerName },
+            { "Total", search.Total },
+            { "Paid", search.Paid },
+            { "Due", search.Due }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+        public async Task<ServiceSaleDto?> GetByIdAsDtoAsync(Guid id)
+        {
+            var entity = await ServiceSaleRepository.GetByIdAsync(id);
+            if (entity == null) return null;
+
+           
+            return new ServiceSaleDto
+            {
+                Id = entity.Id,
+                InvoiceNo = entity.InvoiceNo,
+                Date = entity.Date,
+                CustomerId = entity.CustomerId,
+                ServiceName = entity.ServiceName,
+                Total = entity.Total,
+                Paid = entity.Paid,
+                Due = entity.Due
+            };
+        }
+
+
     }
 }
