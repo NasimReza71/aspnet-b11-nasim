@@ -18,9 +18,6 @@ namespace DevSkill.Inventory.Infrastructure
         public ApplicationUnitOfWork(ApplicationDbContext context, IProductRepository productRepository,
              ICustomerRepository customerRepository
 
-
-
-
             ) : base(context)
         {
             ProductRepository = productRepository;
@@ -255,6 +252,32 @@ namespace DevSkill.Inventory.Infrastructure
                 Due = entity.Due
             };
         }
+
+
+        public IQuotationRepository QuotationRepository { get; private set; }
+        public async Task<(IList<Quotation>, int, int)> GetQuotationsSP(int pageIndex, int pageSize, string order, QuotationSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<Quotation>("GetQuotations",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", order },
+            { "QuotationNumber", search.QuotationNumber },
+            { "CustomerName", search.CustomerName },
+            { "FromDate", search.FromDate },
+            { "ToDate", search.ToDate }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
 
 
     }

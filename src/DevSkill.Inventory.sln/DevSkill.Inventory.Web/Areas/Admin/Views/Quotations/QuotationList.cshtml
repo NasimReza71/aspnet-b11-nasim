@@ -1,0 +1,216 @@
+﻿@using DevSkill.Inventory.Web.Areas.Admin.Models.QuotationsModels
+@model QuotationListModel
+
+@{
+    ViewData["Title"] = "Quotation List";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+}
+
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-sm-6">
+                <h3 class="mb-0">Quotation List</h3>
+            </div>
+            <div class="col-sm-6 text-end">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Quotations</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_ResponsePartial" />
+<partial name="_ModalPartial" />
+
+<div id="modal-edit-quotation" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalEditQuotation" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="editQuotationModalBody">
+        </div>
+    </div>
+</div>
+
+<!-- Search -->
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-search mr-1"></i>Search Quotations</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body row">
+            <div class="col-sm-3">
+                <label>Quotation No.</label>
+                <input type="text" asp-for="SearchItem.QuotationNumber" class="form-control" />
+            </div>
+            <div class="col-sm-3">
+                <label>Customer Name</label>
+                <input type="text" asp-for="SearchItem.CustomerName" class="form-control" />
+            </div>
+            <div class="col-sm-3">
+                <label>From Date</label>
+                <input type="date" asp-for="SearchItem.FromDate" class="form-control" />
+            </div>
+            <div class="col-sm-3">
+                <label>To Date</label>
+                <input type="date" asp-for="SearchItem.ToDate" class="form-control" />
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <button id="searchButton" type="button" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</div>
+
+<!-- Quotation Table -->
+<div class="container-fluid mt-2">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Available Quotations</h3>
+            <div class="card-tools">
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-new-quotation">
+                    <i class="fas fa-plus"></i> New Quotation
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="quotations" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>#SL</th>
+                        <th>Quotation No.</th>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th>#SL</th>
+                        <th>Quotation No.</th>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(function () {
+            var table = $("#quotations").DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                autoWidth: false,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                layout: {
+                    topStart: 'buttons',
+                    topEnd: 'search'
+                },
+                buttons: [
+                    { extend: 'copy', text: '<i class="fas fa-copy"></i> Copy' },
+                    { extend: 'excel', text: '<i class="fas fa-file-excel"></i> Excel' },
+                    { extend: 'csv', text: '<i class="fas fa-file-csv"></i> CSV' },
+                    { extend: 'pdf', text: '<i class="fas fa-file-pdf"></i> PDF' },
+                    { extend: 'print', text: '<i class="fas fa-print"></i> Print' }
+                ],
+                ajax: {
+                    url: "/Admin/Quotations/GetQuotationsJsonData",
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: function (d) {
+                        d.SearchItem = {
+                            QuotationNumber: $("#SearchItem_QuotationNumber").val(),
+                            CustomerName: $("#SearchItem_CustomerName").val(),
+                            FromDate: $("#SearchItem_FromDate").val() === "" ? null : $("#SearchItem_FromDate").val(),
+                            ToDate: $("#SearchItem_ToDate").val() === "" ? null : $("#SearchItem_ToDate").val()
+                        };
+                        return JSON.stringify(d);
+                    }
+                },
+                columnDefs: [
+                    {
+                        targets: 0,
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        targets: 6,
+                        orderable: false,
+                        render: function (data, type, row) {
+                            return `
+                                <button class='btn btn-info btn-sm show-edit-modal' data-id='${data}' title='Edit'>
+                                    <i class='fas fa-edit'></i>
+                                </button>
+                                <button class='btn btn-danger btn-sm show-bs-modal' title='Delete' data-id='${data}'>
+                                    <i class='fas fa-trash'></i>
+                                </button>`;
+                        }
+                    }
+                ]
+            });
+
+            $('#quotations').on('click', '.show-bs-modal', function () {
+                let id = $(this).data("id");
+                let deleteModal = $("#modal-delete");
+                deleteModal.find('.modal-body p').text('Are you sure you want to delete this quotation?');
+                $('#delete-id').val(id);
+                $('#delete-form').attr('action', '/admin/quotations/delete');
+                deleteModal.modal('show');
+            });
+
+            $('#quotations').on('click', '.show-edit-modal', function () {
+                let id = $(this).data("id");
+                $.ajax({
+                    url: `/Admin/Quotations/Edit/${id}`,
+                    type: 'GET',
+                    success: function (response) {
+                        $('#editQuotationModalBody').html(response);
+                        $('#modal-edit-quotation').modal('show');
+                    },
+                    error: function () {
+                        alert('Failed to load edit form.');
+                    }
+                });
+            });
+
+            $('#searchButton').click(function () {
+                $('#quotations').DataTable().ajax.reload(null, false);
+            });
+        });
+    </script>
+}

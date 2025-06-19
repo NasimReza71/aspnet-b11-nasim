@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Features\PurchaseReturns\Commands\" />
+    <Folder Include="Features\Quotations\Commands\" />
     <Folder Include="Features\SalesReturns\Commands\" />
     <Folder Include="Features\Sales\Commands\" />
     <Folder Include="Features\ServiceFeatures\Commands\" />

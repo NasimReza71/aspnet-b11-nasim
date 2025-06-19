@@ -39,13 +39,15 @@ namespace DevSkill.Inventory.Domain
 
         IServiceSaleRepository ServiceSaleRepository { get; }
         Task<(IList<ServiceSale> data, int total, int totalDisplay)> GetServiceSalesSP(int pageIndex, int pageSize, string? order, ServiceSaleSearchDto search);
-        
 
+
+        IQuotationRepository QuotationRepository { get; }
+
+        Task<(IList<Quotation>, int, int)> GetQuotationsSP(int pageIndex, int pageSize, string order, QuotationSearchDto search);
+
+       
 
 
     }
-
-
-
 
 }
