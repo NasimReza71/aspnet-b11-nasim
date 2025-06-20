@@ -14,6 +14,8 @@ namespace DevSkill.Inventory.Infrastructure
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ServiceSale> ServiceSales { get; set; }
         public DbSet<Quotation> Quotations { get; set; }
+        public DbSet<MoneyReceipt> MoneyReceipts { get; set; }
+
 
 
 

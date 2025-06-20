@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Customers.Queries;
+using DevSkill.Inventory.Application.Features.MoneyReceipts.Queries;
 using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Application.Features.PurchaseReturns.Queries;
 using DevSkill.Inventory.Application.Features.Purchases.Queries;
@@ -9,11 +10,7 @@ using DevSkill.Inventory.Application.Features.Sales.Queries;
 using DevSkill.Inventory.Application.Features.SalesReturns.Queries;
 using DevSkill.Inventory.Application.Features.ServiceFeatures.Queries;
 using DevSkill.Inventory.Application.Features.ServiceSales.Commands;
-
 using DevSkill.Inventory.Application.Features.ServiceSales.Queries;
-
-
-//using DevSkill.Inventory.Application.Features.Services.Queries;
 using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
@@ -139,6 +136,22 @@ namespace DevSkill.Inventory.Web
             //builder.RegisterType<GetQuotationByIdQueryHandler>()
             //    .As<IRequestHandler<GetQuotationByIdQuery, Quotation>>()
             //    .InstancePerLifetimeScope();
+
+
+            
+             builder.RegisterType<MoneyReceiptRepository>()
+                .As<IMoneyReceiptRepository>()
+                .InstancePerLifetimeScope();
+
+
+
+
+                    builder.RegisterType<GetMoneyReceiptByIdQueryHandler>()
+            .As<IRequestHandler<GetMoneyReceiptByIdQuery, MoneyReceipt>>() 
+            .InstancePerLifetimeScope();
+
+
+
 
             base.Load(builder); 
         }

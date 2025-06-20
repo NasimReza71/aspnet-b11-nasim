@@ -3,6 +3,7 @@ using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Domain.Repositories;
 using DevSkill.Inventory.Infrastructure;
+using DevSkill.Inventory.Infrastructure.Repositories;
 using DevSkill.Inventory.Infrastructure.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,15 +19,18 @@ namespace DevSkill.Inventory.Infrastructure
         public ApplicationUnitOfWork(ApplicationDbContext context, IProductRepository productRepository,
              ICustomerRepository customerRepository,
              ISaleRepository saleRepository,
-             IQuotationRepository quotationRepository
+             IQuotationRepository quotationRepository,
+            IMoneyReceiptRepository moneyReceiptRepository
 
 
             ) : base(context)
         {
+            
             ProductRepository = productRepository;
             CustomerRepository = customerRepository;
             SaleRepository = saleRepository;
             QuotationRepository = quotationRepository;
+            MoneyReceipts = moneyReceiptRepository;
         }
 
         public IProductRepository ProductRepository { get; private set; }
@@ -285,6 +289,36 @@ namespace DevSkill.Inventory.Infrastructure
         }
 
 
+
+
+
+        public IMoneyReceiptRepository MoneyReceipts { get; private set; }
+
+        public async Task<(IList<MoneyReceipt>, int, int)> GetMoneyReceiptsSP(int pageIndex, int pageSize, string? order, MoneyReceiptSearchDto search)
+        {
+            var procedureName = "GetMoneyReceipts";
+
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<MoneyReceipt>(
+                procedureName,
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", order },
+            { "Invoice", search.Invoice },
+            { "Participant", search.Participant },
+            { "VoucherType", search.VoucherType },
+            { "Amount", search.Amount },
+            { "Status", search.Status }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
 
 
     }

@@ -1,0 +1,158 @@
+﻿@using DevSkill.Inventory.Web.Areas.Admin.Models.MoneyReceiptsModels
+@model MoneyReceiptListModel
+
+@{
+    ViewData["Title"] = "Money Receipt List";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        .dt-button {
+            background-color: #007bff !important;
+            color: white !important;
+            border: 1px solid #007bff !important;
+            transition: all 0.3s ease;
+        }
+
+            .dt-button:hover {
+                background-color: white !important;
+                color: #007bff !important;
+            }
+    </style>
+}
+
+<!--begin::App Content Header-->
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Money Receipt List</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Money Receipts</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div class="app-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"><h3 class="card-title"> Available Money Receipts</h3></div>
+                    <div class="card-body">
+                        <partial name="_ResponsePartial" />
+                        <partial name="_ModalPartial" />
+                        <table id="moneyReceipts" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Invoice</th>
+                                    <th>Date</th>
+                                    <th>Voucher Type</th>
+                                    <th>Participant</th>
+                                    <th>Particulars</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Invoice</th>
+                                    <th>Date</th>
+                                    <th>Voucher Type</th>
+                                    <th>Participant</th>
+                                    <th>Particulars</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::App Content-->
+@section Scripts
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script>
+        $(function () {
+            var table = $("#moneyReceipts").DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                lengthChange: true,
+                autoWidth: false,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
+                layout: {
+                    topStart: 'buttons',
+                    topEnd: 'search',
+                },
+                buttons: [
+                    { extend: 'copy', text: '<i class="fas fa-copy"></i> Copy' },
+                    { extend: 'excel', text: '<i class="fas fa-file-excel"></i> Excel' },
+                    { extend: 'csv', text: '<i class="fas fa-file-csv"></i> CSV' },
+                    { extend: 'pdf', text: '<i class="fas fa-file-pdf"></i> PDF' },
+                    { extend: 'print', text: '<i class="fas fa-print"></i> Print' }
+                ],
+                ajax: {
+                    url: "/Admin/MoneyReceipts/GetMoneyReceiptsJsonData",
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: function (d) {
+                        d.SearchItem = {
+                            Invoice: $("#SearchItem_Invoice").val(),
+                            Participant: $("#SearchItem_Participant").val(),
+                            VoucherType: $("#SearchItem_VoucherType").val(),
+                            Status: $("#SearchItem_Status").val()
+                        };
+                        return JSON.stringify(d);
+                    }
+                },
+                columns: [
+                    { data: 1 },
+                    { data: 2 },
+                    { data: 3 },
+                    { data: 4 },
+                    { data: 5 },
+                    { data: 6 },
+                    { data: 7 },
+                    {
+                        data: 8,
+                        orderable: false,
+                        render: function (data) {
+                            return `<a href='/Admin/MoneyReceipts/ViewMoneyReceipt/${data}' class='btn btn-sm btn-info' title='View'>
+                                        <i class='fas fa-eye'></i> View
+                                    </a>`;
+                        }
+                    }
+                ]
+            });
+
+            $("#searchButton").click(function () {
+                table.ajax.reload(null, false);
+            });
+        });
+    </script>
+}

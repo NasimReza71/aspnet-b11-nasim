@@ -43,7 +43,7 @@ namespace DevSkill.Inventory.Web
             CreateMap<ServiceSaleDto, ServiceSaleDetailViewModel>();
 
 
-
+            CreateMap<Quotation, QuotationDto>();
             CreateMap<QuotationSearchModel, QuotationSearchDto>();
             //CreateMap<QuotationAddViewModel, QuotationAddCommand>();
             //CreateMap<QuotationUpdateViewModel, QuotationUpdateCommand>();
@@ -55,6 +55,7 @@ namespace DevSkill.Inventory.Web
 
             //CreateMap<ServiceSearchModel, ServiceSearchDto>();
 
+            CreateMap<MoneyReceipt, MoneyReceiptDto>().ReverseMap();
 
         }
     }
