@@ -15,11 +15,13 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly ILogger<QuotationsController> _logger;
 
-        public QuotationsController(IMediator mediator, IMapper mapper)
+        public QuotationsController(IMediator mediator, IMapper mapper, ILogger<QuotationsController> logger)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public IActionResult QuotationList()
@@ -30,34 +32,43 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<JsonResult> GetQuotationsJsonData([FromBody] QuotationListModel model)
         {
-            var searchDto = _mapper.Map<QuotationSearchDto>(model.SearchItem);
-            var query = new GetQuotationsSPQuery
+            try
             {
-                PageIndex = model.PageIndex,
-                PageSize = model.PageSize,
-                SortExpression = model.FormatSortExpression("QuotationNumber", "QuotationDate", "CustomerName", "Quantity", "TotalPrice"),
-                SearchItem = searchDto
-            };
+                var searchDto = _mapper.Map<QuotationSearchDto>(model.SearchItem);
 
-            var (data, total, totalDisplay) = await _mediator.Send(query);
-
-            var result = new
-            {
-                recordsTotal = total,
-                recordsFiltered = totalDisplay,
-                data = data.Select(q => new string[]
+                var query = new GetQuotationsSPQuery
                 {
-                    HttpUtility.HtmlEncode(q.Id),
-                    HttpUtility.HtmlEncode(q.QuotationNumber),
-                    q.QuotationDate.ToString("dd-MM-yyyy"),
-                    HttpUtility.HtmlEncode(q.CustomerName),
-                    q.Quantity.ToString(),
-                    q.TotalPrice.ToString("N2"),
-                    q.Id.ToString()
-                }).ToArray()
-            };
+                    PageIndex = model.PageIndex,
+                    PageSize = model.PageSize,
+                    SortExpression = model.FormatSortExpression("QuotationNumber", "QuotationDate", "CustomerName", "Quantity", "TotalPrice"),
+                    SearchItem = searchDto
+                };
 
-            return Json(result);
+                var (data, total, totalDisplay) = await _mediator.Send(query);
+
+                var result = new
+                {
+                    recordsTotal = total,
+                    recordsFiltered = totalDisplay,
+                    data = data.Select(q => new string[]
+                    {
+                        HttpUtility.HtmlEncode(q.Id),
+                        HttpUtility.HtmlEncode(q.QuotationNumber),
+                        q.QuotationDate.ToString("dd-MM-yyyy"),
+                        HttpUtility.HtmlEncode(q.CustomerName),
+                        q.Quantity.ToString(),
+                        q.TotalPrice.ToString("N2"),
+                        q.Id.ToString()
+                    }).ToArray()
+                };
+
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading quotations");
+                return Json(DataTables.EmptyResult);
+            }
         }
     }
 }

@@ -13,14 +13,13 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public QuotationRepository(ApplicationDbContext context)
-            : base(context)
+        public QuotationRepository(ApplicationDbContext dbContext)
+            : base(dbContext)
         {
-            _dbContext = context;
+            _dbContext = dbContext;
         }
 
-        public (IList<Quotation> data, int total, int totalDisplay) GetPagedQuotations(
-            int pageIndex, int pageSize, string? order, DataTablesSearch search)
+        public (IList<Quotation> data, int total, int totalDisplay) GetPagedQuotations(int pageIndex, int pageSize, string? order, DataTablesSearch search)
         {
             if (string.IsNullOrWhiteSpace(search.Value))
             {
@@ -28,10 +27,9 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
             }
             else
             {
-                return GetDynamic(x =>
-                        x.QuotationNumber.Contains(search.Value) ||
-                        x.CustomerName.Contains(search.Value) ||
-                        x.TotalPrice.ToString().Contains(search.Value),
+                return GetDynamic(q =>
+                    q.QuotationNumber.Contains(search.Value) ||
+                    q.CustomerName.Contains(search.Value),
                     order,
                     null,
                     pageIndex,

@@ -14,6 +14,5 @@ namespace DevSkill.Inventory.Domain.Entities
         public string CustomerName { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
-        public string Remarks { get; set; }
     }
 }

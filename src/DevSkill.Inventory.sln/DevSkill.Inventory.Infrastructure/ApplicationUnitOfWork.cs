@@ -266,18 +266,16 @@ namespace DevSkill.Inventory.Infrastructure
 
 
         public IQuotationRepository QuotationRepository { get; private set; }
-        public async Task<(IList<Quotation>, int, int)> GetQuotationsSP(int pageIndex, int pageSize, string order, QuotationSearchDto search)
+        public async Task<(IList<Quotation>, int, int)> GetQuotationsSP(int pageIndex, int pageSize, string orderBy, QuotationSearchDto search)
         {
             var result = await SqlUtility.QueryWithStoredProcedureAsync<Quotation>("GetQuotations",
                 new Dictionary<string, object>
                 {
             { "PageIndex", pageIndex },
             { "PageSize", pageSize },
-            { "OrderBy", order },
+            { "OrderBy", orderBy },
             { "QuotationNumber", search.QuotationNumber },
-            { "CustomerName", search.CustomerName },
-            { "FromDate", search.FromDate },
-            { "ToDate", search.ToDate }
+            { "CustomerName", search.CustomerName }
                 },
                 new Dictionary<string, Type>
                 {

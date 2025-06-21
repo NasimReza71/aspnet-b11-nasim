@@ -54,7 +54,6 @@
 <!-- Modals -->
 <partial name="_ResponsePartial" />
 <partial name="_ModalPartial" />
-
 <div id="modal-edit-quotation" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalEditQuotation" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" id="editQuotationModalBody">
@@ -78,20 +77,16 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3">
-                            <label>Quotation Number</label>
-                            <input type="text" asp-for="SearchItem.QuotationNumber" class="form-control" id="SearchItem_QuotationNumber" />
+                            <div class="form-group">
+                                <label>Quotation No</label>
+                                <input type="text" asp-for="SearchItem.QuotationNumber" class="form-control" id="SearchItem_QuotationNumber" />
+                            </div>
                         </div>
                         <div class="col-sm-3">
-                            <label>Customer Name</label>
-                            <input type="text" asp-for="SearchItem.CustomerName" class="form-control" id="SearchItem_CustomerName" />
-                        </div>
-                        <div class="col-sm-3">
-                            <label>From Date</label>
-                            <input type="date" asp-for="SearchItem.FromDate" class="form-control" id="SearchItem_FromDate" />
-                        </div>
-                        <div class="col-sm-3">
-                            <label>To Date</label>
-                            <input type="date" asp-for="SearchItem.ToDate" class="form-control" id="SearchItem_ToDate" />
+                            <div class="form-group">
+                                <label>Customer Name</label>
+                                <input type="text" asp-for="SearchItem.CustomerName" class="form-control" id="SearchItem_CustomerName" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -101,7 +96,6 @@
             </div>
         </div>
 
-        <!-- Table -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -111,11 +105,11 @@
                             <thead>
                                 <tr>
                                     <th>#SL</th>
-                                    <th>Quotation No.</th>
+                                    <th>Quotation No</th>
                                     <th>Date</th>
                                     <th>Customer</th>
                                     <th>Quantity</th>
-                                    <th>Total Price</th>
+                                    <th>Total</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -123,11 +117,11 @@
                             <tfoot>
                                 <tr>
                                     <th>#SL</th>
-                                    <th>Quotation No.</th>
+                                    <th>Quotation No</th>
                                     <th>Date</th>
                                     <th>Customer</th>
                                     <th>Quantity</th>
-                                    <th>Total Price</th>
+                                    <th>Total</th>
                                     <th>Actions</th>
                                 </tr>
                             </tfoot>
@@ -179,9 +173,7 @@
                     data: function (d) {
                         d.SearchItem = {
                             QuotationNumber: $("#SearchItem_QuotationNumber").val(),
-                            CustomerName: $("#SearchItem_CustomerName").val(),
-                            FromDate: $("#SearchItem_FromDate").val() === "" ? null : $("#SearchItem_FromDate").val(),
-                            ToDate: $("#SearchItem_ToDate").val() === "" ? null : $("#SearchItem_ToDate").val()
+                            CustomerName: $("#SearchItem_CustomerName").val()
                         };
                         return JSON.stringify(d);
                     }
