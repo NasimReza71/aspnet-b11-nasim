@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Customers.Queries;
+using DevSkill.Inventory.Application.Features.DebitVouchers.Queries;
 using DevSkill.Inventory.Application.Features.MoneyReceipts.Queries;
 using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Application.Features.PurchaseReturns.Queries;
@@ -152,6 +153,8 @@ namespace DevSkill.Inventory.Web
 
 
 
+            builder.RegisterType<DebitVoucherRepository>().As<IDebitVoucherRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<GetDebitVouchersSPQueryHandler>().AsSelf();
 
             base.Load(builder); 
         }

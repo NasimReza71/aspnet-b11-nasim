@@ -16,6 +16,8 @@ namespace DevSkill.Inventory.Infrastructure
         public DbSet<Quotation> Quotations { get; set; }
         public DbSet<MoneyReceipt> MoneyReceipts { get; set; }
 
+        public DbSet<DebitVoucher> DebitVouchers { get; set; }
+
 
 
 

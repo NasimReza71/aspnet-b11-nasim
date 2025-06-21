@@ -20,7 +20,8 @@ namespace DevSkill.Inventory.Infrastructure
              ICustomerRepository customerRepository,
              ISaleRepository saleRepository,
              IQuotationRepository quotationRepository,
-            IMoneyReceiptRepository moneyReceiptRepository
+            IMoneyReceiptRepository moneyReceiptRepository,
+            IDebitVoucherRepository debitVoucherRepository
 
 
             ) : base(context)
@@ -31,6 +32,7 @@ namespace DevSkill.Inventory.Infrastructure
             SaleRepository = saleRepository;
             QuotationRepository = quotationRepository;
             MoneyReceipts = moneyReceiptRepository;
+            DebitVoucherRepository = debitVoucherRepository;
         }
 
         public IProductRepository ProductRepository { get; private set; }
@@ -318,6 +320,30 @@ namespace DevSkill.Inventory.Infrastructure
             return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
         }
 
+
+
+        public IDebitVoucherRepository DebitVoucherRepository { get; private set; }
+        public async Task<(IList<DebitVoucher>, int, int)> GetDebitVouchersSP(int pageIndex, int pageSize, string orderBy, DebitVoucherSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<DebitVoucher>("GetDebitVouchers",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "InvoiceNumber", search.InvoiceNumber },
+            { "CostType", search.CostType },
+            { "Particulars", search.Particulars },
+            { "Status", search.Status }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
 
     }
 }

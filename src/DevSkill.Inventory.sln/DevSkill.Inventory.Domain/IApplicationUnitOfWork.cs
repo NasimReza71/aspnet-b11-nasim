@@ -51,8 +51,10 @@ namespace DevSkill.Inventory.Domain
 
         Task<(IList<MoneyReceipt>, int, int)> GetMoneyReceiptsSP(int pageIndex, int pageSize, string order, MoneyReceiptSearchDto search);
 
-        
-       
+
+        public IDebitVoucherRepository DebitVoucherRepository { get; }
+
+        Task<(IList<DebitVoucher>, int, int)> GetDebitVouchersSP(int pageIndex, int pageSize, string orderBy, DebitVoucherSearchDto search);
 
 
 

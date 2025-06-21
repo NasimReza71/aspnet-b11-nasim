@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\DebitVouchers\Commands\" />
     <Folder Include="Features\PurchaseReturns\Commands\" />
     <Folder Include="Features\Quotations\Commands\" />
     <Folder Include="Features\SalesReturns\Commands\" />
