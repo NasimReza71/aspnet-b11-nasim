@@ -21,7 +21,8 @@ namespace DevSkill.Inventory.Infrastructure
              ISaleRepository saleRepository,
              IQuotationRepository quotationRepository,
             IMoneyReceiptRepository moneyReceiptRepository,
-            IDebitVoucherRepository debitVoucherRepository
+            IDebitVoucherRepository debitVoucherRepository,
+            ISupplierPayRepository supplierPayRepository
 
 
             ) : base(context)
@@ -33,6 +34,7 @@ namespace DevSkill.Inventory.Infrastructure
             QuotationRepository = quotationRepository;
             MoneyReceipts = moneyReceiptRepository;
             DebitVoucherRepository = debitVoucherRepository;
+            SupplierPayRepository = supplierPayRepository;
         }
 
         public IProductRepository ProductRepository { get; private set; }
@@ -344,6 +346,32 @@ namespace DevSkill.Inventory.Infrastructure
 
             return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
         }
+
+
+        public ISupplierPayRepository SupplierPayRepository { get; private set; }
+
+        public async Task<(IList<SupplierPay>, int, int)> GetSupplierPaysSP(int pageIndex, int pageSize, string orderBy, SupplierPaySearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<SupplierPay>("GetSupplierPays",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "Invoice", search.Invoice },
+            { "Employee", search.Employee },
+            { "Particulars", search.Particulars },
+            { "Status", search.Status }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
 
     }
 }

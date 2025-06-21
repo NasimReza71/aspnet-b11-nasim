@@ -12,6 +12,7 @@ using DevSkill.Inventory.Web.Areas.Admin.Models.QuotationsModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SalesModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ServiceSalesModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ServicesModels;
+using DevSkill.Inventory.Web.Areas.Admin.Models.SupplierPaysModels;
 
 namespace DevSkill.Inventory.Web
 {
@@ -60,6 +61,8 @@ namespace DevSkill.Inventory.Web
 
 
             CreateMap<DebitVoucherSearchModel, DebitVoucherSearchDto>();
+
+            CreateMap<SupplierPaySearchModel, SupplierPaySearchDto>();
 
         }
     }

@@ -56,6 +56,9 @@ namespace DevSkill.Inventory.Domain
 
         Task<(IList<DebitVoucher>, int, int)> GetDebitVouchersSP(int pageIndex, int pageSize, string orderBy, DebitVoucherSearchDto search);
 
+        ISupplierPayRepository SupplierPayRepository { get; }
+
+        Task<(IList<SupplierPay>, int, int)> GetSupplierPaysSP(int pageIndex, int pageSize, string orderBy, SupplierPaySearchDto search);
 
 
     }

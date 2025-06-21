@@ -18,6 +18,10 @@ namespace DevSkill.Inventory.Infrastructure
 
         public DbSet<DebitVoucher> DebitVouchers { get; set; }
 
+        public DbSet<SupplierPay> SupplierPays { get; set; }
+
+
+
 
 
 

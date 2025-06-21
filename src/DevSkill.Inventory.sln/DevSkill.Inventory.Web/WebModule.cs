@@ -12,6 +12,7 @@ using DevSkill.Inventory.Application.Features.SalesReturns.Queries;
 using DevSkill.Inventory.Application.Features.ServiceFeatures.Queries;
 using DevSkill.Inventory.Application.Features.ServiceSales.Commands;
 using DevSkill.Inventory.Application.Features.ServiceSales.Queries;
+using DevSkill.Inventory.Application.Features.SupplierPays.Queries;
 using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
@@ -155,6 +156,16 @@ namespace DevSkill.Inventory.Web
 
             builder.RegisterType<DebitVoucherRepository>().As<IDebitVoucherRepository>().InstancePerLifetimeScope();
             builder.RegisterType<GetDebitVouchersSPQueryHandler>().AsSelf();
+
+
+            builder.RegisterType<SupplierPayRepository>()
+         .As<ISupplierPayRepository>()
+          .InstancePerLifetimeScope();
+
+            
+            builder.RegisterType<GetSupplierPaysSPQueryHandler>()
+                   .AsSelf()
+                   .InstancePerLifetimeScope();
 
             base.Load(builder); 
         }
