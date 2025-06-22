@@ -13,6 +13,7 @@ using DevSkill.Inventory.Application.Features.ServiceFeatures.Queries;
 using DevSkill.Inventory.Application.Features.ServiceSales.Commands;
 using DevSkill.Inventory.Application.Features.ServiceSales.Queries;
 using DevSkill.Inventory.Application.Features.SupplierPays.Queries;
+using DevSkill.Inventory.Application.Features.TransferAccounts.Queries;
 using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
@@ -166,6 +167,17 @@ namespace DevSkill.Inventory.Web
             builder.RegisterType<GetSupplierPaysSPQueryHandler>()
                    .AsSelf()
                    .InstancePerLifetimeScope();
+
+
+
+            builder.RegisterType<TransferAccountRepository>()
+       .As<ITransferAccountRepository>()
+       .InstancePerLifetimeScope();
+            builder.RegisterType<GetTransferAccountsSPQueryHandler>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
+
 
             base.Load(builder); 
         }

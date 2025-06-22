@@ -20,6 +20,8 @@ namespace DevSkill.Inventory.Infrastructure
 
         public DbSet<SupplierPay> SupplierPays { get; set; }
 
+        public DbSet<TransferAccount> TransferAccounts { get; set; }
+
 
 
 

@@ -60,6 +60,11 @@ namespace DevSkill.Inventory.Domain
 
         Task<(IList<SupplierPay>, int, int)> GetSupplierPaysSP(int pageIndex, int pageSize, string orderBy, SupplierPaySearchDto search);
 
+        ITransferAccountRepository TransferAccountRepository { get; }
+        Task<(IList<TransferAccount>, int, int)> GetTransferAccountsSP(
+            int pageIndex, int pageSize, string orderBy, TransferAccountSearchDto search);
+
+
 
     }
 

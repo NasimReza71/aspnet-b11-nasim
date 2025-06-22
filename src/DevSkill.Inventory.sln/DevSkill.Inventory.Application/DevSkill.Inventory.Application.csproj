@@ -23,6 +23,7 @@
     <Folder Include="Features\Sales\Commands\" />
     <Folder Include="Features\ServiceFeatures\Commands\" />
     <Folder Include="Features\SupplierPays\Commands\" />
+    <Folder Include="Features\TransferAccounts\Commands\" />
   </ItemGroup>
 
 </Project>

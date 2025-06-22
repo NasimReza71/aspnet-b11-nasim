@@ -373,5 +373,30 @@ namespace DevSkill.Inventory.Infrastructure
         }
 
 
+        public ITransferAccountRepository TransferAccountRepository { get; private set; }
+
+        public async Task<(IList<TransferAccount>, int, int)> GetTransferAccountsSP(
+            int pageIndex, int pageSize, string orderBy, TransferAccountSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<TransferAccount>("GetTransferAccounts",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "FromAccount", search.FromAccount },
+            { "ToAccount", search.ToAccount },
+            { "Note", search.Note }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
     }
 }
