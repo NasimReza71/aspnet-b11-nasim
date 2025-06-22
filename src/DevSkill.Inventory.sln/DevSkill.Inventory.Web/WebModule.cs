@@ -173,6 +173,7 @@ namespace DevSkill.Inventory.Web
             builder.RegisterType<TransferAccountRepository>()
        .As<ITransferAccountRepository>()
        .InstancePerLifetimeScope();
+
             builder.RegisterType<GetTransferAccountsSPQueryHandler>()
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
