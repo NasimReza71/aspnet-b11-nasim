@@ -208,6 +208,14 @@
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }
                     },
+                  {
+                        targets: 1,
+                        render: function (data, type, row) {
+                          
+                            return `<a href='/Admin/Customers/ViewCustomer/${row[0]}'>${data}</a>`;
+                        }
+                    },
+                        
                     {
                         targets: 8,
                         orderable: false,
