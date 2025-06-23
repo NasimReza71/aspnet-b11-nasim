@@ -27,7 +27,7 @@ namespace DevSkill.Inventory.Infrastructure
 
             ) : base(context)
         {
-            
+
             ProductRepository = productRepository;
             CustomerRepository = customerRepository;
             SaleRepository = saleRepository;
@@ -173,7 +173,7 @@ namespace DevSkill.Inventory.Infrastructure
 
         public IPurchaseReturnRepository PurchaseReturnRepository { get; private set; }
 
-       
+
 
         public async Task<(IList<PurchaseReturn>, int, int)> GetPurchaseReturnsSP(int pageIndex, int pageSize, string? order, PurchaseReturnSearchDto search)
         {
@@ -254,7 +254,7 @@ namespace DevSkill.Inventory.Infrastructure
             var entity = await ServiceSaleRepository.GetByIdAsync(id);
             if (entity == null) return null;
 
-           
+
             return new ServiceSaleDto
             {
                 Id = entity.Id,
@@ -458,6 +458,31 @@ namespace DevSkill.Inventory.Infrastructure
             { "SupplierNumber", search.SupplierNumber },
             { "Name", search.Name },
             { "Company", search.Company }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
+
+        public IStaffRepository StaffRepository { get; private set; }
+        public async Task<(IList<Staff>, int, int)> GetStaffsSP(int pageIndex, int pageSize, string orderBy, StaffSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<Staff>("GetStaffs",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "StaffNumber", search.StaffNumber },
+            { "Name", search.Name },
+            { "Mobile", search.Mobile },
+            { "Email", search.Email }
                 },
                 new Dictionary<string, Type>
                 {

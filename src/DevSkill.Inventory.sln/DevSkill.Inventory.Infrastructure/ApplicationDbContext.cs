@@ -29,6 +29,7 @@ namespace DevSkill.Inventory.Infrastructure
         public DbSet<Supplier> Suppliers { get; set; }
 
 
+        public DbSet<Staff> Staffs { get; set; }
 
 
 

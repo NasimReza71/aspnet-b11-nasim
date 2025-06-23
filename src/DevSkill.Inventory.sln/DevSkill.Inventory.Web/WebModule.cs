@@ -194,6 +194,12 @@ namespace DevSkill.Inventory.Web
     .InstancePerLifetimeScope();
 
 
+            builder.RegisterType<StaffRepository>()
+    .As<IStaffRepository>()
+    .InstancePerLifetimeScope();
+
+
+
             base.Load(builder); 
         }
     }

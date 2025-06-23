@@ -12,6 +12,7 @@ using DevSkill.Inventory.Web.Areas.Admin.Models.QuotationsModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SalesModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ServiceSalesModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ServicesModels;
+using DevSkill.Inventory.Web.Areas.Admin.Models.StaffModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.StaffPaymentModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SupplierModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SupplierPaysModels;
@@ -91,6 +92,14 @@ namespace DevSkill.Inventory.Web
             CreateMap<SupplierSearchDto, SupplierSearchModel>();
             CreateMap<Supplier, SupplierDto>();
             CreateMap<SupplierDto, Supplier>();
+
+
+
+            CreateMap<StaffSearchModel, StaffSearchDto>();
+            CreateMap<StaffSearchDto, StaffSearchModel>();
+            CreateMap<Staff, StaffDto>();
+            CreateMap<StaffDto, Staff>();
+
 
         }
     }

@@ -73,6 +73,9 @@ namespace DevSkill.Inventory.Domain
         ISupplierRepository SupplierRepository { get; }
         Task<(IList<Supplier>, int, int)> GetSuppliersSP(int pageIndex, int pageSize, string orderBy, SupplierSearchDto search);
 
+        IStaffRepository StaffRepository { get; }
+        Task<(IList<Staff>, int, int)> GetStaffsSP(int pageIndex, int pageSize, string orderBy, StaffSearchDto search);
+
 
     }
 
