@@ -25,6 +25,7 @@
     <Folder Include="Features\ServiceFeatures\Commands\" />
     <Folder Include="Features\StaffPayments\Commands\" />
     <Folder Include="Features\SupplierPays\Commands\" />
+    <Folder Include="Features\Suppliers\Commands\" />
     <Folder Include="Features\TransferAccounts\Commands\" />
   </ItemGroup>
 

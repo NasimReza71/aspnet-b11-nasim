@@ -189,6 +189,11 @@ namespace DevSkill.Inventory.Web
        .InstancePerLifetimeScope();
 
 
+            builder.RegisterType<SupplierRepository>()
+    .As<ISupplierRepository>()
+    .InstancePerLifetimeScope();
+
+
             base.Load(builder); 
         }
     }

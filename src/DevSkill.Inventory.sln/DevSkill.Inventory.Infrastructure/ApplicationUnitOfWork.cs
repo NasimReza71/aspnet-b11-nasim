@@ -446,6 +446,28 @@ namespace DevSkill.Inventory.Infrastructure
         }
 
 
+        public ISupplierRepository SupplierRepository { get; private set; }
+        public async Task<(IList<Supplier>, int, int)> GetSuppliersSP(int pageIndex, int pageSize, string orderBy, SupplierSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<Supplier>("GetSuppliers",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "SupplierNumber", search.SupplierNumber },
+            { "Name", search.Name },
+            { "Company", search.Company }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
 
     }
 }

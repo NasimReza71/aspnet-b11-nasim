@@ -26,6 +26,9 @@ namespace DevSkill.Inventory.Infrastructure
 
         public DbSet<StaffPayment> StaffPayments { get; set; }
 
+        public DbSet<Supplier> Suppliers { get; set; }
+
+
 
 
 
