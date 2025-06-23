@@ -22,7 +22,15 @@ namespace DevSkill.Inventory.Infrastructure
              IQuotationRepository quotationRepository,
             IMoneyReceiptRepository moneyReceiptRepository,
             IDebitVoucherRepository debitVoucherRepository,
-            ISupplierPayRepository supplierPayRepository
+            ISupplierPayRepository supplierPayRepository,
+            ITransferAccountRepository transferAccountRepository,
+            IBalanceAdjustmentRepository balanceAdjustmentRepository,
+            IStaffPaymentRepository staffPaymentRepository,
+           ISupplierRepository supplierRepository,
+           IStaffRepository staffRepository,
+           IUserRepository userRepository
+
+
 
 
             ) : base(context)
@@ -35,6 +43,11 @@ namespace DevSkill.Inventory.Infrastructure
             MoneyReceipts = moneyReceiptRepository;
             DebitVoucherRepository = debitVoucherRepository;
             SupplierPayRepository = supplierPayRepository;
+            TransferAccountRepository = transferAccountRepository;
+            StaffPaymentRepository = staffPaymentRepository;
+            SupplierRepository = supplierRepository;
+            StaffRepository = staffRepository;
+            UserRepository = userRepository;
         }
 
         public IProductRepository ProductRepository { get; private set; }
