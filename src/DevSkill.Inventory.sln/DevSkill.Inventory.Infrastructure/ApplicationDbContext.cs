@@ -22,6 +22,12 @@ namespace DevSkill.Inventory.Infrastructure
 
         public DbSet<TransferAccount> TransferAccounts { get; set; }
 
+        public DbSet<BalanceAdjustment> BalanceAdjustments { get; set; }
+
+        public DbSet<StaffPayment> StaffPayments { get; set; }
+
+
+
 
 
 

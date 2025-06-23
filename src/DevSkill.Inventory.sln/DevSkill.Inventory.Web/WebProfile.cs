@@ -12,6 +12,7 @@ using DevSkill.Inventory.Web.Areas.Admin.Models.QuotationsModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SalesModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ServiceSalesModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ServicesModels;
+using DevSkill.Inventory.Web.Areas.Admin.Models.StaffPaymentModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SupplierPaysModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.TransferAccounts;
 
@@ -69,6 +70,21 @@ namespace DevSkill.Inventory.Web
             CreateMap<TransferAccountSearchModel, TransferAccountSearchDto>();
             CreateMap<TransferAccount, TransferAccountDto>();
             CreateMap<TransferAccountDto, TransferAccount>();
+
+
+
+            CreateMap<BalanceAdjustmentSearchModel, BalanceAdjustmentSearchDto>();
+            CreateMap<BalanceAdjustmentSearchDto, BalanceAdjustmentSearchModel>();
+
+           
+            CreateMap<BalanceAdjustment, BalanceAdjustmentDto>();
+            CreateMap<BalanceAdjustmentDto, BalanceAdjustment>();
+
+            CreateMap<StaffPaymentSearchModel, StaffPaymentSearchDto>();
+            CreateMap<StaffPaymentSearchDto, StaffPaymentSearchModel>();
+            CreateMap<StaffPayment, StaffPaymentDto>();
+            CreateMap<StaffPaymentDto, StaffPayment>();
+
 
 
         }

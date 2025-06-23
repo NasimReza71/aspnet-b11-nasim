@@ -64,6 +64,12 @@ namespace DevSkill.Inventory.Domain
         Task<(IList<TransferAccount>, int, int)> GetTransferAccountsSP(
             int pageIndex, int pageSize, string orderBy, TransferAccountSearchDto search);
 
+        IBalanceAdjustmentRepository BalanceAdjustmentRepository { get; }
+        Task<(IList<BalanceAdjustment>, int, int)> GetBalanceAdjustmentsSP(int pageIndex, int pageSize, string orderBy, BalanceAdjustmentSearchDto search);
+
+        IStaffPaymentRepository StaffPaymentRepository { get; }
+        Task<(IList<StaffPayment>, int, int)> GetStaffPaymentsSP(int pageIndex, int pageSize, string orderBy, StaffPaymentSearchDto search);
+
 
 
     }

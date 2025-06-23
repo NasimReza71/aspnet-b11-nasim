@@ -1,0 +1,253 @@
+﻿@using DevSkill.Inventory.Web.Areas.Admin.Models.StaffPaymentModels
+@model StaffPaymentListModel
+
+@{
+    ViewData["Title"] = "Staff Payment List";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <style>
+        .dt-button {
+            background-color: #007bff !important;
+            color: white !important;
+            border: 1px solid #007bff !important;
+            transition: all 0.3s ease;
+        }
+
+        .dt-button:hover {
+            background-color: white !important;
+            color: #007bff !important;
+        }
+    </style>
+}
+
+<!-- Content Header -->
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="mb-0">Staff Payment List</h3>
+            </div>
+            <div class="col-sm-6 text-end">
+                <ol class="breadcrumb float-sm-end mb-2">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Staff Payments</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-end mt-2">
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-new-staff-payment">
+                    <i class="fas fa-plus"></i> New Staff Payment
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<partial name="_ResponsePartial" />
+<partial name="_ModalPartial" />
+<div id="modal-edit-staff-payment" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalEditStaffPayment" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="editStaffPaymentModalBody">
+        </div>
+    </div>
+</div>
+
+<!-- Search & Data Table -->
+<div class="app-content">
+    <div class="container-fluid">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-search mr-1"></i>Search Staff Payments</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" asp-for="SearchItem.Name" class="form-control" id="SearchItem_Name" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="text" asp-for="SearchItem.Date" class="form-control" id="SearchItem_Date" placeholder="e.g. March 2025" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Salary</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.Salary" class="form-control" id="SearchItem_Salary" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Attendance</label>
+                                <input type="number" asp-for="SearchItem.Attendance" class="form-control" id="SearchItem_Attendance" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button id="searchButton" type="button" class="btn btn-primary float-end">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"><h3 class="card-title">Available Staff Payments</h3></div>
+                    <div class="card-body">
+                        <table id="staffPayments" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#SL</th>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Salary</th>
+                                    <th>Attendance</th>
+                                    <th>Advance</th>
+                                    <th>Payment</th>
+                                    <th>Note</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>#SL</th>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Salary</th>
+                                    <th>Attendance</th>
+                                    <th>Advance</th>
+                                    <th>Payment</th>
+                                    <th>Note</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(function () {
+            var table = $("#staffPayments").DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                lengthChange: true,
+                autoWidth: false,
+                lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
+                layout: {
+                    topStart: 'buttons',
+                    topEnd: 'search'
+                },
+                buttons: [
+                    { extend: 'copy', text: '<i class="fas fa-copy"></i> Copy' },
+                    { extend: 'excel', text: '<i class="fas fa-file-excel"></i> Excel' },
+                    { extend: 'csv', text: '<i class="fas fa-file-csv"></i> CSV' },
+                    { extend: 'pdf', text: '<i class="fas fa-file-pdf"></i> PDF' },
+                    { extend: 'print', text: '<i class="fas fa-print"></i> Print' }
+                ],
+                ajax: {
+                    url: "/Admin/StaffPayments/GetStaffPaymentsJsonData",
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: function (d) {
+                        d.SearchItem = {
+                            Name: $("#SearchItem_Name").val(),
+                            Date: $("#SearchItem_Date").val() === "" ? null : $("#SearchItem_Date").val(),
+                            Salary: $("#SearchItem_Salary").val() === "" ? null : $("#SearchItem_Salary").val(),
+                            Attendance: $("#SearchItem_Attendance").val() === "" ? null : $("#SearchItem_Attendance").val()
+                        };
+                        return JSON.stringify(d);
+                    }
+                },
+                columnDefs: [
+                    {
+                        targets: 0,
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        targets: 8,
+                        orderable: false,
+                        render: function (data, type, row) {
+                            return `
+                                <button class='btn btn-info btn-sm show-edit-modal' data-id='${data}' title='Edit'>
+                                    <i class='fas fa-edit'></i>
+                                </button>
+                                <button class='btn btn-danger btn-sm show-bs-modal' title='Delete' data-id='${data}'>
+                                    <i class='fas fa-trash'></i>
+                                </button>
+                            `;
+                        }
+                    }
+                ]
+            });
+
+            $('#staffPayments').on('click', '.show-bs-modal', function () {
+                let id = $(this).data("id");
+                let deleteModal = $("#modal-delete");
+                deleteModal.find('.modal-body p').text('Are you sure you want to delete this staff payment?');
+                $('#delete-id').val(id);
+                $('#delete-form').attr('action', '/admin/staffpayments/delete');
+                deleteModal.modal('show');
+            });
+
+            $('#staffPayments').on('click', '.show-edit-modal', function () {
+                let id = $(this).data("id");
+                $.ajax({
+                    url: `/Admin/StaffPayments/Edit/${id}`,
+                    type: 'GET',
+                    success: function (response) {
+                        $('#editStaffPaymentModalBody').html(response);
+                        $('#modal-edit-staff-payment').modal('show');
+                    },
+                    error: function () {
+                        alert('Failed to load edit form.');
+                    }
+                });
+            });
+
+            $("#searchButton").click(function () {
+                $('#staffPayments').DataTable().ajax.reload(null, false);
+            });
+        });
+    </script>
+}
+
+

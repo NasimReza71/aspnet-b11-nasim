@@ -179,6 +179,15 @@ namespace DevSkill.Inventory.Web
                 .InstancePerLifetimeScope();
 
 
+            builder.RegisterType<BalanceAdjustmentRepository>()
+       .As<IBalanceAdjustmentRepository>()
+       .InstancePerLifetimeScope();
+
+
+            builder.RegisterType<StaffPaymentRepository>()
+       .As<IStaffPaymentRepository>()
+       .InstancePerLifetimeScope();
+
 
             base.Load(builder); 
         }

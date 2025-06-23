@@ -398,5 +398,54 @@ namespace DevSkill.Inventory.Infrastructure
         }
 
 
+        public IBalanceAdjustmentRepository BalanceAdjustmentRepository { get; private set; }
+
+        public async Task<(IList<BalanceAdjustment>, int, int)> GetBalanceAdjustmentsSP(int pageIndex, int pageSize, string orderBy, BalanceAdjustmentSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<BalanceAdjustment>("GetBalanceAdjustments",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "AdjustmentType", search.AdjustmentType },
+            { "AccountType", search.AccountType }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
+        public IStaffPaymentRepository StaffPaymentRepository { get; private set; }
+
+        public async Task<(IList<StaffPayment>, int, int)> GetStaffPaymentsSP(int pageIndex, int pageSize, string orderBy, StaffPaymentSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<StaffPayment>("GetStaffPayments",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "Name", search.Name },
+            { "Date", search.Date },
+            { "Salary", search.Salary },
+            { "Attendance", search.Attendance }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
+
     }
 }
