@@ -17,6 +17,7 @@ using DevSkill.Inventory.Web.Areas.Admin.Models.StaffPaymentModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SupplierModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SupplierPaysModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.TransferAccounts;
+using DevSkill.Inventory.Web.Areas.Admin.Models.UserModels;
 
 namespace DevSkill.Inventory.Web
 {
@@ -99,6 +100,12 @@ namespace DevSkill.Inventory.Web
             CreateMap<StaffSearchDto, StaffSearchModel>();
             CreateMap<Staff, StaffDto>();
             CreateMap<StaffDto, Staff>();
+
+
+            CreateMap<UserSearchModel, UserSearchDto>();
+            CreateMap<UserSearchDto, UserSearchModel>();
+            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
 
 
         }

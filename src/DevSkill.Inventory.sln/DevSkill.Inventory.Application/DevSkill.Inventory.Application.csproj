@@ -28,6 +28,7 @@
     <Folder Include="Features\SupplierPays\Commands\" />
     <Folder Include="Features\Suppliers\Commands\" />
     <Folder Include="Features\TransferAccounts\Commands\" />
+    <Folder Include="Features\Users\Commands\" />
   </ItemGroup>
 
 </Project>

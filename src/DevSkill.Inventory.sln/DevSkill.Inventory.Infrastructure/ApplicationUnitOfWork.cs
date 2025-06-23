@@ -494,5 +494,30 @@ namespace DevSkill.Inventory.Infrastructure
         }
 
 
+        public IUserRepository UserRepository { get; private set; }
+        public async Task<(IList<User>, int, int)> GetUsersSP(int pageIndex, int pageSize, string orderBy, UserSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<User>("GetUsers",
+                new Dictionary<string, object>
+                {
+            { "PageIndex", pageIndex },
+            { "PageSize", pageSize },
+            { "OrderBy", orderBy },
+            { "Employee", search.Employee },
+            { "Company", search.Company },
+            { "Email", search.Email },
+            { "Mobile", search.Mobile },
+            { "Role", search.Role }
+                },
+                new Dictionary<string, Type>
+                {
+            { "Total", typeof(int) },
+            { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
     }
 }

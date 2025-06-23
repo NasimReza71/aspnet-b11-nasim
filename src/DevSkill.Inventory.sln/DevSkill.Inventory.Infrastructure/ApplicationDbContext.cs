@@ -31,6 +31,9 @@ namespace DevSkill.Inventory.Infrastructure
 
         public DbSet<Staff> Staffs { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
+
 
 
 
