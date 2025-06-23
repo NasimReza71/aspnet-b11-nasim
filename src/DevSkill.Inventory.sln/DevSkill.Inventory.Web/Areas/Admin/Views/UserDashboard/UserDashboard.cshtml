@@ -1,0 +1,104 @@
+﻿@using DevSkill.Inventory.Web.Areas.Admin.Models.UserDashboardViewModel
+@model UserDashboardViewModel
+
+@{
+    ViewData["Title"] = "User Dashboard";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        .dashboard-card {
+            transition: box-shadow .3s;
+            border-radius: 18px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+            .dashboard-card:hover {
+                box-shadow: 0 0 20px rgba(0,0,0,0.16);
+                background: #f8f9fa;
+            }
+
+        .dashboard-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .dashboard-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .breadcrumb-custom {
+            background: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+    </style>
+}
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-12">
+            <ol class="breadcrumb breadcrumb-custom float-sm-end mb-2">
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">User Dashboard</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-3 col-sm-6">
+            <a href="/Admin/Customers/CustomerList" class="dashboard-link">
+                <div class="card dashboard-card border-primary">
+                    <div class="card-body">
+                        <div class="dashboard-icon text-primary"><i class="fas fa-users"></i></div>
+                        <h5 class="card-title text-primary">Customer</h5>
+                        <p class="card-text h2">@Model.CustomerCount</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <a href="/Admin/Suppliers/SupplierList" class="dashboard-link">
+                <div class="card dashboard-card border-success">
+                    <div class="card-body">
+                        <div class="dashboard-icon text-success"><i class="fas fa-truck"></i></div>
+                        <h5 class="card-title text-success">Supplier</h5>
+                        <p class="card-text h2">@Model.SupplierCount</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <a href="/Admin/Staffs/StaffList" class="dashboard-link">
+                <div class="card dashboard-card border-warning">
+                    <div class="card-body">
+                        <div class="dashboard-icon text-warning"><i class="fas fa-user-tie"></i></div>
+                        <h5 class="card-title text-warning">Staff/Employee</h5>
+                        <p class="card-text h2">@Model.StaffCount</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <a href="/Admin/Users/UserList" class="dashboard-link">
+                <div class="card dashboard-card border-info">
+                    <div class="card-body">
+                        <div class="dashboard-icon text-info"><i class="fas fa-user-circle"></i></div>
+                        <h5 class="card-title text-info">User</h5>
+                        <p class="card-text h2">@Model.UserCount</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+}

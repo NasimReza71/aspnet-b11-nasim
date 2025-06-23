@@ -9,6 +9,7 @@ namespace DevSkill.Inventory.Domain.Repositories
 {
     public interface IStaffRepository : IRepository<Staff, Guid>
     {
+        int GetStaffCount();
         (IList<Staff> data, int total, int totalDisplay) GetPagedStaffs(int pageIndex, int pageSize, string? order, DataTablesSearch search);
     }
 }

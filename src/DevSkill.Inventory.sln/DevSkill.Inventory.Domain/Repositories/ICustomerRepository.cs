@@ -12,6 +12,7 @@ namespace DevSkill.Inventory.Domain.Repositories
     {
         bool IsMobileDuplicate(string mobile, Guid? id = null);
         bool IsEmailDuplicate(string email, Guid? id = null);
+        int GetCustomerCount();
 
         (IList<Customer> data, int total, int totalDisplay) GetPagedCustomers(int pageIndex, int pageSize, string? order, DataTablesSearch search);
     }

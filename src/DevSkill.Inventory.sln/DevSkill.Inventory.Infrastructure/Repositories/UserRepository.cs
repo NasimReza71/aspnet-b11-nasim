@@ -19,6 +19,10 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        public int GetUserCount()
+        {
+            return _dbContext.Users.Count();
+        }
         public (IList<User> data, int total, int totalDisplay) GetPagedUsers(int pageIndex, int pageSize, string? order, DataTablesSearch search)
         {
             if (string.IsNullOrWhiteSpace(search.Value))

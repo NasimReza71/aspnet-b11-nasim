@@ -18,6 +18,10 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
+        public int GetStaffCount()
+        {
+            return _dbContext.Staffs.Count();
+        }
 
         public (IList<Staff> data, int total, int totalDisplay) GetPagedStaffs(int pageIndex, int pageSize, string? order, DataTablesSearch search)
         {

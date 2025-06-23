@@ -79,6 +79,11 @@ namespace DevSkill.Inventory.Domain
         IUserRepository UserRepository { get; }
         Task<(IList<User>, int, int)> GetUsersSP(int pageIndex, int pageSize, string orderBy, UserSearchDto search);
 
+        int GetCustomerCount();
+        int GetSupplierCount();
+        int GetStaffCount();
+        int GetUserCount();
+
     }
 
 }

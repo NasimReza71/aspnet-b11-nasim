@@ -19,6 +19,7 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+
         public (IList<Supplier> data, int total, int totalDisplay) GetPagedSuppliers(int pageIndex, int pageSize, string? order, DataTablesSearch search)
         {
             if (string.IsNullOrWhiteSpace(search.Value))
@@ -38,6 +39,11 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
                     true
                 );
             }
+        }
+
+        public int GetSupplierCount()
+        {
+           return  _dbContext.Suppliers.Count();
         }
     }
 }

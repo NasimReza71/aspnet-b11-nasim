@@ -34,6 +34,11 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
                 return GetCount(x => x.Mobile == mobile) > 0;
         }
 
+        public int GetCustomerCount()
+        {
+            return _dbContext.Customers.Count();
+        }
+
         public (IList<Customer> data, int total, int totalDisplay) GetPagedCustomers(
             int pageIndex, int pageSize, string? order, DataTablesSearch search)
         {

@@ -205,6 +205,22 @@ namespace DevSkill.Inventory.Web
 
 
 
+            builder.RegisterType<CustomerRepository>()
+    .As<ICustomerRepository>()
+    .InstancePerLifetimeScope();
+
+            builder.RegisterType<SupplierRepository>()
+                .As<ISupplierRepository>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<StaffRepository>()
+                .As<IStaffRepository>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<UserRepository>()
+                .As<IUserRepository>()
+                .InstancePerLifetimeScope();
+
             base.Load(builder); 
         }
     }

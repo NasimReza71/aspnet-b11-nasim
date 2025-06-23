@@ -532,5 +532,9 @@ namespace DevSkill.Inventory.Infrastructure
         }
 
 
+        public int GetCustomerCount() => CustomerRepository.GetCustomerCount();
+        public int GetSupplierCount() => SupplierRepository.GetSupplierCount();
+        public int GetStaffCount() => StaffRepository.GetStaffCount();
+        public int GetUserCount() => UserRepository.GetUserCount();
     }
 }
