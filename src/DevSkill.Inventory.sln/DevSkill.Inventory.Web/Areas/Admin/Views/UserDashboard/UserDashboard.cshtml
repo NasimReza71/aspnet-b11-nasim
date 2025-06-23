@@ -9,89 +9,100 @@
 {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <style>
-        .dashboard-card {
-            transition: box-shadow .3s;
-            border-radius: 18px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.08);
-            text-align: center;
+        .dashboard-card-simple {
+            border-radius: 8px;
+            min-height: 110px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            font-size: 1.07rem;
         }
 
-            .dashboard-card:hover {
-                box-shadow: 0 0 20px rgba(0,0,0,0.16);
-                background: #f8f9fa;
+            .dashboard-card-simple .dashboard-icon {
+                font-size: 2rem;
+                margin-right: 18px;
+                color: #181818;
             }
 
-        .dashboard-link {
-            text-decoration: none;
-            color: inherit;
-        }
+            .dashboard-card-simple.bg-customer {
+                background: #ffd6d6;
+            }
 
-        .dashboard-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
+            .dashboard-card-simple.bg-supplier {
+                background: #eeffcf;
+            }
 
-        .breadcrumb-custom {
-            background: none;
-            padding: 0;
-            margin-bottom: 20px;
+            .dashboard-card-simple.bg-staff {
+                background: #e6e6fa;
+            }
+
+            .dashboard-card-simple.bg-user {
+                background: #fffdd6;
+            }
+
+        .dashboard-count {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-left: 2px;
         }
     </style>
+   
 }
 
-<div class="container-fluid mt-3">
+
     <div class="row">
-        <div class="col-12">
-            <ol class="breadcrumb breadcrumb-custom float-sm-end mb-2">
-                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">User Dashboard</li>
-            </ol>
+        <div class="col-12 mb-2">
+            <div class="card">
+                <div class="card-body">
+                    <span style="font-size: 1.1rem;">Users</span>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="row g-4 justify-content-center">
-        <div class="col-md-3 col-sm-6">
-            <a href="/Admin/Customers/CustomerList" class="dashboard-link">
-                <div class="card dashboard-card border-primary">
-                    <div class="card-body">
-                        <div class="dashboard-icon text-primary"><i class="fas fa-users"></i></div>
-                        <h5 class="card-title text-primary">Customer</h5>
-                        <p class="card-text h2">@Model.CustomerCount</p>
-                    </div>
+    <div class="row g-3">
+        <div class="col-lg-3 col-md-6 col-12">
+            <a href="/Admin/Customers/CustomerList" style="text-decoration:none;">
+                <div class="dashboard-card-simple bg-customer">
+                    <span class="dashboard-icon"><i class="bi bi-list"></i></span>
+                    <span>
+                        Customer<br />
+                        <span class="dashboard-count">@Model.CustomerCount</span>
+                    </span>
                 </div>
             </a>
         </div>
-        <div class="col-md-3 col-sm-6">
-            <a href="/Admin/Suppliers/SupplierList" class="dashboard-link">
-                <div class="card dashboard-card border-success">
-                    <div class="card-body">
-                        <div class="dashboard-icon text-success"><i class="fas fa-truck"></i></div>
-                        <h5 class="card-title text-success">Supplier</h5>
-                        <p class="card-text h2">@Model.SupplierCount</p>
-                    </div>
+        <div class="col-lg-3 col-md-6 col-12">
+            <a href="/Admin/Suppliers/SupplierList" style="text-decoration:none;">
+                <div class="dashboard-card-simple bg-supplier">
+                    <span class="dashboard-icon"><i class="bi bi-list"></i></span>
+                    <span>
+                        Supplier<br />
+                        <span class="dashboard-count">@Model.SupplierCount</span>
+                    </span>
                 </div>
             </a>
         </div>
-        <div class="col-md-3 col-sm-6">
-            <a href="/Admin/Staffs/StaffList" class="dashboard-link">
-                <div class="card dashboard-card border-warning">
-                    <div class="card-body">
-                        <div class="dashboard-icon text-warning"><i class="fas fa-user-tie"></i></div>
-                        <h5 class="card-title text-warning">Staff/Employee</h5>
-                        <p class="card-text h2">@Model.StaffCount</p>
-                    </div>
+        <div class="col-lg-3 col-md-6 col-12">
+            <a href="/Admin/Staffs/StaffList" style="text-decoration:none;">
+                <div class="dashboard-card-simple bg-staff">
+                    <span class="dashboard-icon"><i class="bi bi-list"></i></span>
+                    <span>
+                        Staff / Employee<br />
+                        <span class="dashboard-count">@Model.StaffCount</span>
+                    </span>
                 </div>
             </a>
         </div>
-        <div class="col-md-3 col-sm-6">
-            <a href="/Admin/Users/UserList" class="dashboard-link">
-                <div class="card dashboard-card border-info">
-                    <div class="card-body">
-                        <div class="dashboard-icon text-info"><i class="fas fa-user-circle"></i></div>
-                        <h5 class="card-title text-info">User</h5>
-                        <p class="card-text h2">@Model.UserCount</p>
-                    </div>
+        <div class="col-lg-3 col-md-6 col-12">
+            <a href="/Admin/Users/UserList" style="text-decoration:none;">
+                <div class="dashboard-card-simple bg-user">
+                    <span class="dashboard-icon"><i class="bi bi-list"></i></span>
+                    <span>
+                        User<br />
+                        <span class="dashboard-count">@Model.UserCount</span>
+                    </span>
                 </div>
             </a>
         </div>
