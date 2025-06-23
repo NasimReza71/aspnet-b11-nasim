@@ -1,72 +1,67 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
-
 @section Styles
 {
-    <!-- apexcharts -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
-          integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
-          crossorigin="anonymous" />
-    <!-- jsvectormap -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
-          integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
-          crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css" crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
 }
 
-
-
-
-
-<!--begin::App Content Header-->
 <div class="app-content-header">
-    <!--begin::Container-->
     <div class="container-fluid">
 
-
+        <!-- Row 1 -->
         <div class="row">
             <div class="col-md-2 mb-3">
-                <div class="card text-white position-relative" style="background-color: #ab47bc;">
-                    <div class="card-body">
-                        <h4 class="fw-bold">62</h4>
-                        <h6 class="text-white-50">Total Customer</h6>
-                        <i class="bi bi-people-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                <a href="/Admin/Customers/CustomerList" class="text-decoration-none">
+                    <div class="card text-white position-relative" style="background-color: #ab47bc;">
+                        <div class="card-body">
+                            <h4 class="fw-bold">62</h4>
+                            <h6 class="text-white-50">Total Customer</h6>
+                            <i class="bi bi-people-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="col-md-2 mb-3">
-                <div class="card text-white position-relative" style="background-color: #7b1fa2;">
-                    <div class="card-body">
-                        <h4 class="fw-bold">37</h4>
-                        <h6 class="text-white-50">Total Product</h6>
-                        <i class="bi bi-cart-plus fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                <a href="/Admin/Products/ProductList" class="text-decoration-none">
+                    <div class="card text-white position-relative" style="background-color: #7b1fa2;">
+                        <div class="card-body">
+                            <h4 class="fw-bold">37</h4>
+                            <h6 class="text-white-50">Total Product</h6>
+                            <i class="bi bi-cart-plus fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="col-md-2 mb-3">
-                <div class="card text-white position-relative" style="background-color: #0d47a1;">
-                    <div class="card-body">
-                        <h4 class="fw-bold">15</h4>
-                        <h6 class="text-white-50">Total Supplier</h6>
-                        <i class="bi bi-person-lines-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                <a href="/Admin/Suppliers/SupplierList" class="text-decoration-none">
+                    <div class="card text-white position-relative" style="background-color: #0d47a1;">
+                        <div class="card-body">
+                            <h4 class="fw-bold">15</h4>
+                            <h6 class="text-white-50">Total Supplier</h6>
+                            <i class="bi bi-person-lines-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="col-md-3 mb-3">
-                <div class="card text-white position-relative" style="background-color: #2196f3;">
-                    <div class="card-body">
-                        <h4 class="fw-bold">1,015,153.50</h4>
-                        <h6 class="text-white-50">Total Sales</h6>
-                        <i class="bi bi-bag-check-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                <a href="/Admin/Sales/SaleList" class="text-decoration-none">
+                    <div class="card text-white position-relative" style="background-color: #2196f3;">
+                        <div class="card-body">
+                            <h4 class="fw-bold">1,015,153.50</h4>
+                            <h6 class="text-white-50">Total Sales</h6>
+                            <i class="bi bi-bag-check-fill fs-1 position-absolute bottom-0 end-0 p-2 opacity-25"></i>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="col-md-3 mb-3">
                 <div class="card text-white position-relative" style="background-color: #7cb342;">
                     <div class="card-body">
@@ -78,6 +73,7 @@
             </div>
         </div>
 
+        <!-- Row 2 -->
         <div class="row">
             <div class="col-md-2 mb-3">
                 <div class="card text-white position-relative" style="background-color: #ec407a;">
@@ -126,12 +122,8 @@
             </div>
         </div>
 
-
-
-
-
+        <!-- Row 3: Top Sale Products & Low Stock -->
         <div class="row mt-4">
-            <!-- Top Sale Products -->
             <div class="col-md-6">
                 <div class="card" style="background-color: #e3f2fd;">
                     <div class="card-header bg-transparent text-center fw-bold fs-5">Top Sale Products</div>
@@ -157,9 +149,6 @@
                     </div>
                 </div>
             </div>
-
-
-
 
             <div class="col-md-6">
                 <div class="card" style="background-color: #f3e5f5;">
@@ -199,7 +188,7 @@
             </div>
         </div>
 
-
+        <!-- Row 4: Charts -->
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="card">
@@ -218,27 +207,25 @@
                 </div>
             </div>
         </div>
+
     </div>
-
-
-
 </div>
 
 @section Scripts {
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"></script>
-        <script>
-            var salesChart = new ApexCharts(document.querySelector("#last7DaysSales"), {
-                chart: { type: 'bar', height: 300 },
-                series: [{ name: 'Sales', data: [35, 40, 28, 52, 60, 48, 70] }],
-                xaxis: { categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] }
-            });
-            salesChart.render();
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"></script>
+    <script>
+        var salesChart = new ApexCharts(document.querySelector("#last7DaysSales"), {
+            chart: { type: 'bar', height: 300 },
+            series: [{ name: 'Sales', data: [35, 40, 28, 52, 60, 48, 70] }],
+            xaxis: { categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] }
+        });
+        salesChart.render();
 
-            var pieChart = new ApexCharts(document.querySelector("#profitLossPieChart"), {
-                chart: { type: 'pie', height: 300 },
-                series: [45, 25, 30],
-                labels: ['Profit', 'Loss', 'Others']
-            });
-            pieChart.render();
-        </script>
+        var pieChart = new ApexCharts(document.querySelector("#profitLossPieChart"), {
+            chart: { type: 'pie', height: 300 },
+            series: [45, 25, 30],
+            labels: ['Profit', 'Loss', 'Others']
+        });
+        pieChart.render();
+    </script>
 }
