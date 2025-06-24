@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "ProductImageDashboard";
+}
+
+<div class="container mt-4">
+    <h2>Welcome to Live Dashboard</h2>
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card text-center shadow-sm">
+                    <img src="@product.ImageUrl" class="card-img-top" style="height:150px;object-fit:cover;" alt="@product.Name">
+                    <div class="card-body" style="background-color: #ffe4a1;">
+                        <h5 class="card-title fw-bold">@product.Name</h5>
+                        <div>
+                            <span>Live Stock: </span>
+                            <span class="fw-bold @(product.Stock < 0 ? "text-danger" : "text-success")">
+                                @product.Stock @product.StockUnit
+                            </span>
+                        </div>
+                        <div>
+                            <span>Today's Sale: </span>
+                            <span class="fw-bold text-success">
+                                @product.TodaySale @product.SaleUnit
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+
+
+    .card {
+        border-radius: 12px;
+        transition: box-shadow .3s;
+    }
+
+        .card:hover {
+            box-shadow: 0 0 15px #ffd70055;
+        }
+</style>
