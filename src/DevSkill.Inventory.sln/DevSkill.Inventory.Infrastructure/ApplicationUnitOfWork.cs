@@ -28,7 +28,8 @@ namespace DevSkill.Inventory.Infrastructure
             IStaffPaymentRepository staffPaymentRepository,
            ISupplierRepository supplierRepository,
            IStaffRepository staffRepository,
-           IUserRepository userRepository
+           IUserRepository userRepository,
+           IAccessSetupRepository accessSetupRepository
 
 
 
@@ -48,6 +49,7 @@ namespace DevSkill.Inventory.Infrastructure
             SupplierRepository = supplierRepository;
             StaffRepository = staffRepository;
             UserRepository = userRepository;
+            AccessSetupRepository = accessSetupRepository;
         }
 
         public IProductRepository ProductRepository { get; private set; }
@@ -536,5 +538,35 @@ namespace DevSkill.Inventory.Infrastructure
         public int GetSupplierCount() => SupplierRepository.GetSupplierCount();
         public int GetStaffCount() => StaffRepository.GetStaffCount();
         public int GetUserCount() => UserRepository.GetUserCount();
+
+
+
+        public IAccessSetupRepository AccessSetupRepository { get; private set; }
+
+   
+
+        public async Task<(IList<AccessSetup>, int, int)> GetAccessSetupsSP(
+            int pageIndex, int pageSize, string orderBy, AccessSetupSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<AccessSetup>("GetAccessSetups",
+                new Dictionary<string, object>
+                {
+                    { "PageIndex", pageIndex },
+                    { "PageSize", pageSize },
+                    { "OrderBy", orderBy },
+                    { "CompID", search.CompID },
+                    { "UserType", search.UserType },
+                    { "Status", search.Status }
+                },
+                new Dictionary<string, Type>
+                {
+                    { "Total", typeof(int) },
+                    { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
+
+
     }
 }

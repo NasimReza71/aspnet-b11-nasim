@@ -5,6 +5,7 @@ using DevSkill.Inventory.Application.Features.ServiceSales.Commands;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
+using DevSkill.Inventory.Web.Areas.Admin.Models.AccessSetupModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.DebitVouchersModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.PurchaseModels;
@@ -106,6 +107,13 @@ namespace DevSkill.Inventory.Web
             CreateMap<UserSearchDto, UserSearchModel>();
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
+
+
+
+            CreateMap<AccessSetupSearchModel, AccessSetupSearchDto>();
+            CreateMap<AccessSetupSearchDto, AccessSetupSearchModel>();
+
+
 
 
         }

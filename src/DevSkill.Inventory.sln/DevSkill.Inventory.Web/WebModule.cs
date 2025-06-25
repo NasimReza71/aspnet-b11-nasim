@@ -221,6 +221,10 @@ namespace DevSkill.Inventory.Web
                 .As<IUserRepository>()
                 .InstancePerLifetimeScope();
 
+
+            builder.RegisterType<AccessSetupRepository>()
+                .As<IAccessSetupRepository>();
+
             base.Load(builder); 
         }
     }

@@ -84,6 +84,12 @@ namespace DevSkill.Inventory.Domain
         int GetStaffCount();
         int GetUserCount();
 
+        public IAccessSetupRepository AccessSetupRepository { get; }
+
+        
+        Task<(IList<AccessSetup> data, int total, int totalDisplay)> GetAccessSetupsSP(
+            int pageIndex, int pageSize, string? order, AccessSetupSearchDto search);
+
     }
 
 }
