@@ -29,7 +29,8 @@ namespace DevSkill.Inventory.Infrastructure
            ISupplierRepository supplierRepository,
            IStaffRepository staffRepository,
            IUserRepository userRepository,
-           IAccessSetupRepository accessSetupRepository
+           IAccessSetupRepository accessSetupRepository,
+           IProductPlusRepository productPlusRepository
 
 
 
@@ -50,6 +51,8 @@ namespace DevSkill.Inventory.Infrastructure
             StaffRepository = staffRepository;
             UserRepository = userRepository;
             AccessSetupRepository = accessSetupRepository;
+            ProductPlusRepository = productPlusRepository;
+
         }
 
         public IProductRepository ProductRepository { get; private set; }
@@ -567,6 +570,30 @@ namespace DevSkill.Inventory.Infrastructure
             return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
         }
 
+
+
+        public IProductPlusRepository ProductPlusRepository { get; private set; }
+        public async Task<(IList<ProductPlusEntity> data, int total, int totalDisplay)> GetProductPlusSP(
+            int pageIndex, int pageSize, string orderBy, ProductPlusSearchDto search)
+        {
+            var result = await SqlUtility.QueryWithStoredProcedureAsync<ProductPlusEntity>("GetProductPluses",
+                new Dictionary<string, object>
+                {
+                    { "PageIndex", pageIndex },
+                    { "PageSize", pageSize },
+                    { "OrderBy", orderBy },
+                    { "ProductCode", search.ProductCode },
+                    { "ProductName", search.ProductName },
+                    { "Category", search.Category }
+                },
+                new Dictionary<string, Type>
+                {
+                    { "Total", typeof(int) },
+                    { "TotalDisplay", typeof(int) }
+                });
+
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
 
     }
 }

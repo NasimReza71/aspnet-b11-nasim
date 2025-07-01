@@ -90,6 +90,11 @@ namespace DevSkill.Inventory.Domain
         Task<(IList<AccessSetup> data, int total, int totalDisplay)> GetAccessSetupsSP(
             int pageIndex, int pageSize, string? order, AccessSetupSearchDto search);
 
+        public IProductPlusRepository ProductPlusRepository { get; } 
+
+
+        Task<(IList<ProductPlusEntity> data, int total, int totalDisplay)> GetProductPlusSP(
+            int pageIndex, int pageSize, string orderBy, ProductPlusSearchDto search);
     }
 
 }

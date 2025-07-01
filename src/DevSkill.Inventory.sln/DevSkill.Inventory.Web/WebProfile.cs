@@ -8,6 +8,7 @@ using DevSkill.Inventory.Web.Areas.Admin.Models;
 using DevSkill.Inventory.Web.Areas.Admin.Models.AccessSetupModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.CustomersModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.DebitVouchersModels;
+using DevSkill.Inventory.Web.Areas.Admin.Models.ProductPlusModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.PurchaseModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.QuotationsModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SalesModels;
@@ -114,6 +115,13 @@ namespace DevSkill.Inventory.Web
             CreateMap<AccessSetupSearchDto, AccessSetupSearchModel>();
 
 
+
+            CreateMap<ProductPlusEntity, ProductPlusDto>();
+            CreateMap<ProductPlusSearchModel, ProductPlusSearchDto>();
+
+           
+            //CreateMap<ProductPlusAddViewModel, ProductPlusAddCommand>();
+            //CreateMap<ProductPlusUpdateViewModel, ProductPlusUpdateCommand>();
 
 
         }

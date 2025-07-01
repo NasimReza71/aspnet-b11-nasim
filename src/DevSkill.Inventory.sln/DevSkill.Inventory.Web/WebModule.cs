@@ -3,6 +3,7 @@ using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Customers.Queries;
 using DevSkill.Inventory.Application.Features.DebitVouchers.Queries;
 using DevSkill.Inventory.Application.Features.MoneyReceipts.Queries;
+using DevSkill.Inventory.Application.Features.ProductPlus.Queries;
 using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Application.Features.PurchaseReturns.Queries;
 using DevSkill.Inventory.Application.Features.Purchases.Queries;
@@ -224,6 +225,16 @@ namespace DevSkill.Inventory.Web
 
             builder.RegisterType<AccessSetupRepository>()
                 .As<IAccessSetupRepository>();
+
+
+            builder.RegisterType<ProductPlusRepository>().As<IProductPlusRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<GetProductPlusByIdQueryHandler>()
+                .As<IRequestHandler<GetProductPlusByIdQuery, ProductPlusEntity>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<GetProductPlusSPQueryHandler>()
+                .As<IRequestHandler<GetProductPlusSPQuery, (IList<ProductPlusEntity>, int, int)>>()
+                .InstancePerLifetimeScope();
 
             base.Load(builder); 
         }

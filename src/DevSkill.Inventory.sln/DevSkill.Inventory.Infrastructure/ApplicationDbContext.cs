@@ -29,12 +29,13 @@ namespace DevSkill.Inventory.Infrastructure
         public DbSet<Supplier> Suppliers { get; set; }
 
 
+
         public DbSet<Staff> Staffs { get; set; }
 
         public DbSet<User> Users { get; set; }
 
 
-
+        public DbSet<ProductPlusEntity> ProductPluses { get; set; }
 
 
 

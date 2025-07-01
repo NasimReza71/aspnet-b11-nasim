@@ -18,6 +18,7 @@
   <ItemGroup>
     <Folder Include="Features\BalanceAdjustments\Commands\" />
     <Folder Include="Features\DebitVouchers\Commands\" />
+    <Folder Include="Features\ProductPlus\Commands\" />
     <Folder Include="Features\PurchaseReturns\Commands\" />
     <Folder Include="Features\Quotations\Commands\" />
     <Folder Include="Features\SalesReturns\Commands\" />
