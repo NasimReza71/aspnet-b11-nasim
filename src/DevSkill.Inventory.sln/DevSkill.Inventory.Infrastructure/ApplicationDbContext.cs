@@ -35,7 +35,10 @@ namespace DevSkill.Inventory.Infrastructure
         public DbSet<User> Users { get; set; }
 
 
-        public DbSet<ProductPlusEntity> ProductPluses { get; set; }
+         public DbSet<ProductPlusEntity> ProductPluses { get; set; }
+
+
+     
 
 
 

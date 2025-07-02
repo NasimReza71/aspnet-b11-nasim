@@ -19,5 +19,6 @@ namespace DevSkill.Inventory.Domain.Entities
         public int LowStockThreshold { get; set; }
         public int DamageStock { get; set; }
         public bool IsActive => StockQuantity > 0;
+        public string ImagePath { get; set; }
     }
 }

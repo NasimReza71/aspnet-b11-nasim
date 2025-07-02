@@ -2,6 +2,7 @@
 using DevSkill.Inventory.Application.Features.ProductPlus.Queries;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
+using DevSkill.Inventory.Web.Areas.Admin.Models;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ProductPlusModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -23,17 +24,19 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             _logger = logger;
         }
 
-        
+        // ProductPlus List
         public IActionResult ProductPlusList()
         {
             return View();
         }
 
+        // Get ProductPlus Data for DataTables
         [HttpPost]
         public async Task<JsonResult> GetProductPlusJsonData([FromBody] ProductPlusListModel model)
         {
             try
             {
+                // Mapping the search items from the view model
                 var searchDto = _mapper.Map<ProductPlusSearchDto>(model.SearchItem);
 
                 var query = new GetProductPlusSPQuery
@@ -44,22 +47,28 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     SearchItem = searchDto
                 };
 
+                // Sending the query and fetching data from the database
                 var (data, total, totalDisplay) = await _mediator.Send(query);
 
+                // Returning the result in DataTable format
                 var result = new
                 {
                     recordsTotal = total,
                     recordsFiltered = totalDisplay,
                     data = data.Select(p => new string[]
                     {
-                        HttpUtility.HtmlEncode(p.ProductCode),
-                        HttpUtility.HtmlEncode(p.ProductName),
-                        HttpUtility.HtmlEncode(p.Category),
-                        p.StockQuantity.ToString(),
-                        p.MRP.ToString("N2"),
-                        p.WholesalePrice.ToString("N2"),
-                        p.IsActive ? "Active" : "Inactive",
-                        p.Id.ToString()
+                        p.Id.ToString(),
+                        HttpUtility.HtmlEncode(p.ProductCode),  // Column 1
+                        HttpUtility.HtmlEncode(p.ProductName),  // Column 2
+                        HttpUtility.HtmlEncode(p.Category),     // Column 3
+                        p.PurchasePrice.ToString("N2"),         // Column 4
+                        p.MRP.ToString("N2"),                   // Column 5
+                        p.WholesalePrice.ToString("N2"),        // Column 6
+                        p.StockQuantity.ToString(),             // Column 7
+                        p.LowStockThreshold.ToString(),         // Column 8
+                        p.DamageStock.ToString(),               // Column 9
+                        p.ImagePath                            // Column 10
+                                               // Column 11 (Action column)
                     }).ToArray()
                 };
 
@@ -68,8 +77,18 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error loading ProductPlus data");
-                return Json(DataTables.EmptyResult);
+                return Json(DataTables.EmptyResult); // Returning empty result on error
             }
+        }
+
+        // View Single ProductPlus
+        public async Task<IActionResult> ViewProductPlus(Guid id)
+        {
+            var productPlus = await _mediator.Send(new GetProductPlusByIdQuery { Id = id });
+            if (productPlus == null) return NotFound();
+
+            // You can add a ViewModel for ProductPlus if necessary
+            return View(productPlus); // View could be added for details page
         }
     }
 }
