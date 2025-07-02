@@ -15,7 +15,7 @@ namespace DevSkill.Inventory.Application.Features.Purchases.Commands
         public string Name { get; set; }
         public string Products { get; set; }
         public int Quantity { get; set; }
-        public decimal Total { get; set; }
+        public decimal TotalAmount { get; set; }
         public decimal Paid { get; set; }
         public decimal Due { get; set; }
     }

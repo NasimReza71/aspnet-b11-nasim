@@ -21,6 +21,7 @@ namespace DevSkill.Inventory.Infrastructure
              ISaleRepository saleRepository,
              IQuotationRepository quotationRepository,
             IMoneyReceiptRepository moneyReceiptRepository,
+            IPurchaseRepository purchaseRepository,
             IDebitVoucherRepository debitVoucherRepository,
             ISupplierPayRepository supplierPayRepository,
             ITransferAccountRepository transferAccountRepository,
@@ -52,6 +53,7 @@ namespace DevSkill.Inventory.Infrastructure
             UserRepository = userRepository;
             AccessSetupRepository = accessSetupRepository;
             ProductPlusRepository = productPlusRepository;
+            PurchaseRepository = purchaseRepository;
 
         }
 

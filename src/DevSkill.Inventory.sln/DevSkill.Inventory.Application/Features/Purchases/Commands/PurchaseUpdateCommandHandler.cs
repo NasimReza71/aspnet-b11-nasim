@@ -27,7 +27,7 @@ namespace DevSkill.Inventory.Application.Features.Purchases.Commands
             purchase.Name = request.Name;
             purchase.Products = request.Products;
             purchase.Quantity = request.Quantity;
-            purchase.Total = request.Total;
+            purchase.TotalAmount = request.TotalAmount;
             purchase.Paid = request.Paid;
             purchase.Due = request.Due;
 

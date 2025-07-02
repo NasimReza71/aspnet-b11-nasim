@@ -38,7 +38,7 @@ namespace DevSkill.Inventory.Infrastructure
          public DbSet<ProductPlusEntity> ProductPluses { get; set; }
 
 
-     
+        public DbSet<Purchase> Purchases { get; set; }
 
 
 

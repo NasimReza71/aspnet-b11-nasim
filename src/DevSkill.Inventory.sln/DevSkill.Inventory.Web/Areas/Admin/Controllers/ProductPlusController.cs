@@ -58,17 +58,17 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     data = data.Select(p => new string[]
                     {
                         p.Id.ToString(),
-                        HttpUtility.HtmlEncode(p.ProductCode),  // Column 1
-                        HttpUtility.HtmlEncode(p.ProductName),  // Column 2
-                        HttpUtility.HtmlEncode(p.Category),     // Column 3
-                        p.PurchasePrice.ToString("N2"),         // Column 4
-                        p.MRP.ToString("N2"),                   // Column 5
-                        p.WholesalePrice.ToString("N2"),        // Column 6
-                        p.StockQuantity.ToString(),             // Column 7
-                        p.LowStockThreshold.ToString(),         // Column 8
-                        p.DamageStock.ToString(),               // Column 9
-                        p.ImagePath                            // Column 10
-                                               // Column 11 (Action column)
+                        HttpUtility.HtmlEncode(p.ProductCode),  
+                        HttpUtility.HtmlEncode(p.ProductName),  
+                        HttpUtility.HtmlEncode(p.Category),     
+                        p.PurchasePrice.ToString("N2"),        
+                        p.MRP.ToString("N2"),                 
+                        p.WholesalePrice.ToString("N2"),        
+                        p.StockQuantity.ToString(),             
+                        p.LowStockThreshold.ToString(),        
+                        p.DamageStock.ToString(),              
+                        p.ImagePath                            
+                                               
                     }).ToArray()
                 };
 
@@ -77,18 +77,18 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error loading ProductPlus data");
-                return Json(DataTables.EmptyResult); // Returning empty result on error
+                return Json(DataTables.EmptyResult); 
             }
         }
 
-        // View Single ProductPlus
+       
         public async Task<IActionResult> ViewProductPlus(Guid id)
         {
             var productPlus = await _mediator.Send(new GetProductPlusByIdQuery { Id = id });
             if (productPlus == null) return NotFound();
 
-            // You can add a ViewModel for ProductPlus if necessary
-            return View(productPlus); // View could be added for details page
+            
+            return View(productPlus); 
         }
     }
 }

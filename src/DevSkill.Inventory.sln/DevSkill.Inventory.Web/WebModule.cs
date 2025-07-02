@@ -6,6 +6,7 @@ using DevSkill.Inventory.Application.Features.MoneyReceipts.Queries;
 using DevSkill.Inventory.Application.Features.ProductPlus.Queries;
 using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Application.Features.PurchaseReturns.Queries;
+using DevSkill.Inventory.Application.Features.Purchases.Commands;
 using DevSkill.Inventory.Application.Features.Purchases.Queries;
 using DevSkill.Inventory.Application.Features.Quotations.Queries;
 using DevSkill.Inventory.Application.Features.Sales.Queries;
@@ -75,6 +76,16 @@ namespace DevSkill.Inventory.Web
 
 
             builder.RegisterType<PurchaseRepository>().As<IPurchaseRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<PurchaseRepository>().As<IPurchaseRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<GetPurchaseByIdQueryHandler>()
+                .As<IRequestHandler<GetPurchaseByIdQuery, Purchase>>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<PurchaseDeleteCommandHandler>()
+                .As<IRequestHandler<PurchaseDeleteCommand>>()
+                .InstancePerLifetimeScope();
+
+
+
             builder.RegisterType<SaleRepository>().As<ISaleRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SalesReturnRepository>().As<ISalesReturnRepository>().InstancePerLifetimeScope();
             builder.RegisterType<PurchaseReturnRepository>().As<IPurchaseReturnRepository>().InstancePerLifetimeScope();

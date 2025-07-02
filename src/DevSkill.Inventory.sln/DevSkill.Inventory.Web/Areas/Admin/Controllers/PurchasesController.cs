@@ -63,7 +63,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                         HttpUtility.HtmlEncode(p.PurchaseInvoice),
                         HttpUtility.HtmlEncode(p.Name),
                         HttpUtility.HtmlEncode(p.Products),
-                        p.Total.ToString("N2"),
+                        p.TotalAmount.ToString("N2"),
                         p.Paid.ToString("N2"),
                         p.Due.ToString("N2"),
                         p.Id.ToString()

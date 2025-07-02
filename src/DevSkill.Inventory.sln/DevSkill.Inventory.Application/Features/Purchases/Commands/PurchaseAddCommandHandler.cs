@@ -28,7 +28,7 @@ namespace DevSkill.Inventory.Application.Features.Purchases.Commands
                 Name = request.Name,
                 Products = request.Products,
                 Quantity = request.Quantity,
-                Total = request.Total,
+                TotalAmount = request.TotalAmount,
                 Paid = request.Paid,
                 Due = request.Due
             };

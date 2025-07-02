@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Products.Commands;
+using DevSkill.Inventory.Application.Features.Purchases.Commands;
 using DevSkill.Inventory.Application.Features.ServiceSales.Commands;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
@@ -37,7 +38,16 @@ namespace DevSkill.Inventory.Web
 
             CreateMap<SalesSearchModel, SaleSearchDto>();
             CreateMap<PurchaseReturnSearchModel, PurchaseReturnSearchDto>();
+
             CreateMap<PurchaseSearchModel, PurchaseSearchDto>();
+            //CreateMap<UpdatePurchaseModel, PurchaseUpdateCommand>();
+            //CreateMap<Purchase, UpdatePurchaseModel>();
+            //CreateMap<PurchaseAddCommand, Purchase>();
+            //CreateMap<Purchase, PurchaseAddCommand>();
+            CreateMap<PurchaseSearchModel, PurchaseSearchDto>();
+
+
+
             CreateMap<SalesReturnSearchModel, SalesReturnSearchDto>();
             CreateMap<CustomerSearchModel, CustomerSearchDto>();
             CreateMap<Customer, CustomerDetailViewModel>();
