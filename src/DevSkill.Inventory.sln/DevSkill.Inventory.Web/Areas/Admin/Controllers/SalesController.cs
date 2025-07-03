@@ -58,7 +58,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     {
                         s.InvoiceNumber,
                         $"{s.CustomerName}<br/>{s.CustomerMobile}",
-                        s.Total.ToString("N2"),
+                        s.TotalAmount.ToString("N2"),
                         s.Paid.ToString("N2"),
                         s.Due.ToString("N2"),
                         s.Status,

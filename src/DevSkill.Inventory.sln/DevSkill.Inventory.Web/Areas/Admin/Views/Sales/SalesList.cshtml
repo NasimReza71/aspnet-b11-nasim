@@ -1,15 +1,15 @@
-﻿@model DevSkill.Inventory.Web.Areas.Admin.Models.SalesModels.SalesListModel
-
+﻿@using DevSkill.Inventory.Web.Areas.Admin.Models.SalesModels
+@model SalesListModel
 
 @{
-    ViewData["Title"] = "SalesList";
+    ViewData["Title"] = "Sales List";
 }
-
 
 @section Styles {
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 
     <style>
         .dt-button {
@@ -23,28 +23,46 @@
                 background-color: white !important;
                 color: #007bff !important;
             }
-    </style>
 
+        .btn-sm {
+            padding: 0.25rem 0.5rem; /* Adjust padding to make the button smaller */
+            font-size: 0.75rem; /* Make the font size smaller */
+        }
+
+        .fa-sm {
+            font-size: 0.75rem; /* Make the icon smaller */
+        }
+    </style>
 }
 
+<!-- Content Header -->
 <div class="app-content-header">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6"><h3 class="mb-0">Sales List</h3></div>
             <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-end">
+                <h3 class="mb-0">Sales List</h3>
+            </div>
+            <div class="col-sm-6 text-end">
+                <ol class="breadcrumb float-sm-end mb-2">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Sales</li>
                 </ol>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-sm-12 text-end mt-2">
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-new-sale">
+                    <i class="fas fa-plus fa-sm"></i> New Sale
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- Search & Data Table -->
 <div class="app-content">
     <div class="container-fluid">
-
-        <!-- Search Panel -->
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -58,54 +76,59 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3">
-                            <label>Invoice No</label>
-                            <input type="text" asp-for="SearchItem.SaleInvoice" class="form-control" />
+                            <div class="form-group">
+                                <label>Invoice No</label>
+                                <input type="text" class="form-control" id="SearchItem_SaleInvoice" />
+                            </div>
                         </div>
                         <div class="col-sm-3">
-                            <label>Customer Name</label>
-                            <input type="text" asp-for="SearchItem.CustomerName" class="form-control" />
+                            <div class="form-group">
+                                <label>Customer Name</label>
+                                <input type="text" class="form-control" id="SearchItem_CustomerName" />
+                            </div>
                         </div>
                         <div class="col-sm-3">
-                            <label>Mobile</label>
-                            <input type="text" asp-for="SearchItem.Mobile" class="form-control" />
+                            <div class="form-group">
+                                <label>Mobile</label>
+                                <input type="text" class="form-control" id="SearchItem_Mobile" />
+                            </div>
                         </div>
                         <div class="col-sm-3">
-                            <label>Total</label>
-                            <input type="number" asp-for="SearchItem.Total" class="form-control" />
+                            <div class="form-group">
+                                <label>Total</label>
+                                <input type="number" class="form-control" id="SearchItem_TotalAmount" />
+                            </div>
                         </div>
                         <div class="col-sm-3 mt-2">
-                            <label>Paid</label>
-                            <input type="number" asp-for="SearchItem.Paid" class="form-control" />
+                            <div class="form-group">
+                                <label>Paid</label>
+                                <input type="number" class="form-control" id="SearchItem_Paid" />
+                            </div>
                         </div>
                         <div class="col-sm-3 mt-2">
-                            <label>Due</label>
-                            <input type="number" asp-for="SearchItem.Due" class="form-control" />
-                        </div>
-                        <div class="col-sm-3 mt-2">
-                            <label>Status</label>
-                            <input type="text" asp-for="SearchItem.Status" class="form-control" />
+                            <div class="form-group">
+                                <label>Due</label>
+                                <input type="number" class="form-control" id="SearchItem_Due" />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button id="searchButton" type="submit" class="btn btn-primary float-right">Search</button>
+                    <button id="searchButton" type="button" class="btn btn-primary float-end">Search</button>
                 </div>
             </div>
         </div>
 
-        <!-- Sales Table -->
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header"><h3 class="card-title">Available Sales</h3></div>
                     <div class="card-body">
-                        <partial name="_ResponsePartial" />
-                        <partial name="_ModalPartial" />
                         <table id="sales" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>#SN</th>
-                                    <th>In. No.</th>
+                                    <th>Invoice No</th>
                                     <th>Date</th>
                                     <th>Customer</th>
                                     <th>Total</th>
@@ -119,7 +142,7 @@
                             <tfoot>
                                 <tr>
                                     <th>#SN</th>
-                                    <th>In. No.</th>
+                                    <th>Invoice No</th>
                                     <th>Date</th>
                                     <th>Customer</th>
                                     <th>Total</th>
@@ -146,6 +169,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(function () {
@@ -157,30 +181,13 @@
                 lengthChange: true,
                 autoWidth: false,
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
-                layout: { topStart: 'buttons', topEnd: 'search' },
-                        buttons: [
-            {
-                extend: 'copy',
-                text: '<i class="fas fa-copy"></i> Copy'
-            },
-            {
-                extend: 'excel',
-                text: '<i class="fas fa-file-excel"></i> Excel'
-            },
-            {
-                extend: 'csv',
-                text: '<i class="fas fa-file-csv"></i> CSV'
-            },
-            {
-                extend: 'pdf',
-                text: '<i class="fas fa-file-pdf"></i> PDF'
-            },
-            {
-                extend: 'print',
-                text: '<i class="fas fa-print"></i> Print'
-            }
-        ],
-
+                buttons: [
+                    { extend: 'copy', text: '<i class="fas fa-copy fa-sm"></i> Copy' },
+                    { extend: 'excel', text: '<i class="fas fa-file-excel fa-sm"></i> Excel' },
+                    { extend: 'csv', text: '<i class="fas fa-file-csv fa-sm"></i> CSV' },
+                    { extend: 'pdf', text: '<i class="fas fa-file-pdf fa-sm"></i> PDF' },
+                    { extend: 'print', text: '<i class="fas fa-print fa-sm"></i> Print' }
+                ],
                 ajax: {
                     url: "/Admin/Sales/GetSalesJsonData",
                     type: "POST",
@@ -191,47 +198,39 @@
                             SaleInvoice: $("#SearchItem_SaleInvoice").val(),
                             CustomerName: $("#SearchItem_CustomerName").val(),
                             Mobile: $("#SearchItem_Mobile").val(),
-                            Total: $("#SearchItem_Total").val() === "" ? null : $("#SearchItem_Total").val(),
+                            TotalAmount: $("#SearchItem_TotalAmount").val() === "" ? null : $("#SearchItem_TotalAmount").val(),
                             Paid: $("#SearchItem_Paid").val() === "" ? null : $("#SearchItem_Paid").val(),
-                            Due: $("#SearchItem_Due").val() === "" ? null : $("#SearchItem_Due").val(),
-                            Status: $("#SearchItem_Status").val()
+                            Due: $("#SearchItem_Due").val() === "" ? null : $("#SearchItem_Due").val()
                         };
                         return JSON.stringify(d);
-                    },
+                    }
                 },
                 columnDefs: [
                     {
-                        targets: 0,
-                        render: function () { return sn++; }
+                        targets: 0, // Serial Number (SN)
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
                     },
                     {
-                        targets: 8,
+                        targets: 8, // Action column
                         orderable: false,
                         render: function (data, type, row) {
-                            return `<button class="btn btn-info btn-sm" onclick="window.location.href='/admin/sales/update/${data}'"><i class="fas fa-pencil-alt"></i> Edit</button>
-                                    <button class="btn btn-danger btn-sm show-bs-modal" data-id='${data}'><i class="fas fa-trash"></i> Delete</button>`;
+                            return `
+                                <a href="/Admin/Sales/Edit/${data}" class="btn btn-info btn-sm" title="Edit">
+                                    <i class="fas fa-edit fa-sm"></i> Edit
+                                </a>
+                                <a href="/Admin/Sales/Delete/${data}" class="btn btn-danger btn-sm" title="Delete" onclick="return confirm('Are you sure you want to delete this sale?')">
+                                    <i class="fas fa-trash fa-sm"></i> Delete
+                                </a>`;
                         }
                     }
                 ]
             });
 
-            $('#sales').on('click', '.show-bs-modal', function () {
-                let id = $(this).data("id");
-                let deleteModal = $("#modal-delete");
-                deleteModal.find('.modal-body p').text('Are you sure you want to delete this sale?');
-                $('#delete-id').val(id);
-                $('#delete-form').attr('action', '/admin/sales/delete');
-                deleteModal.modal('show');
-            });
-
-            $('#delete-button').click(function () {
-                $('#delete-form').submit();
-            });
-
-            $("#searchButton").click(function () {
+            $('#searchButton').click(function () {
                 $('#sales').DataTable().ajax.reload(null, false);
             });
         });
     </script>
 }
-

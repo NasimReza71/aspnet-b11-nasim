@@ -1,4 +1,5 @@
-﻿@model DevSkill.Inventory.Web.Areas.Admin.Models.PurchaseModels.PurchaseListModel
+﻿@using DevSkill.Inventory.Web.Areas.Admin.Models.PurchaseModels
+@model PurchaseListModel
 
 @{
     ViewData["Title"] = "Purchase List";
@@ -7,8 +8,9 @@
 @section Styles
 {
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 
     <style>
         .dt-button {
@@ -23,24 +25,48 @@
                 color: #007bff !important;
             }
     </style>
-
-
 }
 
+<!-- Content Header -->
 <div class="app-content-header">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6"><h3 class="mb-0">Purchase List</h3></div>
             <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-end">
+                <h3 class="mb-0">Purchase List</h3>
+            </div>
+            <div class="col-sm-6 text-end">
+                <ol class="breadcrumb float-sm-end mb-2">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Purchases</li>
+                    <li class="breadcrumb-item active" aria-current="page">Purchases</li>
                 </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 text-end mt-2">
+                <a href="/Admin/Purchases/Import" class="btn btn-success btn-sm me-2">
+                    <i class="fas fa-file-import"></i> Import
+                </a>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-new-purchase">
+                    <i class="fas fa-plus"></i> New Purchase
+                </button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modals -->
+<partial name="_ResponsePartial" />
+<partial name="_ModalPartial" />
+
+<div id="modal-edit-purchase" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalEditPurchase" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="editPurchaseModalBody">
+        </div>
+    </div>
+</div>
+
+<!-- Search & Data Table -->
 <div class="app-content">
     <div class="container-fluid">
         <div class="col-12">
@@ -56,55 +82,64 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-3">
-                            <label>Invoice</label>
-                            <input type="text" asp-for="SearchItem.PurchaseInvoice" class="form-control" />
+                            <div class="form-group">
+                                <label>Invoice</label>
+                                <input type="text" asp-for="SearchItem.PurchaseInvoice" class="form-control" id="SearchItem_PurchaseInvoice" />
+                            </div>
                         </div>
                         <div class="col-sm-3">
-                            <label>Name</label>
-                            <input type="text" asp-for="SearchItem.Name" class="form-control" />
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" asp-for="SearchItem.Name" class="form-control" id="SearchItem_Name" />
+                            </div>
                         </div>
                         <div class="col-sm-3">
-                            <label>Products</label>
-                            <input type="text" asp-for="SearchItem.Products" class="form-control" />
+                            <div class="form-group">
+                                <label>Products</label>
+                                <input type="text" asp-for="SearchItem.Products" class="form-control" id="SearchItem_Products" />
+                            </div>
                         </div>
                         <div class="col-sm-3">
-                            <label>Total</label>
-                            <input type="number" asp-for="SearchItem.Total" class="form-control" />
+                            <div class="form-group">
+                                <label>Total</label>
+                                <input type="number" asp-for="SearchItem.TotalAmount" class="form-control" id="SearchItem_TotalAmount" />
+                            </div>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-sm-3">
-                            <label>Paid</label>
-                            <input type="number" asp-for="SearchItem.Paid" class="form-control" />
+                            <div class="form-group">
+                                <label>Paid</label>
+                                <input type="number" asp-for="SearchItem.Paid" class="form-control" id="SearchItem_Paid" />
+                            </div>
                         </div>
                         <div class="col-sm-3">
-                            <label>Due</label>
-                            <input type="number" asp-for="SearchItem.Due" class="form-control" />
+                            <div class="form-group">
+                                <label>Due</label>
+                                <input type="number" asp-for="SearchItem.Due" class="form-control" id="SearchItem_Due" />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button id="searchButton" class="btn btn-primary float-right">Search</button>
+                    <button id="searchButton" type="button" class="btn btn-primary float-end">Search</button>
                 </div>
             </div>
         </div>
 
-        <div class="row mt-4">
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header"><h3 class="card-title">Available Purchases</h3></div>
                     <div class="card-body">
-                        <partial name="_ResponsePartial" />
-                        <partial name="_ModalPartial" />
-                        <table id="purchases" class="table table-bordered table-striped">
+                        <table id="purchases" class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>#SN.</th>
-                                    <th>P-Invoice</th>
+                                    <th>#SN</th>
+                                    <th>Invoice</th>
                                     <th>Date</th>
                                     <th>Name</th>
                                     <th>Products</th>
-                                    <th>Quantity</th>
                                     <th>Total</th>
                                     <th>Paid</th>
                                     <th>Due</th>
@@ -114,12 +149,11 @@
                             <tbody></tbody>
                             <tfoot>
                                 <tr>
-                                    <th>#SN.</th>
-                                    <th>P-Invoice</th>
+                                    <th>#SN</th>
+                                    <th>Invoice</th>
                                     <th>Date</th>
                                     <th>Name</th>
                                     <th>Products</th>
-                                    <th>Quantity</th>
                                     <th>Total</th>
                                     <th>Paid</th>
                                     <th>Due</th>
@@ -134,7 +168,8 @@
     </div>
 </div>
 
-@section Scripts {
+@section Scripts
+{
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
@@ -143,39 +178,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         $(function () {
-            let table = $("#purchases").DataTable({
+            var table = $("#purchases").DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
                 lengthChange: true,
                 autoWidth: false,
                 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']],
-                layout: { topStart: 'buttons', topEnd: 'search' },
-                        buttons: [
-            {
-                extend: 'copy',
-                text: '<i class="fas fa-copy"></i> Copy'
-            },
-            {
-                extend: 'excel',
-                text: '<i class="fas fa-file-excel"></i> Excel'
-            },
-            {
-                extend: 'csv',
-                text: '<i class="fas fa-file-csv"></i> CSV'
-            },
-            {
-                extend: 'pdf',
-                text: '<i class="fas fa-file-pdf"></i> PDF'
-            },
-            {
-                extend: 'print',
-                text: '<i class="fas fa-print"></i> Print'
-            }
-        ],
-
+                buttons: [
+                    { extend: 'copy', text: '<i class="fas fa-copy"></i> Copy' },
+                    { extend: 'excel', text: '<i class="fas fa-file-excel"></i> Excel' },
+                    { extend: 'csv', text: '<i class="fas fa-file-csv"></i> CSV' },
+                    { extend: 'pdf', text: '<i class="fas fa-file-pdf"></i> PDF' },
+                    { extend: 'print', text: '<i class="fas fa-print"></i> Print' }
+                ],
                 ajax: {
                     url: "/Admin/Purchases/GetPurchasesJsonData",
                     type: "POST",
@@ -186,24 +206,31 @@
                             PurchaseInvoice: $("#SearchItem_PurchaseInvoice").val(),
                             Name: $("#SearchItem_Name").val(),
                             Products: $("#SearchItem_Products").val(),
-                            Total: $("#SearchItem_Total").val() === "" ? null : $("#SearchItem_Total").val(),
+                            TotalAmount: $("#SearchItem_TotalAmount").val() === "" ? null : $("#SearchItem_TotalAmount").val(),
                             Paid: $("#SearchItem_Paid").val() === "" ? null : $("#SearchItem_Paid").val(),
                             Due: $("#SearchItem_Due").val() === "" ? null : $("#SearchItem_Due").val()
                         };
                         return JSON.stringify(d);
-                    },
+                    }
                 },
                 columnDefs: [
                     {
+                        targets: 0,
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        targets: 8,
                         orderable: false,
-                        targets: 9,
                         render: function (data, type, row) {
-                            return `<button class="btn btn-info btn-sm" onclick="window.location.href='/admin/purchases/update/${data}'">
-                                        <i class="fas fa-pencil-alt"></i> Edit
-                                    </button>
-                                    <button class="btn btn-danger btn-sm show-bs-modal" data-id='${data}'>
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>`;
+                            return `
+                                <button class="btn btn-info btn-sm" onclick="window.location.href='/Admin/Purchases/Update/${data}'">
+                                    <i class="fas fa-pencil-alt"></i> Edit
+                                </button>
+                                <button class="btn btn-danger btn-sm show-bs-modal" data-id="${data}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>`;
                         }
                     }
                 ]
@@ -223,7 +250,7 @@
             });
 
             $("#searchButton").click(function () {
-                table.ajax.reload(null, false);
+                $('#purchases').DataTable().ajax.reload(null, false);
             });
         });
     </script>

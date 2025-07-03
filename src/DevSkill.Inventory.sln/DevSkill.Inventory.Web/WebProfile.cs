@@ -40,12 +40,18 @@ namespace DevSkill.Inventory.Web
             CreateMap<PurchaseReturnSearchModel, PurchaseReturnSearchDto>();
 
             CreateMap<PurchaseSearchModel, PurchaseSearchDto>();
-            //CreateMap<UpdatePurchaseModel, PurchaseUpdateCommand>();
-            //CreateMap<Purchase, UpdatePurchaseModel>();
-            //CreateMap<PurchaseAddCommand, Purchase>();
-            //CreateMap<Purchase, PurchaseAddCommand>();
-            CreateMap<PurchaseSearchModel, PurchaseSearchDto>();
-
+            CreateMap<PurchaseAddCommand, Purchase>();
+            CreateMap<Purchase, PurchaseAddCommand>();
+            CreateMap<Purchase,  ProductSearchDto>();
+          
+            
+            CreateMap<Sale, SaleSearchDto>();
+            CreateMap<Sale, SaleDto>();
+            CreateMap<SalesSearchModel, SaleSearchDto>();
+            //CreateMap<Sale, SaleDetailViewModel>();
+            //CreateMap<SaleAddViewModel, SaleAddCommand>();
+            //CreateMap<SaleUpdateViewModel, SaleUpdateCommand>();
+            //CreateMap<Sale, SaleUpdateViewModel>();
 
 
             CreateMap<SalesReturnSearchModel, SalesReturnSearchDto>();
@@ -72,7 +78,8 @@ namespace DevSkill.Inventory.Web
 
             //CreateMap<PurchaseReturnSearchModel, PurchaseReturnSearchDto>();
 
-            //CreateMap<ServiceSearchModel, ServiceSearchDto>();
+            CreateMap<ServiceSearchModel, ServiceSearchDto>();
+            CreateMap<Service, ServiceSearchDto>();
 
             CreateMap<MoneyReceipt, MoneyReceiptDto>().ReverseMap();
 

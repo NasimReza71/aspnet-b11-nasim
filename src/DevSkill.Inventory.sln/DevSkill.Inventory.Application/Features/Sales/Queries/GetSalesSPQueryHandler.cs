@@ -20,7 +20,13 @@ namespace DevSkill.Inventory.Application.Features.Sales.Queries
 
         public async Task<(IList<Sale>, int, int)> Handle(GetSalesSPQuery request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.GetSalesSP(request.PageIndex, request.PageSize, request.SortExpression, request.SearchItem);
+            
+            return await _unitOfWork.GetSalesSP(
+                request.PageIndex,
+                request.PageSize,
+                request.SortExpression,
+                request.SearchItem
+            );
         }
     }
 }
