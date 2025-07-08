@@ -1,11 +1,13 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DevSkill.Inventory.Web;
-using DevSkill.Inventory.Web.Data;
 using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Infrastructure;
+using DevSkill.Inventory.Infrastructure.Identity;
+using DevSkill.Inventory.Web;
+using DevSkill.Inventory.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
@@ -58,20 +60,30 @@ try
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     #endregion
 
+    #region Identity Configuration
+
+    builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddUserManager<ApplicationUserManager>()
+    .AddRoleManager<ApplicationRoleManager>()
+    .AddSignInManager<ApplicationSignInManager>()
+    .AddDefaultTokenProviders();
+    
+    #endregion
+
+
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
+
     builder.Services.AddControllersWithViews();
+    builder.Services.AddRazorPages();
    
-
-
-
-
-
-
 
 
 
