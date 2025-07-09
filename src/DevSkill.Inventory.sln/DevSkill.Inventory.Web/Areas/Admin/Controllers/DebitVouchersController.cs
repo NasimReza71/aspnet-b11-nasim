@@ -2,15 +2,17 @@
 using DevSkill.Inventory.Application.Features.DebitVouchers.Queries;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
+using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Web.Areas.Admin.Models.DebitVouchersModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
-using DevSkill.Inventory.Infrastructure;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class DebitVouchersController : Controller
     {
         private readonly IMediator _mediator;

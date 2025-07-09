@@ -1,19 +1,21 @@
 ﻿using AutoMapper;
-using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Application.Features.ServiceSales.Commands;
 using DevSkill.Inventory.Application.Features.ServiceSales.Queries;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
+using DevSkill.Inventory.Domain.Entities;
+using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
 using DevSkill.Inventory.Web.Areas.Admin.Models.ServiceSalesModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using DevSkill.Inventory.Infrastructure;
 using System.Web;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ServiceSalesController : Controller
     {
         private readonly IMediator _mediator;

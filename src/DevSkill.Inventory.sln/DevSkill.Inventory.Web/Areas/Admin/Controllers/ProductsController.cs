@@ -1,21 +1,23 @@
-﻿using DevSkill.Inventory.Web.Areas.Admin.Models;
+﻿using AutoMapper;
+using DevSkill.Inventory.Application.Exceptions;
 using DevSkill.Inventory.Application.Features.Products.Commands;
+using DevSkill.Inventory.Application.Features.Products.Queries;
 using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
+using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Domain.Services;
+using DevSkill.Inventory.Infrastructure;
+using DevSkill.Inventory.Web.Areas.Admin.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
-using AutoMapper;
-using DevSkill.Inventory.Infrastructure;
-using DevSkill.Inventory.Application.Exceptions;
-using DevSkill.Inventory.Domain.Dtos;
-using DevSkill.Inventory.Application.Features.Products.Queries;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly ILogger<ProductsController> _logger;

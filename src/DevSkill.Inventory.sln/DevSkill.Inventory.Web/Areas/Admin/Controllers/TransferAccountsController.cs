@@ -4,6 +4,7 @@ using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Web.Areas.Admin.Models.TransferAccounts;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 
@@ -11,6 +12,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize]
     public class TransferAccountsController : Controller
     {
         private readonly IMediator _mediator;

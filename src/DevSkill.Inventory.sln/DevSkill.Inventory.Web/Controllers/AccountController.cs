@@ -105,7 +105,7 @@ namespace DevSkill.Inventory.Web.Controllers
 
 
         [AllowAnonymous]
-        public async Task<IActionResult> LoginAsync(string returnUrl = null)
+        public async Task<IActionResult> LoginUserAsync(string returnUrl = null)
         {
             var model = new LoginModel();
             if (!string.IsNullOrEmpty(model.ErrorMessage))
@@ -126,7 +126,7 @@ namespace DevSkill.Inventory.Web.Controllers
         }
 
         [AllowAnonymous, HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoginAsync(LoginModel model)
+        public async Task<IActionResult> LoginUserAsync(LoginModel model)
         {
             model.ReturnUrl ??= Url.Content("~/");
 
@@ -178,9 +178,24 @@ namespace DevSkill.Inventory.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult Logout()
+        public async Task<IActionResult> LogoutAsync(string returnUrl = null)
         {
-            return RedirectToAction("Index", "Home");
+            await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            returnUrl ??= Url.Content("~/");
+
+            return LocalRedirect(returnUrl);
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+
+
+
+
     }
 }
