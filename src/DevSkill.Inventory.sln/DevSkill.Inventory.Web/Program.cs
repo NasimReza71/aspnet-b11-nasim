@@ -13,6 +13,7 @@ using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using System.Configuration;
 using System.Reflection;
+using DevSkill.Inventory.Infrastructure.Extensions;
 
 var configuration = new ConfigurationBuilder()
      .SetBasePath(Directory.GetCurrentDirectory())
@@ -61,14 +62,7 @@ try
     #endregion
 
     #region Identity Configuration
-
-    builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddUserManager<ApplicationUserManager>()
-    .AddRoleManager<ApplicationRoleManager>()
-    .AddSignInManager<ApplicationSignInManager>()
-    .AddDefaultTokenProviders();
-    
+    builder.Services.AddIdentity();
     #endregion
 
 
