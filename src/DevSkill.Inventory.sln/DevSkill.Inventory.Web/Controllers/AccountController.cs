@@ -18,7 +18,7 @@ namespace DevSkill.Inventory.Web.Controllers
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-       // private readonly IEmailUtility _emailUtility;
+        //private readonly IEmailUtility _emailUtility;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
@@ -29,7 +29,7 @@ namespace DevSkill.Inventory.Web.Controllers
         {
             _userManager = userManager;
             _userStore = userStore;
-            //_emailStore = GetEmailStore();
+            _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
            // _emailUtility = emailUtility;
@@ -193,7 +193,14 @@ namespace DevSkill.Inventory.Web.Controllers
             return View();
         }
 
-
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
+        {
+            if (!_userManager.SupportsUserEmail)
+            {
+                throw new NotSupportedException("The default UI requires a user store with email support.");
+            }
+            return (IUserEmailStore<ApplicationUser>)_userStore;
+        }
 
 
 
