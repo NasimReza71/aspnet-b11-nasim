@@ -41,8 +41,8 @@ namespace DevSkill.Inventory.Web.Controllers
         {
             var products = new List<ProductViewModel>
                 {
-                new ProductViewModel { Name = "Burger", ImageUrl = "https://res.cloudinary.com/dmcppzpgl/image/upload/v1741548641/reza_pj0qne.jpg", Stock = -11, StockUnit = "PCS", TodaySale = 0, SaleUnit = "PCS" },
-                new ProductViewModel { Name = "Keyboard", ImageUrl = "https://res.cloudinary.com/dph4gugqe/image/upload/v1750791812/HMS/kmmqpb1c70lhvq6a9zdt.png", Stock = 0, StockUnit = "PCS", TodaySale = 0, SaleUnit = "PCS" },
+                new ProductViewModel { Name = "Burger", ImageUrl = "https://5.imimg.com/data5/IG/FC/GLADMIN-51382316/veg-berger-500x500.png", Stock = -11, StockUnit = "PCS", TodaySale = 0, SaleUnit = "PCS" },
+                new ProductViewModel { Name = "Keyboard", ImageUrl = "https://media.wired.com/photos/65b0438c22aa647640de5c75/4:3/w_2400,h_1800,c_limit/Mechanical-Keyboard-Guide-Gear-GettyImages-1313504623.jpg", Stock = 0, StockUnit = "PCS", TodaySale = 0, SaleUnit = "PCS" },
                
                 };
             return View(products);

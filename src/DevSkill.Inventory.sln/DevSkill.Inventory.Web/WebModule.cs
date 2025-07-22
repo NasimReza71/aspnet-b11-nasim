@@ -3,6 +3,7 @@ using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Customers.Queries;
 using DevSkill.Inventory.Application.Features.DebitVouchers.Queries;
 using DevSkill.Inventory.Application.Features.MoneyReceipts.Queries;
+using DevSkill.Inventory.Application.Features.ProductPlus.Commands;
 using DevSkill.Inventory.Application.Features.ProductPlus.Queries;
 using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Application.Features.PurchaseReturns.Queries;
@@ -252,6 +253,20 @@ namespace DevSkill.Inventory.Web
             builder.RegisterType<GetProductPlusSPQueryHandler>()
                 .As<IRequestHandler<GetProductPlusSPQuery, (IList<ProductPlusEntity>, int, int)>>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<ProductPlusRepository>().As<IProductPlusRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<GetProductPlusByIdQueryHandler>()
+                .As<IRequestHandler<GetProductPlusByIdQuery, ProductPlusEntity>>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<ProductPlusDeleteCommandHandler>()
+                .As<IRequestHandler<ProductPlusDeleteCommand>>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<ProductPlusAddCommandHandler>()
+                .As<IRequestHandler<ProductPlusAddCommand>>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<ProductPlusUpdateCommandHandler>()
+                .As<IRequestHandler<ProductPlusUpdateCommand>>()
+                .InstancePerLifetimeScope();
+
 
             base.Load(builder); 
         }

@@ -45,6 +45,8 @@ namespace DevSkill.Inventory.Infrastructure
 
         public DbSet<Purchase> Purchases { get; set; }
 
+        public DbSet<Sale> Sales { get; set; }
+
 
 
 

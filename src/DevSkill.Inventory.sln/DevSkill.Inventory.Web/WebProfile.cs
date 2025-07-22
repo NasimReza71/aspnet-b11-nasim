@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DevSkill.Inventory.Application.Features.Customers.Commands;
+using DevSkill.Inventory.Application.Features.ProductPlus.Commands;
 using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Application.Features.Purchases.Commands;
 using DevSkill.Inventory.Application.Features.ServiceSales.Commands;
@@ -21,6 +22,7 @@ using DevSkill.Inventory.Web.Areas.Admin.Models.SupplierModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.SupplierPaysModels;
 using DevSkill.Inventory.Web.Areas.Admin.Models.TransferAccounts;
 using DevSkill.Inventory.Web.Areas.Admin.Models.UserModels;
+using DevSkill.Inventory.Application.Features.ProductPlus.Commands;
 
 namespace DevSkill.Inventory.Web
 {
@@ -135,8 +137,14 @@ namespace DevSkill.Inventory.Web
 
             CreateMap<ProductPlusEntity, ProductPlusDto>();
             CreateMap<ProductPlusSearchModel, ProductPlusSearchDto>();
+            CreateMap<ProductPlusSearchModel, ProductPlusSearchDto>();
+            CreateMap<ProductPlusEntity, ProductPlusDetailViewModel>();
+            CreateMap<ProductPlusAddViewModel, ProductPlusAddCommand>();
+            CreateMap<ProductPlusUpdateViewModel, ProductPlusUpdateCommand>();
+            CreateMap<ProductPlusEntity, ProductPlusUpdateViewModel>();
 
-           
+
+
             //CreateMap<ProductPlusAddViewModel, ProductPlusAddCommand>();
             //CreateMap<ProductPlusUpdateViewModel, ProductPlusUpdateCommand>();
 
